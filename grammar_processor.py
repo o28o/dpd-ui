@@ -10,9 +10,9 @@ def transform_grammar_table(html_content: str, static_url_prefix: str = "/static
     grammar_table = soup.find('table', class_='grammar_dict')
     if not grammar_table:
         return html_content
-    
+
     # Создаем новую таблицу
-    new_table = BeautifulSoup(f"""
+    new_table = BeautifulSoup("""
     <table class="sortable-grammar-table">
         <thead>
             <tr>
@@ -26,9 +26,39 @@ def transform_grammar_table(html_content: str, static_url_prefix: str = "/static
         </thead>
         <tbody></tbody>
     </table>
-    <script src="{static_url_prefix}/sortable.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('.sortable-grammar-table');
+        const tbody = table.querySelector('tbody');
+        const headers = table.querySelectorAll('th');
+
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const order = header.dataset.order === 'asc' ? 'desc' : 'asc';
+                const colIndex = header.cellIndex;
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+
+                rows.sort((a, b) => {
+                    const aValue = a.cells[colIndex].textContent.trim().toLowerCase();
+                    const bValue = b.cells[colIndex].textContent.trim().toLowerCase();
+                    return aValue.localeCompare(bValue);
+                });
+
+                if (order === 'desc') {
+                    rows.reverse();
+                }
+
+                tbody.innerHTML = '';
+                rows.forEach(row => tbody.appendChild(row));
+
+                headers.forEach(h => h.dataset.order = '');
+                header.dataset.order = order;
+            });
+        });
+    });
+    </script>
     """, 'html.parser')
-    
+
     tbody = new_table.find('tbody')
     
     # Заполняем таблицу данными
@@ -50,7 +80,7 @@ def transform_grammar_table(html_content: str, static_url_prefix: str = "/static
             new_row.append(td)
         
         tbody.append(new_row)
-    
+
     grammar_table.replace_with(new_table)
     return str(soup)
 

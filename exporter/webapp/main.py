@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import httpx
 from httpx import ConnectTimeout, RequestError
+from grammar_processor import process_dpd_data, transform_grammar_table
+
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=500)
@@ -65,6 +67,7 @@ def bold_definitions_page(request: Request, response_class=HTMLResponse):
         "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
     )
 
+# Модифицируем функцию fetch_from_backend:
 async def fetch_from_backend(lang: str, params: dict):
     config = ENDPOINTS.get(lang)
     if not config:
@@ -77,7 +80,10 @@ async def fetch_from_backend(lang: str, params: dict):
             response = await client.get(url, params=params)
             response.raise_for_status()
             data = response.json()
-            return replace_domain_in_content(data)
+            data = replace_domain_in_content(data)
+            # Добавляем обработку грамматики
+            data = process_dpd_data(data)
+            return data
     except ConnectTimeout:
         raise HTTPException(
             status_code=504,

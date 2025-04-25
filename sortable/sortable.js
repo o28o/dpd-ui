@@ -1,30 +1,49 @@
 // static/sortable.js
-console.log('Sortable script loaded'); // Добавим лог загрузки
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded, initializing sorting...');
+    initializeSorting();
+});
 
 function initializeSorting() {
-    console.log('Initializing sorting...'); // Лог инициализации
+    console.log('Initializing sorting...');
     
     const tables = document.querySelectorAll('table.sortable-grammar-table');
-    console.log(`Found ${tables.length} sortable tables`); // Лог количества таблиц
+    console.log(`Found ${tables.length} sortable tables`);
+
+    if (tables.length === 0) {
+        console.warn('No sortable tables found! Check the table class name.');
+        return;
+    }
 
     tables.forEach((table, tableIndex) => {
+        console.log(`Processing table ${tableIndex + 1}`, table);
+        
         const headers = table.querySelectorAll('th[data-sort]');
         const tbody = table.querySelector('tbody');
+        
+        if (!tbody) {
+            console.warn(`No tbody found in table ${tableIndex + 1}`);
+            return;
+        }
+
+        console.log(`Found ${headers.length} sortable headers in table ${tableIndex + 1}`);
         
         headers.forEach((header, index) => {
             header.style.cursor = 'pointer';
             header.title = 'Click to sort';
             
             header.addEventListener('click', () => {
-                console.log(`Sorting table ${tableIndex + 1}, column ${index + 1}`); // Лог клика
+                console.log(`Sorting table ${tableIndex + 1}, column ${index + 1} (${header.textContent.trim()})`);
                 
                 const order = header.getAttribute('data-order') === 'asc' ? 'desc' : 'asc';
                 const type = header.getAttribute('data-sort');
                 
-                // Сброс сортировки у других заголовков
+                // Reset other headers
                 headers.forEach(h => {
-                    h.removeAttribute('data-order');
-                    h.classList.remove('sorted-asc', 'sorted-desc');
+                    if (h !== header) {
+                        h.removeAttribute('data-order');
+                        h.classList.remove('sorted-asc', 'sorted-desc');
+                    }
                 });
                 
                 header.setAttribute('data-order', order);
@@ -32,9 +51,11 @@ function initializeSorting() {
                 
                 const rows = Array.from(tbody.querySelectorAll('tr'));
                 
+                console.log(`Sorting ${rows.length} rows in ${order} order by ${type}`);
+                
                 rows.sort((a, b) => {
-                    const aVal = a.cells[index].textContent.trim().toLowerCase();
-                    const bVal = b.cells[index].textContent.trim().toLowerCase();
+                    const aVal = a.cells[index]?.textContent?.trim()?.toLowerCase() || '';
+                    const bVal = b.cells[index]?.textContent?.trim()?.toLowerCase() || '';
                     
                     if (type === 'string') {
                         return order === 'asc' 
@@ -44,19 +65,17 @@ function initializeSorting() {
                     return 0;
                 });
                 
-                // Очистка и перезаполнение
-                tbody.innerHTML = '';
-                rows.forEach(row => tbody.appendChild(row));
+                // Rebuild table
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
                 
-                console.log(`Sorted ${rows.length} rows in ${order} order`); // Лог результата
+                rows.forEach(row => {
+                    tbody.appendChild(row);
+                });
+                
+                console.log(`Sorting completed for table ${tableIndex + 1}`);
             });
         });
     });
-}
-
-// Проверяем, что DOM уже загружен
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initializeSorting();
-} else {
-    document.addEventListener('DOMContentLoaded', initializeSorting);
 }
