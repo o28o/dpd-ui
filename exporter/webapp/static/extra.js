@@ -273,3 +273,20 @@ if (typeof changeLanguage === 'function') {
         localStorage.setItem("tabsHidden", isHidden ? "true" : "false");
     });
 });
+
+// Вешаем обработчик на document (не на ссылки!)
+document.addEventListener('click', function(event) {
+    // Ищем ближайшую ссылку (даже если кликнули на <span> внутри <a>)
+    const link = event.target.closest('a');
+    
+    // Проверяем только нужные ссылки
+    if (link && link.href.includes('thebuddhaswords.net')) {
+        event.preventDefault();
+        link.href = link.href
+            .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
+            .replace('thebuddhaswords.net', 'dhamma.gift/bw');
+        
+        // Программный переход (аналогично обычному клику)
+        window.location.href = link.href;
+    }
+});
