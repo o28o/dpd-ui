@@ -332,16 +332,16 @@ caption {
 @media only screen and (min-width: 1024px) {
 
 body {
-    min-height: 100vh;
-    overflow: auto !important; /* Разрешить прокрутку */
+    max-height: 94vh !important; /* Заменяет height: 100vh */
+    overflow: auto;    /* Заменяет overflow: hidden */
     display: flex;
     flex-direction: column;
 }
 
-.tab-content {
-    flex: 1;
-    overflow: auto !important; /* Разрешить прокрутку внутри контента */
+.tabs {
+    flex: 1; /* Растягивает контейнер, чтобы футер оставался внизу */
 }
+
 
 .footer-pane {
     margin-top: auto; /* Прижать футер к низу */
@@ -751,16 +751,6 @@ align-items: center;
 
 /* DPD extra*/
 
-body {
-    max-height: 94vh !important; /* Заменяет height: 100vh */
-    overflow: auto;    /* Заменяет overflow: hidden */
-    display: flex;
-    flex-direction: column;
-}
-
-.tabs {
-    flex: 1; /* Растягивает контейнер, чтобы футер оставался внизу */
-}
 
 
     .hidden {
