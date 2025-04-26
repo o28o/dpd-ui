@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import httpx
 from httpx import ConnectTimeout, RequestError
+from grammar_processor import process_dpd_data, transform_grammar_table
+
 
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=500)
@@ -33,13 +35,31 @@ ENDPOINTS = {
     },
     "ru": {
         "base_url": "https://dpdict.net",
+       #"base_url": "http://localhost:8080",
+      #  "base_url": "https://dict.dhamma.gift",
         "search_path": "/ru/search_json"
     }
 }
 TIMEOUT = 30.0  # seconds
 
-bd_count = "360k+"
+# Добавлено: переменная bd_count (можно заменить на актуальное значение)
+bd_count = "360k+"  # Или получить из бэкенда, если нужно
 
+def replace_domain_in_content(content):
+    """Replace thebuddhaswords.net and www.thebuddhaswords.net with dhamma.gift/bw"""
+    def replace_domains(text):
+        return (text
+                .replace("www.thebuddhaswords.net", "dhamma.gift/bw")
+                .replace("thebuddhaswords.net", "dhamma.gift/bw"))
+
+    if isinstance(content, str):
+        return replace_domains(content)
+    elif isinstance(content, dict):
+        return {k: replace_domain_in_content(v) for k, v in content.items()}
+    elif isinstance(content, list):
+        return [replace_domain_in_content(item) for item in content]
+    return content
+    
 @app.get("/bd")
 def bold_definitions_page(request: Request, response_class=HTMLResponse):
     """Bold definitions landing page"""
@@ -47,6 +67,7 @@ def bold_definitions_page(request: Request, response_class=HTMLResponse):
         "home.html", {"request": request, "dpd_results": "", "bd_count": bd_count}
     )
 
+# Модифицируем функцию fetch_from_backend:
 async def fetch_from_backend(lang: str, params: dict):
     config = ENDPOINTS.get(lang)
     if not config:
@@ -58,7 +79,11 @@ async def fetch_from_backend(lang: str, params: dict):
         async with httpx.AsyncClient(timeout=TIMEOUT) as client:
             response = await client.get(url, params=params)
             response.raise_for_status()
-            return response.json()
+            data = response.json()
+            data = replace_domain_in_content(data)
+            # Добавляем обработку грамматики
+            data = process_dpd_data(data)
+            return data
     except ConnectTimeout:
         raise HTTPException(
             status_code=504,
@@ -170,17 +195,30 @@ async def db_search_bd(
 ):
     """Search route for bold definitions (proxied to backend)"""
     try:
+        # Определяем URL бэкенда на основе языка
         backend_url = f"{ENDPOINTS['en']['base_url']}/bd_search"
-        params = {"q1": q1, "q2": q2, "option": option}
+        
+        # Параметры запроса
+        params = {
+            "q1": q1,
+            "q2": q2,
+            "option": option
+        }
 
+        # Делаем запрос к бэкенду
         async with httpx.AsyncClient(timeout=TIMEOUT) as client:
             response = await client.get(backend_url, params=params)
             response.raise_for_status()
             
+            # Если бэкенд возвращает HTML (как в оригинале)
             if "text/html" in response.headers.get("content-type", ""):
-                return HTMLResponse(content=response.text)
+                html_content = response.text
+                html_content = html_content.replace("thebuddhaswords.net", "dhamma.gift/bw")
+                return HTMLResponse(content=html_content)
             
+            # Если бэкенд возвращает JSON (альтернативный вариант)
             data = response.json()
+            data = replace_domain_in_content(data)
             return templates.TemplateResponse(
                 "bold_definitions.html",
                 {
@@ -196,15 +234,31 @@ async def db_search_bd(
             )
 
     except ConnectTimeout:
-        raise HTTPException(status_code=504, detail="Backend server timeout")
+        raise HTTPException(
+            status_code=504,
+            detail="Backend server timeout. Please try again later."
+        )
     except RequestError as e:
-        raise HTTPException(status_code=502, detail=f"Connection error: {str(e)}")
+        raise HTTPException(
+            status_code=502,
+            detail=f"Could not connect to backend server: {str(e)}"
+        )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Backend error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Backend request failed: {str(e)}"
+        )
+
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.1.1.1", port=8080, reload=True)
+    uvicorn.run(
+        "main:app",
+        host="127.1.1.1",
+        port=8080,
+        reload=True,
+        reload_dirs="exporter/webapp/",
+    )
     
 
 #.venv/bin/uvicorn exporter.webapp.main:app --host 0.0.0.0 --port 8880 --reload --reload-dir exporter/webapp
