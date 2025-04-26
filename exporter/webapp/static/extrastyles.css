@@ -751,6 +751,17 @@ align-items: center;
 
 /* DPD extra*/
 
+body {
+    max-height: 94vh !important; /* Заменяет height: 100vh */
+    overflow: auto;    /* Заменяет overflow: hidden */
+    display: flex;
+    flex-direction: column;
+}
+
+.tabs {
+    flex: 1; /* Растягивает контейнер, чтобы футер оставался внизу */
+}
+
 
     .hidden {
         display: none;

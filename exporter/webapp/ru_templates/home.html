@@ -2,165 +2,191 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FDG Цифровой Пали Словарь</title>
-    <link rel="stylesheet" type="text/css" href="/static/home.css">
-    <link rel="stylesheet" type="text/css" href="/static/switch.css">
-    <link rel="stylesheet" type="text/css" href="/static/dpd.css">
-    <link rel="icon" type="image/png" href="/static/dpd-logo.svg">
-    <link href="/static/jquery-ui.min.css" rel="stylesheet"/>
-    <link href="/static/extrastyles.css" rel="stylesheet" />
-    <script src="/static/jquery-3.7.0.min.js"></script>
-    <script src="/static/jquery-ui.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDG Цифровой Пали Словарь</title>
+  <link rel="stylesheet" type="text/css" href="/static/home.css">
+  <link rel="stylesheet" type="text/css" href="/static/switch.css">
+  <link rel="stylesheet" type="text/css" href="/static/dpd.css">
+  <link rel="icon" type="image/png" href="/static/dpd-logo.svg">
+  <link href="/static/jquery-ui.min.css" rel="stylesheet" />
+<link href="/static/extrastyles.css" rel="stylesheet" />
+<script src="/static/jquery-3.7.0.min.js"></script>
+<script src="/static/jquery-ui.min.js"></script>
 </head>
 
 <body>
-    <div id="tab-container" class="tab-buttons">
-        <button class="tab-link active" onclick="openTab(event, 'dpd-tab')">DPD</button>
-        <button class="tab-link" onclick="openTab(event, 'bold-def-tab')">Определения CST</button>
-    </div>
+<div id="tab-container" class="tab-buttons">
+<button class="tab-link active" onclick="openTab(event, 'dpd-tab')">DPD</button>
+<button class="tab-link" onclick="openTab(event, 'bold-def-tab')">Определения CST</button>
+</div>
 
-    <div id="dpd-tab" class="tab-content active">
-        <div class="header-pane">
-            <div class="logo-title">
-                <a href="/ru/" class="alogo"><img src="/static/dpd-logo.svg" alt="dpd logo" id="header-image" class="header-image"></a>
-                <h2 class="title" id="title-clear"><a href="/ru/" class="alogo">DPD</a></h2>
-            </div>
-            <form id="search-form">
-                <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
-                    <input class="search-box" type="search" name="search" id="search-box" placeholder="Поиск..." autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
-                    <button class="search-button" id="search-button">найти</button>
-                    <button class="help small-button" id="search-help-button">?
-                        <span class="tooltip velthuis">
-                            <b>Ввод Velthuis:</b><br><br>
-                            aa - ā<br>
-                            ii - ī<br>
-                            uu - ū<br>
-                            "n - ṅ<br>
-                            ~n - ñ<br>
-                            .t - ṭ<br>
-                            .d - ḍ<br>
-                            .n - ṇ<br>
-                            .m - ṃ<br>
-                            .l - ḷ
-                        </span>
-                    </button>
-                </div>
-            </form>
-        </div>
+<div id="dpd-tab" class="tab-content active">
+<div class="header-pane">
+<div class="logo-title">
+<a href="/ru/" class="alogo"><img src="/static/dpd-logo.svg" alt="dpd logo" id="header-image" class="header-image"></a>
+<h2 class="title" id="title-clear"><a href="/ru/" class="alogo">DPD</a></h2>
+</div>
+<form id="search-form">
+<div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
+<input class="search-box" type="search" name="search" id="search-box" placeholder="Поиск..." autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
+<button class="search-button" id="search-button">найти</button>
+<button class="help small-button" id="search-help-button">?
+<span class="tooltip velthuis">
+<b>Ввод Velthuis:</b><br><br>
+aa - ā<br>
+ii - ī<br>
+uu - ū<br>
+"n - ṅ<br>
+~n - ñ<br>
+.t - ṭ<br>
+.d - ḍ<br>
+.n - ṇ<br>
+.m - ṃ<br>
+.l - ḷ
+</span>
+</button>
+</div>
+</form>
+</div>
 
-        <div class="main-pane" id="main-pane">
-            <div class="history-pane" id="history-pane">
-                <button class="collapse-btn" onclick="toggleHistory()">
-                    <h3>История <div class="history-icon"></div></h3>
-                </button>
-                <div id="history-content">
-                    <button id="clear-history-button" class="clear-history-button">x</button>
-                    <div class="history-list-pane" id="history-list-pane"></div>
-                </div>
-            </div>
+<div class="main-pane" id="main-pane">
+<div class="history-pane" id="history-pane">
+<button class="collapse-btn" onclick="toggleHistory()">
+<h3>История <div class="history-icon"></div>
+</h3>
+</button>
+<div id="history-content">
+<button id="clear-history-button" class="clear-history-button">x</button>
+<div class="history-list-pane" id="history-list-pane"></div>
+</div>
+</div>
 
-            <div class="dpd-pane" id="dpd-pane">
-                <div class="summary-results" id="summary-results"></div>
-                <div class="dpd-results" id="dpd-results">{{ dpd_results|safe }}</div>
-            </div>
+<div class="dpd-pane" id="dpd-pane">
+<div class="summary-results" id="summary-results"></div>
+<div class="dpd-results" id="dpd-results">
+{{ dpd_results|safe }}
+</div>
+</div>
 
-            <div class="settings-pane">
-                <button class="collapse-btn" onclick="toggleSettings()">
-                    <h3>Настройки <div class="settings-icon"></div></h3>
-                </button>
-                <div id="settings-content">
+<div class="settings-pane">
+<button class="collapse-btn" onclick="toggleSettings()">
+<h3>Настройки <div class="settings-icon"></div>
+</h3>
+</button>
+<div id="settings-content">
 <p>
-                    <div class="language-switcher">
-                        <span class="language-icon" title="Язык"> 🌐 Изменить язык
-                            <span class="tooltip"><b>Язык</b></span>
-                        </span>
-                        <div class="dropdown" style="display: none;">
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('en')">Английский</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
-                        </div>
-                    </div>
-                    </p>
-                    <p>
-                        <button class="small-button" id="font-size-down">-</button>
-                        <button class="small-button" id="font-size-up">+</button>
-                        Размер шрифта <span id="font-size-display"></span>
-                    </p>
-                    <p><label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label> ночь / день</p>
-                    <p><label class="switch"><input type="checkbox" id="sans-serif-toggle"><span class="slider round"></span></label> sans / serif шрифт </p>
-                    <p><label class="switch"><input type="checkbox" id="niggahita-toggle"><span class="slider round"></span></label> ниггахита ṃ / ṁ</p>
-                    <p><label class="switch"><input type="checkbox" id="grammar-toggle"><span class="slider round"></span></label> раздел грамматики свёрнут / развёрнут</p>
-                    <p><label class="switch"><input type="checkbox" id="example-toggle"><span class="slider round"></span></label> раздел примеров свёрнут / развёрнут</p>
-                    <p><label class="switch"><input type="checkbox" id="one-button-toggle"><span class="slider round"></span></label> по одному разделу за раз выкл / вкл</p>
-                    <p><label class="switch"><input type="checkbox" id="summary-toggle"><span class="slider round"></span></label> краткая информация свёрнута / развёрнута</p>
-                    <p><label class="switch"><input type="checkbox" id="sandhi-toggle" checked><span class="slider round"></span></label> символ sandhi ’ выкл / вкл</p>
-                    <p><label class="switch"><input type="checkbox" id="tabs-toggle"><span class="slider round"></span></label> вкладки скрыть / показать</p>
-                </div>
-            </div>
-        </div>
+<div class="language-switcher">
+<span class="language-icon" title="Язык"> 🌐 Изменить язык
+<span class="tooltip"><b>Язык</b></span>
+</span>
+<div class="dropdown" style="display: none;">
+<a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('en')">Английский</a>
+<a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
+</div>
+</div>
+</p>
+<p>
+<button class="small-button" id="font-size-down">-</button>
+<button class="small-button" id="font-size-up">+</button>
+Размер шрифта <span id="font-size-display"></span>
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label> ночь / день
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="sans-serif-toggle"><span class="slider round"></span></label> sans / serif шрифт
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="niggahita-toggle"><span class="slider round"></span></label> ниггахита ṃ / ṁ
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="grammar-toggle"><span class="slider round"></span></label> раздел грамматики свёрнут / развёрнут
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="example-toggle"><span class="slider round"></span></label> раздел примеров свёрнут / развёрнут
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="one-button-toggle"><span class="slider round"></span></label> по одному разделу за раз выкл / вкл
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="summary-toggle"><span class="slider round"></span></label> краткая информация свёрнута / развёрнута
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="sandhi-toggle" checked><span class="slider round"></span></label> символ sandhi ’ выкл / вкл
+</p>
+<p>
+<label class="switch"><input type="checkbox" id="tabs-toggle"><span class="slider round"></span></label> вкладки скрыть / показать
+</p>
+</div>
+</div>
+</div>
 
-        <div class="footer-pane">
-            <a id="fdg-link" href="" target="_blank">FDG</a> © <a id="dpd-link" href="" target="_blank">DPD</a>
-        </div>
-    </div>
+<div class="footer-pane">
+<a id="fdg-link" href="" target="_blank">FDG</a> <a href="http://dhamma.gift/assets/dictTest.html" style="all: unset; cursor: pointer;">©</a> <a id="dpd-link" href="" target="_blank">DPD</a>
+</div>
+</div>
 
-    <div id="bold-def-tab" class="tab-content">
-        <div class="header-pane bd-header-pane">
-            <div class="logo-title">
-                <h2 class="title" id="bd-title-clear">Определения жирным CST</h2>
-            </div>
-            <p class="centered-text">Найдено <b>360k+</b> выделенных жирным терминов в Чаттха Сангаяна Типитаке</p>
-            <div class="bd-search-pane">
-                <h4>Искать определения термина</h4>
-                <form id="bd-search-form">
-                    <input class="search-box bd-search-box" type="text" name="bd-search-1" id="bd-search-box-1" value="{{ search }}" autocomplete="off">
-                </form>
-                <h4>которые содержат</h4>
-                <form id="bd-search-form">
-                    <input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2" value="{{ search }}" autocomplete="off">
-                </form>
-                <h4>внутри них.</h4>
-                <button class="search-button" id="bd-search-button">Найти</button>
-                <button class="help small-button" id="search-help-button">?
-                    <span class="tooltip velthuis">
-                        <b>Ввод Velthuis:</b><br><br>
-                        aa > ā<br>
-                        ii > ī<br>
-                        uu > ū<br>
-                        "n > ṅ<br>
-                        ~n > ñ<br>
-                        .t > ṭ<br>
-                        .d > ḍ<br>
-                        .n > ṇ<br>
-                        .m > ṃ<br>
-                        .l > ḷ
-                    </span>
-                </button>
-            </div>
-            <div class="bd-search-options">
-                <input type="radio" id="option1" name="option" value="starts_with">
-                <label for="option1">начинается с</label>
-                <input type="radio" id="option2" name="option" value="regex" checked>
-                <label for="option2">обычный/рег. выраж.</label>
-                <input type="radio" id="option3" name="option" value="fuzzy">
-                <label for="option3">неточный</label>
-                <button type="button" class="bd-search-option-clear">очистить</button>
-            </div>
-        </div>
-        <div class="scrolling-pane" id="bd-results">{{ bd_results|safe }}</div>
-        <div class="footer-pane">
-            О <a href="https://digitalpalidictionary.github.io/dpdict.html" target="_blank">DPD</a>
-        </div>
-    </div>
+<div id="bold-def-tab" class="tab-content">
+<div class="header-pane bd-header-pane">
+<div class="logo-title">
+<h2 class="title" id="bd-title-clear">Определения жирным CST</h2>
+</div>
+<p class="centered-text">
+Найдено <b>360k+</b> выделенных жирным терминов в Чаттха Сангаяна Типитаке
+</p>
+<div class="bd-search-pane">
+<h4>Искать определения термина</h4>
+<form id="bd-search-form">
+<input class="search-box bd-search-box" type="text" name="bd-search-1" id="bd-search-box-1" value="{{ search }}" autocomplete="off">
+</form>
+<h4>которые содержат</h4>
+<form id="bd-search-form">
+<input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2" value="{{ search }}" autocomplete="off">
+</form>
+<h4>внутри них.</h4>
+<button class="search-button" id="bd-search-button">Найти</button>
+<button class="help small-button" id="search-help-button">?
+<span class="tooltip velthuis">
+<b>Ввод Velthuis:</b><br><br>
+aa > ā<br>
+ii > ī<br>
+uu > ū<br>
+"n > ṅ<br>
+~n > ñ<br>
+.t > ṭ<br>
+.d > ḍ<br>
+.n > ṇ<br>
+.m > ṃ<br>
+.l > ḷ
+</span>
+</button>
+</div>
+<div class="bd-search-options">
+<input type="radio" id="option1" name="option" value="starts_with">
+<label for="option1">начинается с</label>
+<input type="radio" id="option2" name="option" value="regex" checked>
+<label for="option2">обычный/рег. выраж.</label>
+<input type="radio" id="option3" name="option" value="fuzzy">
+<label for="option3">неточный</label>
+<button type="button" class="bd-search-option-clear">очистить</button>
+</div>
+</div>
+<div class="scrolling-pane" id="bd-results">
+{{ bd_results|safe }}
+</div>
+<div class="footer-pane">
+О <a href="https://digitalpalidictionary.github.io/webapp/cst_bold_def/" target="_blank">DPD</a>
+</div>
+</div>
 
-    <script src="static/home.js"></script>
-    <script src="static/tabs.js"></script>
-    <script src="static/bold_definitions.js"></script>
-    <script src="static/dpd.js"></script>
-    <script src="static/autopali.js"></script>
-    <script src="static/extra.js"></script>
+<script src="static/home.js"></script>
+<script src="static/tabs.js"></script>
+<script src="static/bold_definitions.js"></script>
+<script src="static/dpd.js"></script>
+<script src="static/autopali.js"></script>
+<script src="static/extra.js"></script>
 </body>
 
 </html>
