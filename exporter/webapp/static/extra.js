@@ -291,37 +291,30 @@ document.addEventListener('click', function(event) {
     }
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
     // Находим все таблицы грамматики на странице
     const grammarTables = document.querySelectorAll('table.grammar_dict');
     
     if (grammarTables.length === 0) return;
     
-    // Функция для преобразования одной таблицы
-    function transformGrammarTable(oldTable) {
-        // Создаем новую таблицу
-        const newTable = document.createElement('table');
-        newTable.className = 'sortable-grammar-table';
+    // Функция для преобразования таблицы в сортируемую
+    function transformToSortable(table) {
+        // Проверяем, не преобразована ли таблица уже
+        if (table.classList.contains('sortable-processed')) return;
+        table.classList.add('sortable-processed');
         
-        // Создаем заголовок таблицы
+        // Создаем новую структуру таблицы
+        const newTable = document.createElement('table');
+        newTable.className = table.className + ' sortable-grammar-table';
+        
+        // Создаем заголовок с новыми колонками
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         
-        const headers = [
-            {text: 'Pos', sort: 'string'},
-            {text: 'Gen', sort: 'string'},
-            {text: 'Case', sort: 'string'},
-            {text: 'Num', sort: 'string'},
-            {text: 'Of', sort: 'string'},
-            {text: 'Word', sort: 'string'}
-        ];
-        
-        headers.forEach(header => {
+        ['Pos', 'Gen', 'Case', 'Num', 'Of', 'Word'].forEach(text => {
             const th = document.createElement('th');
-            th.textContent = header.text;
-            th.setAttribute('data-sort', header.sort);
+            th.textContent = text;
+            th.setAttribute('data-sort', 'string');
             headerRow.appendChild(th);
         });
         
@@ -332,8 +325,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const tbody = document.createElement('tbody');
         newTable.appendChild(tbody);
         
-        // Заполняем таблицу данными из старой таблицы
-        const oldRows = oldTable.querySelectorAll('tbody tr');
+        // Переносим данные из старой таблицы
+        const oldRows = table.querySelectorAll('tbody tr');
         
         oldRows.forEach(oldRow => {
             const cells = oldRow.querySelectorAll('td');
@@ -360,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Заменяем старую таблицу новой
-        oldTable.replaceWith(newTable);
+        table.replaceWith(newTable);
         
         // Добавляем обработчики сортировки
         setupSorting(newTable);
@@ -372,7 +365,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const headers = table.querySelectorAll('th');
         
         headers.forEach(header => {
-            header.addEventListener('click', () => {
+            header.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
                 const order = header.dataset.order === 'asc' ? 'desc' : 'asc';
                 const colIndex = header.cellIndex;
                 const rows = Array.from(tbody.querySelectorAll('tr'));
@@ -396,8 +391,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Преобразуем все найденные таблицы
+    // Добавляем обработчики клика для каждой таблицы
     grammarTables.forEach(table => {
-        transformGrammarTable(table);
+        table.addEventListener('click', function() {
+            transformToSortable(this);
+        });
     });
 });
+
+
