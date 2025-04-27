@@ -881,8 +881,3 @@ align-items: center;
 }
 }
 
-
-  #history-list {
-    list-style-type: none;
-    padding-left: 0; /* Это уберет отступы слева */
-  }
