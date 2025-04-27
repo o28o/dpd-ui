@@ -152,48 +152,8 @@ titleClear.addEventListener("dblclick", function() {
 	dpdPane.innerHTML = ""; 
 });
 
-// Original double-click functionality
-dpdPane.addEventListener("dblclick", processSelection);
-historyPane.addEventListener("dblclick", processSelection);
-
-// Add touch double-tap functionality
-let lastTap = 0;
-const doubleTapDelay = 300; // milliseconds between taps to count as double-tap
-
-dpdPane.addEventListener("touchend", handleTouchEnd);
-historyPane.addEventListener("touchend", handleTouchEnd);
-
-function handleTouchEnd(event) {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - lastTap;
-
-    // Detect double-tap
-    if (tapLength < doubleTapDelay && tapLength > 0) {
-        // Prevent default behavior (like zooming)
-        event.preventDefault();
-
-        // Get the selection and process it
-        const selection = window.getSelection().toString();
-        if (selection.trim() !== "") {
-            searchBox.value = selection;
-            handleFormSubmit();
-        }
-    }
-
-    lastTap = currentTime;
-}
-
-function processSelection() {
-    const selection = window.getSelection().toString();
-    if (selection.trim() !== "") {
-
-        const selectedText = selection.trim();
-        history.pushState({ selectedText }, "", `#${encodeURIComponent(selectedText)}`);
-        
-        searchBox.value = selection;
-        handleFormSubmit();
-    }
-}
+/// DELETE THE TOUCH AND TAP DOUBLE CLICK FROM THIS FILE
+/// moved to home.js 
 
 //// font size ////
 

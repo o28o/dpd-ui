@@ -292,6 +292,8 @@ document.addEventListener('click', function(event) {
 });
 
 
+// переделать в сортируемую таблицу 
+
     function transformToSortable(table) {
         if (table.classList.contains('sortable-processed')) return;
         table.classList.add('sortable-processed');
@@ -385,3 +387,66 @@ document.addEventListener('click', function(event) {
             transformToSortable(table);
         }
     });
+
+
+
+// конец сорт таблиц
+
+
+// улучшенные функции двойных кликов и табов.
+
+dpdPane.addEventListener("dblclick", processSelection);
+historyPane.addEventListener("dblclick", processSelection);
+
+let lastTap = 0;
+const doubleTapDelay = 300; // milliseconds
+
+dpdPane.addEventListener("touchend", handleTouchEnd);
+historyPane.addEventListener("touchend", handleTouchEnd);
+
+function handleTouchEnd(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+
+    // Detect double-tap
+    if (tapLength < doubleTapDelay && tapLength > 0) {
+        event.preventDefault();
+
+        // NEW: skip if touched element is a table header (TH)
+        if (event.target.closest('th')) {
+            return;
+        }
+
+        const selection = window.getSelection().toString();
+        if (selection.trim() !== "") {
+            searchBox.value = selection;
+            handleFormSubmit();
+        }
+    }
+
+    lastTap = currentTime;
+}
+
+
+function processSelection(event) {
+    if (event.target.closest('th')) {
+        return;
+    }
+
+    const selection = window.getSelection().toString();
+    if (selection.trim() !== "") {
+        const selectedText = selection.trim();
+        history.pushState({ selectedText }, "", `#${encodeURIComponent(selectedText)}`);
+        searchBox.value = selection;
+        handleFormSubmit();
+    }
+}
+
+// NEW: handle browser back/forward
+window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.selectedText) {
+        const selectedText = event.state.selectedText;
+        searchBox.value = selectedText;
+        handleFormSubmit();
+    }
+});
