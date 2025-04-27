@@ -6,28 +6,8 @@ from fastapi.templating import Jinja2Templates
 import httpx
 from httpx import ConnectTimeout, RequestError
 
-
-from fastapi.staticfiles import StaticFiles
-from fastapi.middleware import Middleware
-from starlette.middleware import Middleware as StarletteMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware
-
-
-
 app = FastAPI()
 app.add_middleware(GZipMiddleware, minimum_size=500)
-# Middleware для добавления заголовков к статике
-class StaticCacheMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        response = await call_next(request)
-        if request.url.path.startswith(("/static/", "/ru/static/")):
-            response.headers["Cache-Control"] = "public, max-age=84000"  # 1 день
-        return response
-
-# Добавляем middleware перед монтированием статики
-app.add_middleware(StaticCacheMiddleware)
-
-# Монтируем статические файлы (БЕЗ параметра headers)
 app.mount("/static", StaticFiles(directory="exporter/webapp/static"), name="static")
 app.mount("/ru/static", StaticFiles(directory="exporter/webapp/static"), name="ru_static")
 
