@@ -291,6 +291,37 @@ document.addEventListener('click', function(event) {
     }
 });
 
+
+// Обнуляем существующую функцию processSelection
+if (typeof window.processSelection === 'function') {
+  window.processSelection = function() {}; // Заменяем на пустую
+}
+
+// Переопределяем новую версию
+window.processSelection = function() {
+    const selection = window.getSelection().toString();
+    if (selection.trim() !== "") {
+        const selectedText = selection.trim();
+        history.pushState({ selectedText }, "", `#${encodeURIComponent(selectedText)}`);
+        
+        searchBox.value = selectedText;
+        handleFormSubmit();
+    }
+};
+
+// Обработчик назад
+window.addEventListener("popstate", function(event) {
+    if (event.state && event.state.selectedText) {
+        searchBox.value = event.state.selectedText;
+        handleFormSubmit();
+    }
+});
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Находим все таблицы грамматики на странице
     const grammarTables = document.querySelectorAll('table.grammar_dict');

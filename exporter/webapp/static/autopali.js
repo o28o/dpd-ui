@@ -1,3 +1,5 @@
+//        handleFormSubmit();
+
 document.addEventListener('DOMContentLoaded', function() {
   $.ajax({
     url: "/static/sutta_words.txt",
