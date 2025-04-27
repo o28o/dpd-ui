@@ -1,12 +1,12 @@
 from fastapi import FastAPI, Request, HTTPException
+
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import httpx
 from httpx import ConnectTimeout, RequestError
-
-
+from urllib.parse import parse_qs, urlencode
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware import Middleware
 from starlette.middleware import Middleware as StarletteMiddleware
@@ -15,6 +15,24 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 
 app = FastAPI()
+
+@app.middleware("http")
+async def lowercase_query_params_middleware(request: Request, call_next):
+    # Получаем query-параметры
+    query_params = dict(request.query_params)
+    
+    # Приводим нужные параметры к lowercase
+    for param in ["q", "search", "q1", "q2"]:
+        if param in query_params:
+            query_params[param] = query_params[param].lower()
+    
+    # Обновляем URL (если параметры изменились)
+    if query_params != request.query_params:
+        new_query = urlencode(query_params, doseq=True)
+        request.scope["query_string"] = new_query.encode("utf-8")
+    
+    return await call_next(request)
+
 app.add_middleware(GZipMiddleware, minimum_size=500)
 # Middleware для добавления заголовков к статике
 class StaticCacheMiddleware(BaseHTTPMiddleware):
