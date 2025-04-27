@@ -186,6 +186,10 @@ function handleTouchEnd(event) {
 function processSelection() {
     const selection = window.getSelection().toString();
     if (selection.trim() !== "") {
+
+        const selectedText = selection.trim();
+        history.pushState({ selectedText }, "", `#${encodeURIComponent(selectedText)}`);
+        
         searchBox.value = selection;
         handleFormSubmit();
     }

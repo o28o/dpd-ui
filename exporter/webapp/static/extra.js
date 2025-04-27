@@ -292,53 +292,17 @@ document.addEventListener('click', function(event) {
 });
 
 
-// Обнуляем существующую функцию processSelection
-if (typeof window.processSelection === 'function') {
-  window.processSelection = function() {}; // Заменяем на пустую
-}
-
-// Переопределяем новую версию
-window.processSelection = function() {
-    const selection = window.getSelection().toString();
-    if (selection.trim() !== "") {
-        const selectedText = selection.trim();
-        history.pushState({ selectedText }, "", `#${encodeURIComponent(selectedText)}`);
-        
-        searchBox.value = selectedText;
-        handleFormSubmit();
-    }
-};
-
-// Обработчик назад
-window.addEventListener("popstate", function(event) {
-    if (event.state && event.state.selectedText) {
-        searchBox.value = event.state.selectedText;
-        handleFormSubmit();
-    }
-});
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Находим все таблицы грамматики на странице
-    const grammarTables = document.querySelectorAll('table.grammar_dict');
-    
-    if (grammarTables.length === 0) return;
-    
-    // Функция для преобразования таблицы в сортируемую
     function transformToSortable(table) {
-        // Проверяем, не преобразована ли таблица уже
         if (table.classList.contains('sortable-processed')) return;
         table.classList.add('sortable-processed');
+
+        const oldTbody = table.querySelector('tbody');
+        if (!oldTbody) return; // вдруг пустая таблица
         
-        // Создаем новую структуру таблицы
-        const newTable = document.createElement('table');
-        newTable.className = table.className + ' sortable-grammar-table';
-        
-        // Создаем заголовок с новыми колонками
+        const oldRows = oldTbody.querySelectorAll('tr');
+        table.innerHTML = '';
+
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         
@@ -350,15 +314,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         thead.appendChild(headerRow);
-        newTable.appendChild(thead);
-        
-        // Создаем тело таблицы
+        table.appendChild(thead);
+
         const tbody = document.createElement('tbody');
-        newTable.appendChild(tbody);
-        
-        // Переносим данные из старой таблицы
-        const oldRows = table.querySelectorAll('tbody tr');
-        
+        table.appendChild(tbody);
+
         oldRows.forEach(oldRow => {
             const cells = oldRow.querySelectorAll('td');
             if (cells.length < 4) return;
@@ -382,22 +342,18 @@ document.addEventListener('DOMContentLoaded', function() {
             
             tbody.appendChild(newRow);
         });
-        
-        // Заменяем старую таблицу новой
-        table.replaceWith(newTable);
-        
-        // Добавляем обработчики сортировки
-        setupSorting(newTable);
+
+        setupSorting(table);
     }
-    
-    // Функция для настройки сортировки
+
     function setupSorting(table) {
         const tbody = table.querySelector('tbody');
         const headers = table.querySelectorAll('th');
-        
+
         headers.forEach(header => {
             header.addEventListener('click', (e) => {
                 e.stopPropagation();
+                e.preventDefault();
                 
                 const order = header.dataset.order === 'asc' ? 'desc' : 'asc';
                 const colIndex = header.cellIndex;
@@ -421,13 +377,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-    // Добавляем обработчики клика для каждой таблицы
-    grammarTables.forEach(table => {
-        table.addEventListener('click', function() {
-            transformToSortable(this);
-        });
+
+    // Делегирование события клика
+    document.addEventListener('click', function(event) {
+        // Ищем, был ли клик по таблице с классом grammar_dict
+        const table = event.target.closest('table.grammar_dict');
+        if (table) {
+            transformToSortable(table);
+        }
     });
 });
-
-
