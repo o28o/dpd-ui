@@ -292,7 +292,6 @@ document.addEventListener('click', function(event) {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
     function transformToSortable(table) {
         if (table.classList.contains('sortable-processed')) return;
         table.classList.add('sortable-processed');
@@ -386,4 +385,3 @@ document.addEventListener('DOMContentLoaded', function() {
             transformToSortable(table);
         }
     });
-});
