@@ -349,6 +349,12 @@ body {
 
 
 
+.settings-pane {
+overflow-y: auto;
+}
+
+
+
     .hideOnMobile {
         display: block;
     }
