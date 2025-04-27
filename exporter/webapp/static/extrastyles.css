@@ -328,6 +328,9 @@ caption {
 }
 
 
+.settings-pane {
+overflow: auto;
+}
 
 @media only screen and (min-width: 1024px) {
 
@@ -349,9 +352,6 @@ body {
 
 
 
-.settings-pane {
-overflow-y: auto;
-}
 
 
 
@@ -475,7 +475,6 @@ max-height: 220px;
 min-height: 38px;
 overflow-y: auto; 
 overflow-x: hidden;
-scrollbar-color: #10806A #10806A;
 border-radius: 1rem;
 max-width: 274px;
 align-items: center;
@@ -486,7 +485,6 @@ max-height: 220px;
 min-height: 38px;
 overflow-y: auto; 
 overflow-x: hidden;
-scrollbar-color: #10806A #10806A;
 border-radius: 1rem;
 max-width: 474px;
 align-items: center;
