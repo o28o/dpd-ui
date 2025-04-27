@@ -351,7 +351,7 @@ overflow: auto;
 @media only screen and (min-width: 1024px) {
 
 body {
-    max-height: 94vh !important; /* Заменяет height: 100vh */
+    max-height: 98vh !important; /* Заменяет height: 100vh */
     overflow: auto;    /* Заменяет overflow: hidden */
     display: flex;
     flex-direction: column;
