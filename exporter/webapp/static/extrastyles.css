@@ -332,6 +332,22 @@ caption {
 overflow: auto;
 }
 
+.settings-pane::-webkit-scrollbar {
+    width: 10px;
+}
+.settings-pane::-webkit-scrollbar-track {
+    background-color: var(--light);
+}
+.settings-pane::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: var(--gray);
+}
+
+.dark-mode .settings-pane::-webkit-scrollbar-track {
+    background-color: var(--dark);
+}
+
+
 @media only screen and (min-width: 1024px) {
 
 body {
