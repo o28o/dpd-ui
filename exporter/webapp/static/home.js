@@ -209,6 +209,19 @@ async function handleFormSubmit(event) {
     const searchQuery = searchBox.value;
     if (searchQuery.trim() !== "") {
         try {
+          
+       // 1. Полностью очищаем ВСЕ результаты (и сводку, и перевод)
+    summaryResults.innerHTML = "";
+    dpdResults.innerHTML = "";
+
+    // 2. Показываем спиннер в ОСНОВНОМ блоке результатов
+    dpdResults.innerHTML = `
+        <div class="spinner-container">
+            <img src="/static/circle-notch.svg" class="loading-spinner">
+            <div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
+        </div>
+    `;
+          
             addToHistory(searchQuery);
             // Adjust the search URL based on the current language
             let searchUrl = '/search_json';
