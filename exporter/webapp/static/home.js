@@ -202,7 +202,6 @@ searchButton.addEventListener("submit", handleFormSubmit);
 
 //// submit search
 
-
 async function handleFormSubmit(event) {
     if (event) {
         event.preventDefault();
@@ -301,7 +300,11 @@ async function handleFormSubmit(event) {
             });
 
             // Update the URL with the search query
+            
             let url = `/?q=${encodeURIComponent(searchQuery)}`;
+            if (language === 'ru') {
+                url = `/ru/?q=${encodeURIComponent(searchQuery)}`;
+            }            
             history.pushState({ q: searchQuery }, "", url);
             
         } catch (error) {
@@ -309,7 +312,12 @@ async function handleFormSubmit(event) {
         }
     } else {
         // Clear the URL if the search query is empty
+       if (language === 'en') {
         history.pushState({ q: '' }, "", "/");
+            }
+      else if (language === 'ru') {
+        history.pushState({ q: '' }, "", "/ru/");
+            }       
     }
 }
 
