@@ -14,7 +14,7 @@
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         
-        ['Pos', 'Gen', 'Case', 'Num', 'Of', 'Word'].forEach(text => {
+        ['pos⇅', '⇅', '⇅', '⇅', 'Of', 'Word⇅'].forEach(text => {
             const th = document.createElement('th');
             th.textContent = text;
             th.setAttribute('data-sort', 'string');
