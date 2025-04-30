@@ -209,6 +209,7 @@ async function handleFormSubmit(event) {
     const searchQuery = searchBox.value;
     if (searchQuery.trim() !== "") {
         try {
+         showSpinner(); 
             addToHistory(searchQuery);
             // Adjust the search URL based on the current language
             let searchUrl = '/search_json';
