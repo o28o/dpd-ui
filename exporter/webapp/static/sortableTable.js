@@ -14,7 +14,15 @@
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         
-        ['pos⇅', '⇅', '⇅', '⇅', 'of', 'word⇅'].forEach(text => {
+let tableHeaders; // Объявляем переменную заранее
+
+if (language === 'en') {
+    tableHeaders = ['pos⇅', '⇅', '⇅', '⇅', 'of', 'word⇅'];
+} else if (language === 'ru') {
+    tableHeaders = ['ЧР⇅', '⇅', '⇅', '⇅', 'от', 'слово⇅']; 
+}
+        
+        tableHeaders.forEach(text => {
             const th = document.createElement('th');
             th.textContent = text;
             th.setAttribute('data-sort', 'string');
