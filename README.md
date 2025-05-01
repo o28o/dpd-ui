@@ -41,6 +41,8 @@ List of improvements:
    ./stop.sh
    ```
    
+## Details
+
 technically it is a modified dpd-db repo where dpdict.net is used as backend instead of direct calls to dpd-db.
 
 files added to original exporter/webapp/static
