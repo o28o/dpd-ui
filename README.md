@@ -48,28 +48,20 @@ technically it is a modified dpd-db repo where dpdict.net is used as backend ins
 files added to original exporter/webapp/static
 
 static
+
 ├── extrastyles.css
-
 ├── jquery-ui.css
-
 ├── jquery-ui.min.css
 
 ├── autopali.js
-
 ├── extra.js
-
 ├── jquery-3.7.0.min.js
-
 ├── jquery-ui.js
-
 ├── jquery-ui.min.js
-
 ├── sortableTable.js
 
 ├── circle-notch.svg
-
 ├── clock-rotate-left.svg
-
 ├── gear.svg
 
 ├── sutta_words.txt
