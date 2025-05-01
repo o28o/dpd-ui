@@ -21,6 +21,26 @@ List of improvements:
 10. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
 11. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
 
+
+
+## installation 
+
+1. clone this repo
+2. cd into it
+3. creat virtual environment and install dependencies and start
+   
+   ```
+   python -m venv .venv
+   .venv/bin/pip install -r requirements.tx
+   # start with
+   nohup ./start.sh &
+   ```
+   
+4. to stop use
+   ```
+   ./stop.sh
+   ```
+   
 technically it is a modified dpd-db repo where dpdict.net is used as backend instead of direct calls to dpd-db.
 
 files added to original exporter/webapp/static
