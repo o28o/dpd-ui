@@ -63,7 +63,7 @@ with open("exporter/webapp/static/dpd.js") as f:
 with open("exporter/webapp/static/home_simple.css") as f:
     home_simple_css = f.read()
 
-# API endpoints configuration
+# API endpoints configuration       "base_url": "http://dhamma.gift:8080",         "base_url": "http://dhamma.gift:8080",
 ENDPOINTS = {
     "en": {
         "base_url": "https://dpdict.net",
@@ -74,6 +74,7 @@ ENDPOINTS = {
         "search_path": "/ru/search_json"
     }
 }
+
 TIMEOUT = 30.0  # seconds
 
 bd_count = "360k+"
