@@ -276,36 +276,27 @@ if (typeof changeLanguage === 'function') {
 
 // Вешаем обработчик на document (не на ссылки!)
 document.addEventListener('click', function(event) {
-    const link = event.target.closest('a');
-    if (!link) return;
-
-    // Проверяем все возможные варианты домена
-    if (link.href.includes('thebuddhaswords.net')) {
-        event.preventDefault();
-        
-        // Создаём новый URL для обработки
-        const oldUrl = new URL(link.href);
-        const newUrl = new URL(link.href);
-        
-        // Заменяем домен
-        newUrl.hostname = 'dhamma.gift';
-        newUrl.pathname = '/bw' + oldUrl.pathname;
-        
-        // Переносим параметр q → s (если существует)
-        if (oldUrl.searchParams.has('q')) {
-            const qValue = oldUrl.searchParams.get('q');
-            newUrl.searchParams.delete('q');
-            newUrl.searchParams.set('s', qValue);
-            
-            console.log('Параметр q найден, заменяем на s:', qValue);
-        }
-        
-        console.log('Старый URL:', oldUrl.href);
-        console.log('Новый URL:', newUrl.href);
-        
-        window.location.href = newUrl.href;
-    }
-}, true);
+  const link = event.target.closest('a');
+  if (!link || !link.href.includes('thebuddhaswords.net')) return;
+  
+  event.preventDefault();
+  
+  // 1. Заменяем домен
+  let newUrl = link.href
+    .replace('thebuddhaswords.net', 'dhamma.gift/bw')
+    .replace('www.thebuddhaswords.net', 'dhamma.gift/bw');
+    
+  // 2. Берем ?q= из текущего URL (страницы со словарной статьей)
+  const currentQ = new URLSearchParams(window.location.search).get('q');
+  
+  // 3. Добавляем ?s= только если q существует
+  if (currentQ) {
+    const separator = newUrl.includes('?') ? '&' : '?';
+    newUrl += `${separator}s=${encodeURIComponent(currentQ)}`;
+  }
+  
+    window.location.href = newUrl;
+});
 
 // улучшенные функции двойных кликов и табов.
 
