@@ -349,25 +349,18 @@ window.addEventListener('popstate', function(event) {
     }
 });
 
-function showSpinner() {
-    // Получаем текущий путь URL
+ function showSpinner() {
     const currentPath = window.location.pathname;
-    
-    // Проверяем, является ли путь корневым или русским корневым
     const isRootPath = currentPath === '/' || currentPath === '/ru/';
     
-    // Показываем спиннер только для корневых путей
     if (isRootPath) {
-        // 1. Полностью очищаем ВСЕ результаты (и сводку, и перевод)
-        summaryResults.innerHTML = "";
-        dpdResults.innerHTML = "";
-
-        // 2. Показываем спиннер в ОСНОВНОМ блоке результатов
-        dpdResults.innerHTML = `
-            <div class="spinner-container">
+        // Создаем полупрозрачный спиннер
+        dpdResults.insertAdjacentHTML('beforeend', `
+            <div class="spinner-container transparent-spinner">
                 <img src="/static/circle-notch.svg" class="loading-spinner">
                 <div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
             </div>
-        `;
+        `);
     }
 }
+

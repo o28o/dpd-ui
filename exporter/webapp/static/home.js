@@ -209,6 +209,12 @@ async function handleFormSubmit(event) {
     const searchQuery = searchBox.value;
     if (searchQuery.trim() !== "") {
         try {
+
+    // Закрываем выпадающий список автоподсказок (если он инициализирован)
+    if ($("#search-box").hasClass("ui-autocomplete-input")) {
+        $("#search-box").autocomplete("close");
+    }
+    
          showSpinner(); 
             addToHistory(searchQuery);
             // Adjust the search URL based on the current language

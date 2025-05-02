@@ -885,14 +885,18 @@ align-items: center;
     list-style-type: none;
   }
 
+
 /* Стили для спиннера */
 .spinner-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100px;
     padding: 20px;
+}
+
+.transparent-spinner {
+    opacity: 0.7;
 }
 
 .loading-spinner {
@@ -901,6 +905,7 @@ align-items: center;
     filter: invert(0%);
     animation: spin 1s linear infinite;
 }
+
 /* Тёмная тема */
 .dark-mode .loading-spinner {
     filter: invert(100%);
@@ -911,14 +916,24 @@ align-items: center;
     color: #666;
 }
 
+.dark-mode .loading-text {
+    color: #aaa;
+}
+
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-.error {
-    color: #d9534f;
-    padding: 20px;
-    text-align: center;
+/* Чтобы спиннер не сдвигал содержимое */
+.dpdResults {
+    position: relative;
 }
 
+.transparent-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}

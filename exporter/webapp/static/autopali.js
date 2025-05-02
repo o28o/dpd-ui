@@ -120,6 +120,16 @@ document.addEventListener('DOMContentLoaded', function() {
           }
 
           this.value = terms.join("");
+          
+          // Закрываем автоподсказки
+          $(this).autocomplete("close");
+          
+          // Инициируем поиск
+          handleFormSubmit();
+
+          
+
+          
           return false;
         }
       }).autocomplete("widget").addClass("fixed-height");
