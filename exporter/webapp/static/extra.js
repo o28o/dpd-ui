@@ -277,25 +277,25 @@ if (typeof changeLanguage === 'function') {
 // Вешаем обработчик на document (не на ссылки!)
 document.addEventListener('click', function(event) {
   const link = event.target.closest('a');
-  if (!link || !link.href.includes('thebuddhaswords.net')) return;
-  
+  if (!link || !link.href) return;
+
   event.preventDefault();
-  
-  // 1. Заменяем домен
-  let newUrl = link.href
-    .replace('thebuddhaswords.net', 'dhamma.gift/bw')
-    .replace('www.thebuddhaswords.net', 'dhamma.gift/bw');
-    
-  // 2. Берем ?q= из текущего URL (страницы со словарной статьей)
+
+  let newUrl = link.href;
+
+  // 1. Всегда заменяем домен, если он старый
+  newUrl = newUrl
+    .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
+    .replace('thebuddhaswords.net', 'dhamma.gift/bw');
+
+  // 2. Всегда добавляем ?s=... если q найден в текущем URL
   const currentQ = new URLSearchParams(window.location.search).get('q');
-  
-  // 3. Добавляем ?s= только если q существует
   if (currentQ) {
     const separator = newUrl.includes('?') ? '&' : '?';
     newUrl += `${separator}s=${encodeURIComponent(currentQ)}`;
   }
-  
-    window.location.href = newUrl;
+
+  window.location.href = newUrl;
 });
 
 // улучшенные функции двойных кликов и табов.
