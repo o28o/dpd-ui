@@ -277,52 +277,53 @@ if (typeof changeLanguage === 'function') {
 // Вешаем обработчик на document (не на ссылки!)
 document.addEventListener('click', function(event) {
   const link = event.target.closest('a');
+  if (!link || !link.href) return;
+
+  // Проверяем, нужно ли обрабатывать эту ссылку
+  const isSuttaLink = link.classList.contains('sutta_link');
+  const isOldSite = link.href.includes('thebuddhaswords.net');
   
-  // 1. Обрабатываем ТОЛЬКО два типа ссылок:
-  if (!link || !link.href || 
-      (!link.classList.contains('link') && 
-       !link.classList.contains('sutta_link'))) {
-    return;
-  }
+  if (!isSuttaLink && !isOldSite) return;
 
   event.preventDefault();
   let newUrl = link.href;
 
-  // 2. Замена домена для старых ссылок (если есть)
-  newUrl = newUrl
-    .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
-    .replace('thebuddhaswords.net', 'dhamma.gift/bw');
+  // 1. Замена домена для старых ссылок
+  if (isOldSite) {
+    newUrl = newUrl
+      .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
+      .replace('thebuddhaswords.net', 'dhamma.gift/bw');
+  }
 
-  // 3. Определение параметра s
-  let sValue = '';
+  // 2. Определение параметра s
+  let sParam = '';
 
-  // Случай 1: Для sutta_link - берем bold слово из примера
-  if (link.classList.contains('sutta_link')) {
-    const exampleDiv = link.closest('div[name="example-div"].dpd.content');
-    if (exampleDiv) {
-      const boldElements = exampleDiv.querySelectorAll('b');
-      const linkParagraph = link.closest('p');
-      
-      // Ищем последний bold перед ссылкой
-      for (let i = boldElements.length - 1; i >= 0; i--) {
-        if (boldElements[i].compareDocumentPosition(linkParagraph) & Node.DOCUMENT_POSITION_PRECEDING) {
-          sValue = boldElements[i].textContent.trim();
+  // Случай для sutta_link: ищем bold в предыдущих элементах
+  if (isSuttaLink) {
+    const parentParagraph = link.closest('p');
+    if (parentParagraph) {
+      // Ищем ближайший предыдущий элемент с bold
+      let prevElement = parentParagraph.previousElementSibling;
+      while (prevElement) {
+        const boldElement = prevElement.querySelector('b');
+        if (boldElement) {
+          sParam = boldElement.textContent.trim();
           break;
         }
+        prevElement = prevElement.previousElementSibling;
       }
     }
   }
 
-  // Случай 2: Для всех обрабатываемых ссылок - добавляем q из URL (если нет bold слова)
-  if (!sValue) {
-    sValue = new URLSearchParams(window.location.search).get('q');
+  // Если не нашли bold, берем q из URL
+  if (!sParam) {
+    sParam = new URLSearchParams(window.location.search).get('q') || '';
   }
 
-  // 4. Добавление параметра (если есть значение)
-  if (sValue) {
-    const urlObj = new URL(newUrl);
-    urlObj.searchParams.set('s', encodeURIComponent(sValue));
-    newUrl = urlObj.toString();
+  // 3. Добавляем параметр s (если есть значение)
+  if (sParam) {
+    const separator = newUrl.includes('?') ? '&' : '?';
+    newUrl += `${separator}s=${encodeURIComponent(sParam)}`;
   }
 
   window.location.href = newUrl;
@@ -394,9 +395,10 @@ window.addEventListener('popstate', function(event) {
         dpdResults.insertAdjacentHTML('beforeend', `
             <div class="spinner-container transparent-spinner">
                 <img src="/static/circle-notch.svg" class="loading-spinner">
-                <div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
             </div>
         `);
+        //<div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
     }
 }
+
 
