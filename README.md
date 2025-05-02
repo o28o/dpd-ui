@@ -12,14 +12,16 @@ List of improvements:
 1. autofocus on search bar on page load
 2. "clear" button added to search bar
 3. autocomplete pali words in search bar
-4. added sortable table for grammar dict on the client side
-5. transform history pane amd settings pane into collapsible/expandable button on mobile breakpoints.
-6. extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
-7. spinner while waiting for results in site mode
-8. auto replace links to DG hosted tbw on the client side
-9. clickable logo and site name on main page desktop and talbet leading to / or /ru/ — acts like clear button.
-10. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
-11. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
+4. added autoscroll and highlight word from example links if text is opened on dhamma.gift
+5. added sortable table for grammar dict on the client side
+6. transform history pane amd settings pane into collapsible/expandable button on mobile breakpoints.
+7. extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
+8. spinner while waiting for results in site mode
+9. auto replace links to DG hosted tbw on the client side
+10. clickable logo and site name on main page desktop and talbet leading to / or /ru/ — acts like clear button.
+11. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
+12. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
+
 
 
 
