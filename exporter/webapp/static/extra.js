@@ -276,20 +276,36 @@ if (typeof changeLanguage === 'function') {
 
 // Вешаем обработчик на document (не на ссылки!)
 document.addEventListener('click', function(event) {
-    // Ищем ближайшую ссылку (даже если кликнули на <span> внутри <a>)
     const link = event.target.closest('a');
-    
-    // Проверяем только нужные ссылки
-    if (link && link.href.includes('thebuddhaswords.net')) {
+    if (!link) return;
+
+    // Проверяем все возможные варианты домена
+    if (link.href.includes('thebuddhaswords.net')) {
         event.preventDefault();
-        link.href = link.href
-            .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
-            .replace('thebuddhaswords.net', 'dhamma.gift/bw');
         
-        // Программный переход (аналогично обычному клику)
-        window.location.href = link.href;
+        // Создаём новый URL для обработки
+        const oldUrl = new URL(link.href);
+        const newUrl = new URL(link.href);
+        
+        // Заменяем домен
+        newUrl.hostname = 'dhamma.gift';
+        newUrl.pathname = '/bw' + oldUrl.pathname;
+        
+        // Переносим параметр q → s (если существует)
+        if (oldUrl.searchParams.has('q')) {
+            const qValue = oldUrl.searchParams.get('q');
+            newUrl.searchParams.delete('q');
+            newUrl.searchParams.set('s', qValue);
+            
+            console.log('Параметр q найден, заменяем на s:', qValue);
+        }
+        
+        console.log('Старый URL:', oldUrl.href);
+        console.log('Новый URL:', newUrl.href);
+        
+        window.location.href = newUrl.href;
     }
-});
+}, true);
 
 // улучшенные функции двойных кликов и табов.
 
