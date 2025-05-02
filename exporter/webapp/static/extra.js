@@ -277,27 +277,56 @@ if (typeof changeLanguage === 'function') {
 // Вешаем обработчик на document (не на ссылки!)
 document.addEventListener('click', function(event) {
   const link = event.target.closest('a');
-  if (!link || !link.href) return;
+  
+  // 1. Обрабатываем ТОЛЬКО два типа ссылок:
+  if (!link || !link.href || 
+      (!link.classList.contains('link') && 
+       !link.classList.contains('sutta_link'))) {
+    return;
+  }
 
   event.preventDefault();
-
   let newUrl = link.href;
 
-  // 1. Всегда заменяем домен, если он старый
+  // 2. Замена домена для старых ссылок (если есть)
   newUrl = newUrl
     .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
     .replace('thebuddhaswords.net', 'dhamma.gift/bw');
 
-  // 2. Всегда добавляем ?s=... если q найден в текущем URL
-  const currentQ = new URLSearchParams(window.location.search).get('q');
-  if (currentQ) {
-    const separator = newUrl.includes('?') ? '&' : '?';
-    newUrl += `${separator}s=${encodeURIComponent(currentQ)}`;
+  // 3. Определение параметра s
+  let sValue = '';
+
+  // Случай 1: Для sutta_link - берем bold слово из примера
+  if (link.classList.contains('sutta_link')) {
+    const exampleDiv = link.closest('div[name="example-div"].dpd.content');
+    if (exampleDiv) {
+      const boldElements = exampleDiv.querySelectorAll('b');
+      const linkParagraph = link.closest('p');
+      
+      // Ищем последний bold перед ссылкой
+      for (let i = boldElements.length - 1; i >= 0; i--) {
+        if (boldElements[i].compareDocumentPosition(linkParagraph) & Node.DOCUMENT_POSITION_PRECEDING) {
+          sValue = boldElements[i].textContent.trim();
+          break;
+        }
+      }
+    }
+  }
+
+  // Случай 2: Для всех обрабатываемых ссылок - добавляем q из URL (если нет bold слова)
+  if (!sValue) {
+    sValue = new URLSearchParams(window.location.search).get('q');
+  }
+
+  // 4. Добавление параметра (если есть значение)
+  if (sValue) {
+    const urlObj = new URL(newUrl);
+    urlObj.searchParams.set('s', encodeURIComponent(sValue));
+    newUrl = urlObj.toString();
   }
 
   window.location.href = newUrl;
 });
-
 // улучшенные функции двойных кликов и табов.
 
 dpdPane.addEventListener("dblclick", processSelection);
