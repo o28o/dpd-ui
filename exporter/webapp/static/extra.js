@@ -1,5 +1,6 @@
 
 let startMessage;
+//<p class="message"><a class="installButton" >Install Dict.DG</a> to enable lookup by sharing words from any site of app</p>
 
 function initStartMessage(lang) {
     if (language === 'en') {
@@ -7,6 +8,10 @@ function initStartMessage(lang) {
 <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
 <p class="message"><b>Click the table headers</b> in the grammar dictionary tables to sort.</p>
 <p class="message"><b>Double-click</b> any word to search.</p>
+<p class="message">To lookup words on <b>any sites or apps</b> with Dict.DG:</p>
+<p class="message">Tap Browser menu or Share Icon → "Add to Home screen". </p>
+<p class="message">After that you can select any word and share it with Dict.DG app from the OS context menu.</p>
+
 <p class="message">Adjust the <b>Settings</b> as needed.</p>
 <p class="message"><b>Refresh</b> if any issues occur.</p>
 <p class="message">
@@ -15,6 +20,7 @@ function initStartMessage(lang) {
 </p>
 <p class="message">Try: <b>Double-click</b> words below:</p>
 <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
+
 `;
     } else if (language === 'ru') {
         startMessage = `
@@ -438,3 +444,44 @@ window.addEventListener('popstate', function(event) {
 }
 
 
+
+//PWA installation
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/static/sw.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      })
+      .catch(function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  }
+
+  let deferredPrompt;
+  const installButtons = document.querySelectorAll('.installButton');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Показываем все кнопки с классом installButton
+    installButtons.forEach(button => {
+      button.style.display = 'inline-block';
+    });
+  });
+
+  // Добавляем обработчик события click для каждой кнопки
+  installButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Пользователь принял предложение установки');
+          } else {
+            console.log('Пользователь отклонил предложение установки');
+          }
+          deferredPrompt = null;
+        });
+      }
+    });
+  });
