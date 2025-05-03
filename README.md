@@ -21,6 +21,8 @@ List of improvements:
 10. clickable logo and site name on main page desktop and talbet leading to / or /ru/ — acts like clear button.
 11. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
 12. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
+13. added protection against repeated form submits
+
 
 
 
