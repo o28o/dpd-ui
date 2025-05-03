@@ -1,0 +1,35 @@
+{
+  "short_name": "Dict.Dhamma.Gift DPD",
+  "name": "Digital Pali Dictionary with Dhamma.Gift UI improvements",
+  "icons": [
+    {
+      "src": "/static/dpd.ico",
+      "type": "image/x-icon",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/static/dpd-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/dpd-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#4a6da7",
+  "description": "Online Pali-English dictionary with interface improvements.",
+  "lang": "en",
+  "share_target": {
+    "action": "/search_html",
+    "method": "GET",
+    "params": {
+      "text": "q"
+    }
+  }
+}

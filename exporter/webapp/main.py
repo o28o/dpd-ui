@@ -4,6 +4,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+import re
 import httpx
 from httpx import ConnectTimeout, RequestError
 from urllib.parse import parse_qs, urlencode
@@ -12,9 +13,37 @@ from fastapi.middleware import Middleware
 from starlette.middleware import Middleware as StarletteMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
-
-
 app = FastAPI()
+
+
+async def clean_query_params(request: Request, call_next):
+    # Получаем текущие query-параметры
+    query_params = dict(request.query_params)
+    
+    # Очищаем нужные параметры (q, search, q1, q2 и т.д.)
+    for param in ["q", "search", "q1", "q2"]:
+        if param in query_params:
+            original = query_params[param]
+            
+            # Применяем очистку
+            cleaned = re.sub(r'https?://\S+', '', original)  # Удаляем URL
+            cleaned = re.sub(r'["\'()[\]]', '', cleaned)      # Удаляем кавычки и скобки
+            cleaned = cleaned.split()[0] if cleaned.split() else ""  # Берем первое слово
+            cleaned = cleaned.lower()  # Приводим к lowercase
+            
+            if original != cleaned:
+                query_params[param] = cleaned
+    
+    # Если параметры изменились - обновляем URL
+    if query_params != request.query_params:
+        new_query = urlencode(query_params, doseq=True)
+        request.scope["query_string"] = new_query.encode("utf-8")
+    
+    return await call_next(request)
+
+# Добавляем middleware в приложение (в начало, перед другими middleware)
+app.middleware("http")(clean_query_params)
+
 
 @app.middleware("http")
 async def lowercase_query_params_middleware(request: Request, call_next):

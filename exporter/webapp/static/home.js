@@ -62,43 +62,14 @@ function loadToggleState(id) {
 document.addEventListener("DOMContentLoaded", function() {
     const htmlElement = document.documentElement;
     language = htmlElement.lang || 'en';
-    let startMessage;
 
-    if (language === 'en') {
-        startMessage = `
-<p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
-<p class="message"><b>Click the table headers</b> in the grammar dictionary tables to sort.</p>
-<p class="message"><b>Double-click</b> any word to search.</p>
-<p class="message">Adjust the <b>Settings</b> as needed.</p>
-<p class="message"><b>Refresh</b> if any issues occur.</p>
-<p class="message">
-    For more information, visit: <a href="https://docs.dpdict.net/webapp/" target="_blank">Site</a> or 
-    <a href="https://docs.dpdict.net/" target="_blank">DPD in general</a>.
-</p>
-<p class="message">Try: <b>Double-click</b> words below:</p>
-<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
-`;
-    } else if (language === 'ru') {
-        startMessage = `
-<p class="message">Ищите на пали или русском с <b>Автоподсказками</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
-<p class="message"><b>Клик</b> по заголовкам таблиц в словаре грамматики для сортировки.</p>
-<p class="message"><b>Двойной клик</b> по любому слову для поиска.</p>
-<p class="message">Используйте <b>Настройки</b> для дополнительных функций.</p>
-<p class="message"><b>Обновите</b> страницу при возникновении проблем.</p>
-<p class="message">
-    Подробнее о: <a href="https://docs.dpdict.net/webapp/" target="_blank">Сайте</a> или 
-    <a href="https://docs.dpdict.net/" target="_blank">DPD в целом</a>.
-</p>
-<p class="message">Попробуйте: <b>двойной клик</b> по словам ниже:</p>
-<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
-`;
-    }
+// Инициализация при загрузке
+    initStartMessage(language);
 
     if (dpdResults.innerHTML.trim() === "") {
         dpdResults.innerHTML = startMessage;
     } 
   
-
     applySavedTheme();
     populateHistoryBody();
     loadToggleState("theme-toggle");
@@ -193,37 +164,45 @@ function decreaseFontSize() {
     saveFontSize()
 }
 
-
-
 //// enter or click button to search 
 
 searchForm.addEventListener("submit", handleFormSubmit);
 searchButton.addEventListener("submit", handleFormSubmit);
 
 //// submit search
+let isSubmitting = false; // Флаг для отслеживания состояния отправки
 
 async function handleFormSubmit(event) {
     if (event) {
         event.preventDefault();
     }
-    const searchQuery = searchBox.value;
-    if (searchQuery.trim() !== "") {
-        try {
-
-    // Закрываем выпадающий список автоподсказок (если он инициализирован)
-    if ($("#search-box").hasClass("ui-autocomplete-input")) {
-        $("#search-box").autocomplete("close");
+    
+    // Если уже выполняется, игнорируем новый вызов
+    if (isSubmitting) {
+        return;
     }
     
-         showSpinner(); 
+    const searchQuery = searchBox.value || "";
+    if (searchQuery.trim() !== "") {
+        try {
+            isSubmitting = true; // Устанавливаем флаг
+            
+            // Закрываем выпадающий список автоподсказок
+            if ($("#search-box").hasClass("ui-autocomplete-input")) {
+                $("#search-box").autocomplete("close");
+            }
+            
+            showSpinner(); 
             addToHistory(searchQuery);
+            
             // Adjust the search URL based on the current language
             let searchUrl = '/search_json';
             if (language === 'ru') {
                 searchUrl = '/ru/search_json';
             }
+            
             const response = await fetch(`${searchUrl}?q=${encodeURIComponent(searchQuery)}`);
-            const data = await response.json(); 
+            const data = await response.json();
 
             //// add the summary_html
             if (data.summary_html.trim() != "") {
@@ -272,18 +251,6 @@ async function handleFormSubmit(event) {
                 });
             };
 
-            // //// sbs example button toggle
-            // if (sbsexampleToggle.checked) {
-            //     const sbsexampleButtons = dpdDiv.querySelectorAll('[name="sbs-example-button"]');
-            //     const sbsexampleDivs = dpdDiv.querySelectorAll('[name="sbs-example-div"]');
-            //     sbsexampleButtons.forEach(button => {
-            //         button.classList.add("active");
-            //     });
-            //     sbsexampleDivs.forEach(div => {
-            //         div.classList.remove("hidden");
-            //     });
-            // };
-
             dpdResults.innerHTML = dpdDiv.innerHTML;
             dpdResultsContent = dpdDiv.innerHTML;
 
@@ -301,13 +268,7 @@ async function handleFormSubmit(event) {
                 behavior: "smooth"
             });
 
-            dpdPane.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
             // Update the URL with the search query
-            
             let url = `/?q=${encodeURIComponent(searchQuery)}`;
             if (language === 'ru') {
                 url = `/ru/?q=${encodeURIComponent(searchQuery)}`;
@@ -316,16 +277,23 @@ async function handleFormSubmit(event) {
             
         } catch (error) {
             console.error("Error fetching data:", error);
+        } finally {
+            isSubmitting = false; // Сбрасываем флаг в любом случае
         }
     } else {
-        // Clear the URL if the search query is empty
-       if (language === 'en') {
+    // Clear the URL and reset results if search query is empty
+    if (language === 'en') {
         history.pushState({ q: '' }, "", "/");
-            }
-      else if (language === 'ru') {
+    } else if (language === 'ru') {
         history.pushState({ q: '' }, "", "/ru/");
-            }       
     }
+    
+    // Reset UI to initial state
+    dpdResults.innerHTML = startMessage;
+    summaryResults.innerHTML = "";
+    hideSpinner();
+}
+    
 }
 
 //// url query param

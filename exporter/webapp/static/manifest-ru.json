@@ -1,0 +1,35 @@
+{
+  "short_name": "Dict.Dhamma.Gift Ru",
+  "name": "Digital Pali Dictionary (Русская версия)",
+  "icons": [
+    {
+      "src": "/static/dpd.ico",
+      "type": "image/x-icon",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/static/dpd-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/dpd-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/ru/",
+  "scope": "/ru/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a6da7",
+  "description": "Онлайн Пали-Русский словарь с улучшенным интерфейсом.",
+  "lang": "",
+  "share_target": {
+    "action": "/ru/",
+    "method": "GET",
+    "params": {
+      "text": "q"
+    }
+  }
+}

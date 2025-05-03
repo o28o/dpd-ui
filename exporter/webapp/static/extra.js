@@ -1,3 +1,39 @@
+
+let startMessage;
+
+function initStartMessage(lang) {
+    if (language === 'en') {
+        startMessage = `
+<p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
+<p class="message"><b>Click the table headers</b> in the grammar dictionary tables to sort.</p>
+<p class="message"><b>Double-click</b> any word to search.</p>
+<p class="message">Adjust the <b>Settings</b> as needed.</p>
+<p class="message"><b>Refresh</b> if any issues occur.</p>
+<p class="message">
+    For more information, visit: <a href="https://docs.dpdict.net/webapp/" target="_blank">Site</a> or 
+    <a href="https://docs.dpdict.net/" target="_blank">DPD in general</a>.
+</p>
+<p class="message">Try: <b>Double-click</b> words below:</p>
+<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
+`;
+    } else if (language === 'ru') {
+        startMessage = `
+<p class="message">Ищите на пали или русском с <b>Автоподсказками</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
+<p class="message"><b>Клик</b> по заголовкам таблиц в словаре грамматики для сортировки.</p>
+<p class="message"><b>Двойной клик</b> по любому слову для поиска.</p>
+<p class="message">Используйте <b>Настройки</b> для дополнительных функций.</p>
+<p class="message"><b>Обновите</b> страницу при возникновении проблем.</p>
+<p class="message">
+    Подробнее о: <a href="https://docs.dpdict.net/webapp/" target="_blank">Сайте</a> или 
+    <a href="https://docs.dpdict.net/" target="_blank">DPD в целом</a>.
+</p>
+<p class="message">Попробуйте: <b>двойной клик</b> по словам ниже:</p>
+<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
+`;
+    }
+}
+
+
   // Модифицированная функция changeLanguage
 function changeLanguage(lang) {
 
