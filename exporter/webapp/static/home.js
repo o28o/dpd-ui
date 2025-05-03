@@ -182,7 +182,7 @@ async function handleFormSubmit(event) {
         return;
     }
     
-    const searchQuery = searchBox.value || "";
+    let searchQuery = searchBox.value || "";
     
         // Очистка текста при шейринге
     if (searchQuery.includes('http://') || searchQuery.includes('https://')) {
