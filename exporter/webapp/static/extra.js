@@ -8,9 +8,9 @@ function initStartMessage(lang) {
 <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
 <p class="message"><b>Click the table headers</b> in the grammar dictionary tables to sort.</p>
 <p class="message"><b>Double-click</b> any word to search.</p>
-<p class="message">To lookup words on <b>any sites or apps</b> with Dict.DG:</p>
-<p class="message">Tap Browser menu or Share Icon → "Add to Home screen". </p>
-<p class="message">After that you can select any word and share it with Dict.DG app from the OS context menu.</p>
+<p class="message">To lookup words on <b>any sites or apps</b>:</p>
+<p class="message">Browser menu / Share Icon → "Add to Home screen". </p>
+<p class="message">After that: select the word -> tap "share" from OS context menu -> choose Dict.DG.</p>
 
 <p class="message">Adjust the <b>Settings</b> as needed.</p>
 <p class="message"><b>Refresh</b> if any issues occur.</p>
