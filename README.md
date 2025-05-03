@@ -1,5 +1,5 @@
 # Dict.Dhamma.Gift
-## Dhammma.gift edition of Dpdict.net 
+## Dhammma.gift edition of Dpdict.net interface
 
 This interface used as a full mode popup dictionary in Dhamma.gift Read. e.g. https://dhamma.gift/mn150
 
