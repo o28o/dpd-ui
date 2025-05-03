@@ -89,13 +89,13 @@ function updateLink(linkId, baseUrl) {
 
 // Обработчик ввода в поисковой строке
 searchBoxForFooter.addEventListener('input', () => {
-  updateLink('fdg-link', 'https://dhamma.gift?p=-kn');
-  updateLink('dpd-link', 'https://dpdict.net');
+  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
+  updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
 });
 
 // Инициализация ссылок при загрузке
-updateLink('fdg-link', 'https://dhamma.gift?p=-kn');
-updateLink('dpd-link', 'https://dpdict.net');
+  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
+updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
 //ссылки в футере конец
 
 /* первый вариант

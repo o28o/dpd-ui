@@ -99,8 +99,8 @@ ENDPOINTS = {
         "search_path": "/search_json"
     },
     "ru": {
-        "base_url": "https://dpdict.net",
-        "search_path": "/ru/search_json"
+        "base_url": "https://ru.dpdict.net",
+        "search_path": "/search_json"
     }
 }
 
