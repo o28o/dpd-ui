@@ -1,11 +1,11 @@
 # Dict.Dhamma.Gift
-## Dhammma.gift edition of Dpdict.net 
+## Dhammma.gift edition of Dpdict.net interface
 
 This interface used as a full mode popup dictionary in Dhamma.gift Read. e.g. https://dhamma.gift/mn150
 
 settings gear -> popup dictionary -> DPD online -> apply
 
-or as a standalone site https://dict.dhamma.gift for those who prefer minimalistic or mobile friendly ui
+or as a standalone site https://dict.dhamma.gift for those who need it's unique features, prefer mobile friendly or minimalistic ui.
 
 List of improvements:
 
@@ -15,12 +15,15 @@ List of improvements:
 4. added autoscroll and highlight word from example links if text is opened on dhamma.gift
 5. added sortable table for grammar dict on the client side
 6. transform history pane amd settings pane into collapsible/expandable button on mobile breakpoints.
-7. extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
-8. spinner while waiting for results in site mode
+7. added extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
+8. added spinner while waiting for results in site mode
 9. auto replace links to DG hosted tbw on the client side
 10. clickable logo and site name on main page desktop and talbet leading to / or /ru/ — acts like clear button.
-11. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
-12. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
+11. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
+13. added protection against repeated form submits
+14. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
+
+
 
 
 
