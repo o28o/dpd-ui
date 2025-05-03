@@ -183,6 +183,18 @@ async function handleFormSubmit(event) {
     }
     
     const searchQuery = searchBox.value || "";
+    
+        // Очистка текста при шейринге
+    if (searchQuery.includes('http://') || searchQuery.includes('https://')) {
+        // Берем только первое слово до пробела/URL
+        searchQuery = searchQuery.split(/\s+/)[0];
+    }
+    
+    // Удаляем все кавычки (двойные и одинарные)
+    searchQuery = searchQuery.replace(/["']/g, '');
+
+    
+    
     if (searchQuery.trim() !== "") {
         try {
             isSubmitting = true; // Устанавливаем флаг
