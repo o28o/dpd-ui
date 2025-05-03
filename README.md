@@ -15,8 +15,8 @@ List of improvements:
 4. added autoscroll and highlight word from example links if text is opened on dhamma.gift
 5. added sortable table for grammar dict on the client side
 6. transform history pane amd settings pane into collapsible/expandable button on mobile breakpoints.
-7. extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
-8. spinner while waiting for results in site mode
+7. added extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
+8. added spinner while waiting for results in site mode
 9. auto replace links to DG hosted tbw on the client side
 10. clickable logo and site name on main page desktop and talbet leading to / or /ru/ — acts like clear button.
 11. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
