@@ -5,7 +5,7 @@ This interface used as a full mode popup dictionary in Dhamma.gift Read. e.g. ht
 
 settings gear -> popup dictionary -> DPD online -> apply
 
-or as a standalone site https://dict.dhamma.gift for those who prefer minimalistic or mobile friendly ui
+or as a standalone site https://dict.dhamma.gift for those who need it's unique features, prefer mobile friendly or minimalistic ui.
 
 List of improvements:
 
