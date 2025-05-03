@@ -9,7 +9,7 @@ function initStartMessage(lang) {
 <p class="message"><b>Click the table headers</b> in the grammar dictionary tables to sort.</p>
 <p class="message"><b>Double-click</b> any word to search.</p>
 <p class="message">To lookup words on <b>any sites or apps</b>:</p>
-<p class="message">Browser menu / Share Icon → "Add to Home screen". </p>
+<p class="message">Chrome Mobile menu → "Add to Home screen" -> Install. </p>
 <p class="message">After that: select the word -> tap "share" from OS context menu -> choose Dict.DG.</p>
 
 <p class="message">Adjust the <b>Settings</b> as needed.</p>
@@ -28,7 +28,7 @@ function initStartMessage(lang) {
 <p class="message"><b>Клик</b> по заголовкам таблиц в словаре грамматики для сортировки.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска.</p>
 <p class="message">Чтобы использовать словарь <b>на любых сайтах и в приложениях</b>:</p>
-<p class="message">Меню браузера / Иконка Поделиться → "Добавить на главный экран". </p>
+<p class="message">Меню Chrome Mobile → "Добавить на главный экран" -> Install. </p>
 <p class="message">После этого: выбрать слово -> в контекстном меню ОС нажать "поделиться" -> выбрать Dict.DG.</p>
 
 <p class="message">Используйте <b>Настройки</b> для дополнительных функций.</p>
