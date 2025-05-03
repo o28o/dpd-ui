@@ -21,7 +21,7 @@
   "description": "Онлайн Пали-Русский словарь с улучшенным интерфейсом.",
   "lang": "",
   "share_target": {
-    "action": "/ru/",
+    "action": "/ru/search_html",
     "method": "GET",
     "params": {
       "text": "q"
