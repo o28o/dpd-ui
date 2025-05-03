@@ -5,17 +5,12 @@
     {
       "src": "/static/dpd.ico",
       "type": "image/x-icon",
-      "sizes": "64x64"
+      "sizes": "16x16"
     },
     {
-      "src": "/static/dpd-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/static/dpd-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "/static/dpd-logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"  
     }
   ],
   "start_url": "/",
