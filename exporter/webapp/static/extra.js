@@ -6,7 +6,7 @@ function initStartMessage(lang) {
     if (language === 'en') {
         startMessage = `
 <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
-<p class="message"><b>Click the table headers</b> in the grammar dictionary tables to sort.</p>
+<p class="message"><b>Click the grammar table</b> in Grammar Dictionary seciton. it'll become sortable.</p>
 <p class="message"><b>Double-click</b> any word to search.</p>
 <p class="message">To lookup words on <b>any sites or apps</b>:</p>
 <p class="message">Chrome Mobile menu → "Add to Home screen" → Install. </p>
@@ -25,7 +25,7 @@ function initStartMessage(lang) {
     } else if (language === 'ru') {
         startMessage = `
 <p class="message">Ищите на пали или русском с <b>Автоподсказками</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
-<p class="message"><b>Клик</b> по заголовкам таблиц в словаре грамматики для сортировки.</p>
+<p class="message"><b>Клик по грамматической таблице</b> в разделе Словарь Грамматики, делает таблицу сортируемойвки.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска.</p>
 <p class="message">Чтобы использовать словарь <b>на любых сайтах и в приложениях</b>:</p>
 <p class="message">Меню Chrome Mobile → "Добавить на главный экран" → Install. </p>
