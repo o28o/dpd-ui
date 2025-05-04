@@ -11,7 +11,7 @@ function initStartMessage(lang) {
 <p class="message">To lookup words on <b>any sites or apps</b>:</p>
 <p class="message">Chrome Mobile menu → "Add to Home screen" → Install. </p>
 <p class="message">After that: select the word → tap "share" from OS context menu → choose Dict.DG.</p>
-<p class="message"><b>Use footer links</b> to search word in Suttas at Dhamma.gift or open it in Dpdict.net</p>
+<p class="message"><b>Use footer links</b> to search word in Suttas at Dhamma.Gift or open it in Dpdict.net</p>
 
 <p class="message">Adjust the <b>Settings</b> as needed.</p>
 <p class="message"><b>Refresh</b> if any issues occur.</p>
@@ -31,7 +31,7 @@ function initStartMessage(lang) {
 <p class="message">Чтобы использовать словарь <b>на любых сайтах и в приложениях</b>:</p>
 <p class="message">Меню Chrome Mobile → "Добавить на главный экран" → Install. </p>
 <p class="message">После этого: выбрать слово → в контекстном меню ОС нажать "поделиться" → выбрать Dict.DG.</p>
-<p class="message"><b>Используйте ссылки в футере</b> для поиска слова в Суттах через Dhamma.gift или, чтобы открыть слово на Dpdict.net</p>
+<p class="message"><b>Используйте ссылки в футере</b> для поиска слова в Суттах через Dhamma.Gift или, чтобы открыть слово на Dpdict.net</p>
 
 <p class="message">Используйте <b>Настройки</b> для дополнительных функций.</p>
 <p class="message"><b>Обновите</b> страницу при возникновении проблем.</p>
