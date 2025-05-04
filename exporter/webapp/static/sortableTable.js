@@ -14,8 +14,6 @@
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         
-let tableHeaders; // Объявляем переменную заранее
-
 const urlLanguage = window.location.pathname.split('/')[1];
 const lang = language || (urlLanguage === 'ru' ? 'ru' : 'en');
 
