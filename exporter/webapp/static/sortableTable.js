@@ -16,11 +16,12 @@
         
 let tableHeaders; // Объявляем переменную заранее
 
-if (language === 'en') {
-    tableHeaders = ['pos⇅', '⇅', '⇅', '⇅', 'of', 'word⇅'];
-} else if (language === 'ru') {
-    tableHeaders = ['ЧР⇅', '⇅', '⇅', '⇅', 'от', 'слово⇅']; 
-}
+const urlLanguage = window.location.pathname.split('/')[1];
+const lang = language || (urlLanguage === 'ru' ? 'ru' : 'en');
+
+const tableHeaders = lang === 'ru' 
+    ? ['ЧР⇅', '⇅', '⇅', '⇅', 'от', 'слово⇅']
+    : ['pos⇅', '⇅', '⇅', '⇅', 'of', 'word⇅'];
         
         tableHeaders.forEach(text => {
             const th = document.createElement('th');
