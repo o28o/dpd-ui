@@ -8,8 +8,7 @@ function initStartMessage(lang) {
 <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
 <p class="message"><b>Click the table</b> in Grammar Dictionary seciton. it'll become sortable.</p>
 <p class="message"><b>Double-click</b> any word to search.</p>
-<p class="message">To lookup words on <b>any sites or apps</b>:</p>
-<p class="message">Chrome Mobile menu → "Add to Home screen" → Install. </p>
+<p class="message">To lookup words on <b>any sites or apps</b>: Chrome Mobile menu → "Add to Home screen" → Install.</p>
 <p class="message">After that: select the word → tap "share" from OS context menu → choose Dict.DG.</p>
 <p class="message"><b>Use footer links</b> to search word in Suttas at Dhamma.Gift or open it in Dpdict.net</p>
 
@@ -28,8 +27,7 @@ function initStartMessage(lang) {
 <p class="message">Ищите на пали или русском с <b>Автоподсказками</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
 <p class="message"><b>Клик по таблице</b> в разделе Словарь Грамматики делает таблицу сортируемой.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска.</p>
-<p class="message">Чтобы использовать словарь <b>на любых сайтах и в приложениях</b>:</p>
-<p class="message">Меню Chrome Mobile → "Добавить на главный экран" → Install. </p>
+<p class="message">Чтобы использовать словарь <b>на любых сайтах и в приложениях</b>: Меню Chrome Mobile → "Добавить на главный экран" → Install. </p>
 <p class="message">После этого: выбрать слово → в контекстном меню ОС нажать "поделиться" → выбрать Dict.DG.</p>
 <p class="message"><b>Используйте ссылки в футере</b> для поиска слова в Суттах через Dhamma.Gift или, чтобы открыть слово на Dpdict.net</p>
 
