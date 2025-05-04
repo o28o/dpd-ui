@@ -1,43 +1,36 @@
 
 let startMessage;
 //<p class="message"><a class="installButton" >Install Dict.DG</a> to enable lookup by sharing words from any site of app</p>
+//<p class="message">
+//    More info: <a href="https://docs.dpdict.net/webapp/" target="_blank">Site</a> or 
+//    <a href="https://docs.dpdict.net/" target="_blank">DPD in general</a>.
+//</p>
+
 
 function initStartMessage(lang) {
     if (language === 'en') {
         startMessage = `
-<p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b>, or <b>Velthuis</b>.</p>
-<p class="message"><b>Click the table</b> in Grammar Dictionary seciton. it'll become sortable.</p>
-<p class="message"><b>Double-click</b> any word to search.</p>
-<p class="message">To lookup words on <b>any sites or apps</b>: Chrome Mobile menu → "Add to Home screen" → Install.</p>
-<p class="message">After that: select the word → tap "share" from OS context menu → choose Dict.DG.</p>
-<p class="message"><b>Use footer links</b> to search word in Suttas at Dhamma.Gift or open it in Dpdict.net</p>
+<p class="message">Search in Pāḷi or English using <b>Autocomplete</b> or <b>Velthuis</b>.</p>
+<p class="message"><b>Click the table</b> in Grammar Dictionary. it'll become sortable.</p>
+<p class="message"><b>Lookup words on any sites or apps</b>: Chrome Mobile menu → "Add to Home screen" → Install.</p>
+<p class="message">Then: select the word → and "share" it with Dict.DG app from OS context menu.</p>
+<p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - open Dpdict.net</p>
 
-<p class="message">Adjust the <b>Settings</b> as needed.</p>
-<p class="message"><b>Refresh</b> if any issues occur.</p>
-<p class="message">
-    For more information, visit: <a href="https://docs.dpdict.net/webapp/" target="_blank">Site</a> or 
-    <a href="https://docs.dpdict.net/" target="_blank">DPD in general</a>.
-</p>
-<p class="message">Try: <b>Double-click</b> words below:</p>
+<p class="message">Adjust <b>Settings</b> as needed. <b>Refresh</b> if issues occur.</p>
+<p class="message"><b>Double-click</b> any word to search. e.g. words below:</p>
 <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
 
 `;
     } else if (language === 'ru') {
         startMessage = `
-<p class="message">Ищите на пали или русском с <b>Автоподсказками</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
-<p class="message"><b>Клик по таблице</b> в разделе Словарь Грамматики делает таблицу сортируемой.</p>
-<p class="message"><b>Двойной клик</b> по любому слову для поиска.</p>
-<p class="message">Чтобы использовать словарь <b>на любых сайтах и в приложениях</b>: Меню Chrome Mobile → "Добавить на главный экран" → Install. </p>
-<p class="message">После этого: выбрать слово → в контекстном меню ОС нажать "поделиться" → выбрать Dict.DG.</p>
-<p class="message"><b>Используйте ссылки в футере</b> для поиска слова в Суттах через Dhamma.Gift или, чтобы открыть слово на Dpdict.net</p>
+<p class="message">Ищите на пали или русском с <b>Автоподсказками</b> или <b>Velthuis</b>.</p>
+<p class="message"><b>Клик по таблице</b> в Словаре Грамматики делает таблицу сортируемой.</p>
+<p class="message"><b>Переводите слова на любых сайтов и в приложениях</b>: Меню Chrome Mobile → "Добавить на главный экран" → Install. </p>
+<p class="message">После: выделите слово → ОС меню "поделиться" → выберите Dict.DG.</p>
+<p class="message"><b>Ссылки в футере</b> DG - поиск слова в Суттах, DPD - открыть Dpdict.net</p>
 
-<p class="message">Используйте <b>Настройки</b> для дополнительных функций.</p>
-<p class="message"><b>Обновите</b> страницу при возникновении проблем.</p>
-<p class="message">
-    Подробнее о: <a href="https://docs.dpdict.net/webapp/" target="_blank">Сайте</a> или 
-    <a href="https://docs.dpdict.net/" target="_blank">DPD в целом</a>.
-</p>
-<p class="message">Попробуйте: <b>двойной клик</b> по словам ниже:</p>
+<p class="message">Используйте <b>Настройки</b> для дополнительных функций. <b>Обновите</b> страницу при возникновении проблем.</p>
+<p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру:</p>
 <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
 `;
     }
