@@ -937,3 +937,61 @@ align-items: center;
     transform: translate(-50%, -50%);
     z-index: 100;
 }
+
+
+/* More Hide */ 
+
+  .message-container {
+    max-width: 600px; /* Можно настроить под ваш дизайн */
+    margin: 0 auto;
+  }
+
+  .toggle-checkbox {
+    display: none;
+  }
+  
+  .collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .toggle-checkbox:checked ~ .collapsible {
+    max-height: 500px; /* Достаточно для контента */
+  }
+  
+  .toggle-button-container {
+    text-align: right; /* Кнопка справа под текстом */
+    margin-top: 8px;
+  }
+  
+  .toggle-button {
+    display: inline-block;
+    cursor: pointer;
+    color: #0066cc;
+    font-size: 14px;
+    padding: 4px 8px;
+    background: none;
+    border: none;
+    text-decoration: none;
+  }
+  
+  .toggle-button:hover {
+    text-decoration: underline;
+  }
+  
+  /* Переключение текста кнопки */
+  .hide-text {
+    display: none;
+  }
+  .more-text {
+    display: inline;
+  }
+  
+  .toggle-checkbox:checked ~ .toggle-button-container .more-text {
+    display: none;
+  }
+  .toggle-checkbox:checked ~ .toggle-button-container .hide-text {
+    display: inline;
+  }
+

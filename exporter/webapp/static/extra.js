@@ -10,28 +10,54 @@ let startMessage;
 function initStartMessage(lang) {
     if (language === 'en') {
         startMessage = `
-<p class="message">Search in Pāḷi or English using <b>Autocomplete</b> or <b>Velthuis</b>.</p>
-<p class="message"><b>Click the table</b> in Grammar Dictionary. it'll become sortable.</p>
-<p class="message"><b>Lookup words on any sites or apps</b>: Chrome Mobile menu → "Add to Home screen" → Install.</p>
-<p class="message">Then: select the word → and "share" it with Dict.DG app from OS context menu.</p>
-<p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - open Dpdict.net</p>
+<div class="message-container">
+  <div class="messages-content">
+    <p class="message">Search in Pāḷi using <b>Autocomplete</b> or <b>Velthuis</b>, or use English.</p>
+    <p class="message"><b>Click the Grammar Dictionary table</b> and it'll become sortable.</p>
+    <p class="message"><b>Lookup words on any sites or apps</b>: Chrome Mobile menu → "Add to Home screen" → Install. Then: select the word → in OS "share" menu choose Dict.DG.</p>
+  </div>
 
-<p class="message">Adjust <b>Settings</b> as needed. <b>Refresh</b> if issues occur.</p>
-<p class="message"><b>Double-click</b> any word to search. e.g. words below:</p>
-<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
-
+  <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
+  
+  <div class="collapsible">
+    <p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - on Dpdict.net</p>
+    <p class="message">Adjust <b>Settings</b> as needed. <b>Refresh</b> page if issues occur.</p>
+    <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
+  </div>
+  
+  <div class="toggle-button-container">
+    <label for="toggle-messages" class="toggle-button">
+      <span class="more-text">More</span>
+      <span class="hide-text">Hide</span>
+    </label>
+  </div>
+</div>
 `;
     } else if (language === 'ru') {
         startMessage = `
-<p class="message">Ищите на пали или русском с <b>Автоподсказками</b> или <b>Velthuis</b>.</p>
-<p class="message"><b>Клик по таблице</b> в Словаре Грамматики делает таблицу сортируемой.</p>
-<p class="message"><b>Переводите слова на любых сайтов и в приложениях</b>: Меню Chrome Mobile → "Добавить на главный экран" → Install. </p>
-<p class="message">После: выделите слово → ОС меню "поделиться" → выберите Dict.DG.</p>
-<p class="message"><b>Ссылки в футере</b> DG - поиск слова в Суттах, DPD - открыть Dpdict.net</p>
+        <div class="message-container">
+  <div class="messages-content">
+<p class="message">Ищите на пали с <b>Автоподсказками</b> или <b>Velthuis</b>, или русском .</p>
+<p class="message"><b>Кликните по таблице</b> в Словаре Грамматики, её можно сортировать.</p>
+<p class="message"><b>Переводите слова на любых сайтов и в приложениях</b>: Меню Chrome Mobile → "Добавить на главную" → Install. Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
+  </div>
 
-<p class="message">Используйте <b>Настройки</b> для дополнительных функций. <b>Обновите</b> страницу при возникновении проблем.</p>
-<p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру:</p>
-<p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
+  <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
+  
+  <div class="collapsible">
+<p class="message"><b>Ссылки в футере</b> DG - поиск слова в Суттах, DPD - на Dpdict.net</p>
+<p class="message">Попробуйте разные <b>Настройки</b>. При возникновении проблем <b>Обновите</b> страницу.</p>
+<p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру: kāmarāgapariyuṭṭhitena мир kar gacchatīti Root✓</p>
+  </div>
+  
+  <div class="toggle-button-container">
+    <label for="toggle-messages" class="toggle-button">
+      <span class="more-text">Ещё</span>
+      <span class="hide-text">Скрыть</span>
+    </label>
+  </div>
+</div>
+
 `;
     }
 }
