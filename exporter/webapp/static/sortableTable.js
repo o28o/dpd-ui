@@ -14,12 +14,12 @@
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         
-const urlLanguage = window.location.pathname.split('/')[1];
-const lang = language || (urlLanguage === 'ru' ? 'ru' : 'en');
+    const urlLanguage = window.location.pathname.split('/')[1];
+    const lang = urlLanguage === 'ru' ? 'ru' : 'en';
 
-const tableHeaders = lang === 'ru' 
-    ? ['ЧР⇅', '⇅', '⇅', '⇅', 'от', 'слово⇅']
-    : ['pos⇅', '⇅', '⇅', '⇅', 'of', 'word⇅'];
+    const tableHeaders = lang === 'ru' 
+        ? ['ЧР⇅', '⇅', '⇅', '⇅', 'от', 'слово⇅']
+        : ['pos⇅', '⇅', '⇅', '⇅', 'of', 'word⇅'];
         
         tableHeaders.forEach(text => {
             const th = document.createElement('th');
