@@ -30,10 +30,10 @@
   "shortcuts": [
         {
       "name": "Dhamma.Gift",
-      "url": "https://Dhamma.Gift/ru/",
+      "url": "/ru/static/openDG.html",
       "icons": [
         {
-          "src": "/static/dpd-dark-icon.svg",
+          "src": "/static/dg_icon_white-192.png",
           "type": "image/svg+xml",
           "sizes": "192x192"
         }
