@@ -968,7 +968,7 @@ align-items: center;
   .toggle-button {
     display: inline-block;
     cursor: pointer;
-    color: #0066cc;
+    color: var(--primary);
     font-size: 14px;
     padding: 4px 8px;
     background: none;
