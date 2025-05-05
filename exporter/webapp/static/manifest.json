@@ -26,5 +26,18 @@
     "params": {
       "text": "q"
     }
-  }
+  },
+  "shortcuts": [
+    {
+      "name": "DPD Russian",
+      "url": "/ru/",
+      "icons": [
+        {
+          "src": "/static/dpd-dark-icon.svg",
+          "type": "image/svg+xml",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
