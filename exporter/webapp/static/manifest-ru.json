@@ -14,7 +14,7 @@
     }
   ],
   "start_url": "/ru/",
-  "scope": "/ru/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4a6da7",
@@ -42,7 +42,7 @@
 	
 	{
       "name": "DPD Англ",
-      "url": "https://Dict.Dhamma.Gift/",
+      "url": "/",
       "icons": [
         {
           "src": "/static/dpd-dark-icon.svg",
