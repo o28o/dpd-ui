@@ -1,6 +1,6 @@
 {
   "short_name": "Dict.Dhamma.Gift Ru",
-  "name": "Digital Pali Dictionary (Русская версия)",
+  "name": "DPD Русская версия",
   "icons": [
     {
       "src": "/static/dpd.ico",
@@ -26,5 +26,18 @@
     "params": {
       "text": "q"
     }
-  }
+  },
+  "shortcuts": [
+    {
+      "name": "DPD Англ",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/static/dpd-dark-icon.svg",
+          "type": "image/svg+xml",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
