@@ -29,6 +29,17 @@
   },
   "shortcuts": [
     {
+      "name": "Dhamma.Gift",
+      "url": "https://Dhamma.Gift",
+      "icons": [
+        {
+          "src": "/static/dpd-dark-icon.svg",
+          "type": "image/svg+xml",
+          "sizes": "192x192"
+        }
+      ]
+    },
+	    {
       "name": "DPD Russian",
       "url": "/ru/",
       "icons": [
