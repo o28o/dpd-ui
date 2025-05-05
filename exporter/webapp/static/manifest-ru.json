@@ -1,6 +1,6 @@
 {
-  "short_name": "Dict.Dhamma.Gift Ru",
-  "name": "DPD Русская версия",
+  "short_name": "DGift DPD Ru",
+  "name": "DPD Русский версия Dhamma.Gift с улучшениями UI",
   "icons": [
     {
       "src": "/static/dpd.ico",
