@@ -354,11 +354,29 @@ document.addEventListener('click', function(event) {
   let newUrl = link.href;
 
   // 1. Замена домена для старых ссылок
-  if (isOldSite) {
+// 1. Замена домена для старых ссылок
+if (isOldSite) {
+  // Регулярное выражение для поиска сутт (MN, DN, SN, AN) с диапазонами или без
+  const suttaMatch = newUrl.match(/\/(mn|dn|sn|an|dhp)([^\/]+?)\.html$/i);
+  
+  if (suttaMatch) {
+    const suttaType = suttaMatch[1].toLowerCase(); // mn, dn, sn или an
+    const suttaNum = suttaMatch[2]; // номер сутты (может быть "1.1-10", "6.63", "14" и т.д.)
+    const suttaCode = suttaType + suttaNum; // например "an1.1-10", "mn57", "sn1.1"
+    
+    // Проверяем текущий URL страницы на наличие /ru/
+    if (window.location.href.includes('/ru/')) {
+      newUrl = `https://dhamma.gift/r/?q=${suttaCode}`; // Добавили https://
+    } else {
+      newUrl = `https://dhamma.gift/read/?q=${suttaCode}`; // Добавили https://
+    }
+  } else {
+    // Обычная замена для не-сутт
     newUrl = newUrl
-      .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
-      .replace('thebuddhaswords.net', 'dhamma.gift/bw');
+      .replace('www.thebuddhaswords.net', 'dhamma.gift/bw') // Добавили https://
+      .replace('thebuddhaswords.net', 'dhamma.gift/bw'); // Добавили https://
   }
+}
 
   // 2. Определение параметра s
   let sParam = '';
