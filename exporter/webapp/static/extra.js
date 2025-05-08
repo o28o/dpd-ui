@@ -340,12 +340,13 @@ if (typeof changeLanguage === 'function') {
 });
 
 // Вешаем обработчик на document (не на ссылки!)
+// Вешаем обработчик на document (не на ссылки!)
 document.addEventListener('click', function(event) {
   const link = event.target.closest('a');
   if (!link || !link.href) return;
 
   // Проверяем, нужно ли обрабатывать эту ссылку
-  const isSuttaLink = link.classList.contains('sutta_link');
+  const isSuttaLink = link.classList.contains('sutta_link') || link.closest('.sutta'); // Добавили проверку на родителя с классом sutta
   const isOldSite = link.href.includes('thebuddhaswords.net');
   
   if (!isSuttaLink && !isOldSite) return;
@@ -354,29 +355,28 @@ document.addEventListener('click', function(event) {
   let newUrl = link.href;
 
   // 1. Замена домена для старых ссылок
-// 1. Замена домена для старых ссылок
-if (isOldSite) {
-  // Регулярное выражение для поиска сутт (MN, DN, SN, AN) с диапазонами или без
-  const suttaMatch = newUrl.match(/\/(mn|dn|sn|an|dhp)([^\/]+?)\.html$/i);
-  
-  if (suttaMatch) {
-    const suttaType = suttaMatch[1].toLowerCase(); // mn, dn, sn или an
-    const suttaNum = suttaMatch[2]; // номер сутты (может быть "1.1-10", "6.63", "14" и т.д.)
-    const suttaCode = suttaType + suttaNum; // например "an1.1-10", "mn57", "sn1.1"
+  if (isOldSite) {
+    // Регулярное выражение для поиска сутт (MN, DN, SN, AN) с диапазонами или без
+    const suttaMatch = newUrl.match(/\/(mn|dn|sn|an|dhp|snp|ud)([^\/]+?)\.html$/i);
     
-    // Проверяем текущий URL страницы на наличие /ru/
-    if (window.location.href.includes('/ru/')) {
-      newUrl = `https://dhamma.gift/r/?q=${suttaCode}`; // Добавили https://
+    if (suttaMatch) {
+      const suttaType = suttaMatch[1].toLowerCase();
+      const suttaNum = suttaMatch[2];
+      const suttaCode = suttaType + suttaNum;
+      
+      // Проверяем текущий URL страницы на наличие /ru/
+      if (window.location.href.includes('/ru/')) {
+        newUrl = `https://dhamma.gift/r/?q=${suttaCode}`;
+      } else {
+        newUrl = `https://dhamma.gift/read/?q=${suttaCode}`;
+      }
     } else {
-      newUrl = `https://dhamma.gift/read/?q=${suttaCode}`; // Добавили https://
+      // Обычная замена для не-сутт
+      newUrl = newUrl
+        .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
+        .replace('thebuddhaswords.net', 'dhamma.gift/bw');
     }
-  } else {
-    // Обычная замена для не-сутт
-    newUrl = newUrl
-      .replace('www.thebuddhaswords.net', 'dhamma.gift/bw') // Добавили https://
-      .replace('thebuddhaswords.net', 'dhamma.gift/bw'); // Добавили https://
   }
-}
 
   // 2. Определение параметра s
   let sParam = '';
@@ -411,6 +411,8 @@ if (isOldSite) {
 
   window.location.href = newUrl;
 });
+
+
 // улучшенные функции двойных кликов и табов.
 
 dpdPane.addEventListener("dblclick", processSelection);
