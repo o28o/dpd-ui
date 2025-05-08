@@ -49,29 +49,33 @@ technically it is a modified dpd-db repo where dpdict.net is used as backend ins
 
 files added to original exporter/webapp/static
 
+├── extrastyles.css
+├── jquery-ui.css
+├── jquery-ui.min.css
+
+├── openDG.html
 
 ├── autopali.js
-├── circle-notch.svg
-├── clock-rotate-left.svg
+├── extra.js
+├── jquery-3.7.0.min.js
+├── jquery-ui.js
+├── jquery-ui.min.js
+├── sortableTable.js
+├── sw.js
+
+├── manifest-ru.json
+├── manifest.json
+
+├── sutta_words.txt
+
 ├── dg_icon_white-192-diamond.png
 ├── dg_icon_white-192-fullLogo.png
-├── dg_icon_white-192.png -> dg_icon_white-192-diamond.png
-├── extra.js
-├── extrastyles.css
+├── circle-notch.svg
+├── clock-rotate-left.svg
 ├── gear.svg
 ├── globe.svg
-├── jquery-3.7.0.min.js
-├── jquery-ui.css
-├── jquery-ui.js
-├── jquery-ui.min.css
-├── jquery-ui.min.js
 ├── magnifying-glass.svg
-├── manifest.json
-├── manifest-ru.json
-├── openDG.html
-├── sortableTable.js
-├── sutta_words.txt
-└── sw.js
+└── dg_icon_white-192.png -> dg_icon_white-192-diamond.png
 
 and 
 
