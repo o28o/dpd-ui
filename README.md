@@ -1,11 +1,11 @@
 # Dict.Dhamma.Gift
-## Dhammma.gift edition of Dpdict.net interface
+## Dhamma.gift edition of Dpdict.net interface
 
-This interface used as a full mode popup dictionary in Dhamma.gift Read. e.g. https://dhamma.gift/mn150
+This interface used as a full mode popup dictionary on Dhamma.gift Read. 
+e.g. open https://dhamma.gift/mn150
+tap: settings (gear) -> popup dictionary -> DPD online -> apply
 
-settings gear -> popup dictionary -> DPD online -> apply
-
-or as a standalone site https://dict.dhamma.gift for those who need it's unique features, prefer mobile friendly or minimalistic ui.
+or as a standalone site https://dict.dhamma.gift for those who need it's unique features, need mobile friendly or minimalistic ui.
 
 List of improvements:
 
@@ -47,7 +47,7 @@ List of improvements:
 
 technically it is a modified dpd-db repo where dpdict.net is used as backend instead of direct calls to dpd-db.
 
-files added to original exporter/webapp/static
+Following files added to original exporter/webapp/static
 
 ├── extrastyles.css
 ├── jquery-ui.css
@@ -87,5 +87,15 @@ and
 
 ├── home.js is modified
 
-main.py, home.html and home_simple.html are modified (in both templates and ru_templates)
+
+
+in exporter/webapp/templates and exporter/webapp/ru_templates
+├── home.html are modified
+├── home_simple.html are modified 
+
+modified in both folders
+
+exporter/webapp/
+├── main.py is heavily modified for the frontend functionality
+
  
