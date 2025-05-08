@@ -53,7 +53,9 @@ files added to original exporter/webapp/static
 ├── jquery-ui.css
 ├── jquery-ui.min.css
 
+
 ├── openDG.html
+
 
 ├── autopali.js
 ├── extra.js
@@ -63,10 +65,13 @@ files added to original exporter/webapp/static
 ├── sortableTable.js
 ├── sw.js
 
+
 ├── manifest-ru.json
 ├── manifest.json
 
+
 ├── sutta_words.txt
+
 
 ├── dg_icon_white-192-diamond.png
 ├── dg_icon_white-192-fullLogo.png
@@ -76,6 +81,7 @@ files added to original exporter/webapp/static
 ├── globe.svg
 ├── magnifying-glass.svg
 └── dg_icon_white-192.png -> dg_icon_white-192-diamond.png
+
 
 and 
 
