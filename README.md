@@ -10,24 +10,20 @@ or as a standalone site https://dict.dhamma.gift for those who need it's unique 
 List of improvements:
 
 1. added sortable table for grammar dict on the client side 
-2. added autoscroll and highlight word from example links if text is opened on dhamma.gift 
-3. autocomplete pali words in search bar
-4. lookup words from any apps using share from context menu. if app installed as PWA. (chrome mobile -> menu -> add to home screen)
-5. "clear" button added to search bar
-6. autofocus on search bar on page load
-7. transform history pane amd settings pane into collapsible/expandable button on mobile breakpoints.
-8. added extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
-9. added spinner while waiting for results in site mode
-10. auto replace links to DG hosted tbw on the client side
-11. clickable logo and site name on main page desktop and talbet leading to / or /ru/ — acts like clear button.
-12. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
-13. added protection against repeated form submits
-14. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
-
-
-
-
-
+2. example links opened on Dhamma.gift with word from example highlighted and with autoscroll to the first match. added for mn dn sn an dhp snp ud  
+3. type with autocomplete pali words in search bar
+4. PWA lookup words from any apps using share from context menu, if app installed as PWA. (chrome mobile -> menu -> add to home screen)
+5. PWA shortcuts (long press installed app icon on Home screen) for quick access to Dhamma.gift and Russian/English version of Dict.Dhamma.Gift
+6. type / to bring up autofocus on search bar. also autofocus added on page load 
+7. "clear" button added to search bar
+8. transform history pane amd settings pane into collapsible/expandable button on mobile breakpoints.
+9. added extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
+10. added spinner while waiting for results in site mode
+11. auto replace links to DG hosted tbw on the client side
+12. clickable logo and site name on main page desktop and talbet leading to / or /ru/ — acts like clear button.
+13. disabled slow 1s transition of the dark/light theme for popup mode as it makes popup load look glitchy
+14. added protection against repeated form submits
+15. other improvements mostly on css side to make site mobile user friendly. Related to input sizes and saving extra space
 
 ## installation 
 
