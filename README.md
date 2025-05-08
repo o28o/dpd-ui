@@ -16,7 +16,7 @@ List of improvements:
 5. PWA shortcuts (long press installed app icon on Home screen) for quick access to Dhamma.gift and Russian/English version of Dict.Dhamma.Gift
 6. type / to bring up autofocus on search bar. also autofocus added on page load 
 7. "clear" button added to search bar
-8. transform history pane amd settings pane into collapsible/expandable button on mobile breakpoints.
+8. transform history pane and settings pane into collapsible/expandable button on mobile breakpoints.
 9. added extra links in the footer to open current search term on dhamma.gift sutta search and on dpdict.net
 10. added spinner while waiting for results in site mode
 11. auto replace links to DG hosted tbw on the client side
