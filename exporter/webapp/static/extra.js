@@ -340,7 +340,6 @@ if (typeof changeLanguage === 'function') {
 });
 
 // Вешаем обработчик на document (не на ссылки!)
-// Вешаем обработчик на document (не на ссылки!)
 document.addEventListener('click', function(event) {
   const link = event.target.closest('a');
   if (!link || !link.href) return;
