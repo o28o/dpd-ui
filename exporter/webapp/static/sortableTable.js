@@ -64,7 +64,7 @@ document.addEventListener('click', function(event) {
   // 3. Добавляем параметр s (если есть значение)
   if (sParam) {
     const separator = newUrl.includes('?') ? '&' : '?';
-    newUrl += `${separator}s=${encodeURIComponent(sParam.replace(/ṃ/g, "ṁ"))}`;
+    newUrl += `${separator}s=${encodeURIComponent(sParam.replace(/ṃ/g, "ṁ").replace(/'/g, ""))}`;
   }
 
   window.location.href = newUrl;
