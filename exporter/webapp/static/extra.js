@@ -397,34 +397,47 @@ if (typeof changeLanguage === 'function') {
 
 
 // улучшенные функции двойных кликов и табов.
-// Основная функция обработки выделения
+// Общая функция обработки выделения
 function processSelection(event) {
-    if (event.target.closest('th')) {
-        return;
-    }
+    if (event.target.closest('th')) return;
 
     const selection = window.getSelection().toString().trim();
-    if (selection) {
-        searchBox.value = selection;
-        handleFormSubmit();
-        
-        // Добавляем в историю только если нужно
-        if (history.pushState) {
-            history.pushState({ selectedText: selection }, "", `#${encodeURIComponent(selection)}`);
-        }
+    if (!selection) return;
+
+    searchBox.value = selection;
+    handleFormSubmit();
+    
+    try {
+        history.pushState({ selectedText: selection }, "", `#${encodeURIComponent(selection)}`);
+    } catch (e) {
+        console.log("History API not available in this context");
     }
 }
 
-// Обработчик двойного тапа
-function handleDoubleTap(event) {
+// Эмуляция dblclick при двойном тапе
+function emulateDoubleClick(event) {
     const now = Date.now();
     const isDoubleTap = (now - lastTapTime < 300) && 
-                       (event.target === lastTapTarget) &&
-                       !event.target.closest('th');
+                       (event.target === lastTapTarget);
 
     if (isDoubleTap) {
         event.preventDefault();
-        processSelection(event);
+        
+        // Создаем синтетическое событие dblclick
+        const syntheticEvent = new MouseEvent('dblclick', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            relatedTarget: event.target
+        });
+        
+        // Добавляем дополнительные свойства
+        syntheticEvent.touchEmulated = true;
+        syntheticEvent.clientX = event.changedTouches[0].clientX;
+        syntheticEvent.clientY = event.changedTouches[0].clientY;
+        
+        // Триггерим событие на целевом элементе
+        event.target.dispatchEvent(syntheticEvent);
     }
 
     lastTapTime = now;
@@ -435,29 +448,32 @@ function handleDoubleTap(event) {
 let lastTapTime = 0;
 let lastTapTarget = null;
 
-// Добавляем обработчики
+// Универсальная инициализация обработчиков
 function initSelectionHandlers() {
-    const options = { passive: false }; // Важно для preventDefault()
-    
-    // Для кликов
+    // Обычные клики
     dpdPane.addEventListener("dblclick", processSelection);
     historyPane.addEventListener("dblclick", processSelection);
-    
-    // Для тач-устройств
-    dpdPane.addEventListener("touchend", handleDoubleTap, options);
-    historyPane.addEventListener("touchend", handleDoubleTap, options);
-    
-    // Предотвращаем масштабирование при двойном тапе
+
+    // Обработчики для тач-устройств
+    const touchOptions = { passive: false };
+    dpdPane.addEventListener("touchend", emulateDoubleClick, touchOptions);
+    historyPane.addEventListener("touchend", emulateDoubleClick, touchOptions);
+
+    // Предотвращаем нежелательное поведение
     document.addEventListener("touchstart", function(e) {
         if (e.touches.length > 1) e.preventDefault();
     }, { passive: false });
 }
 
-// Запускаем инициализацию
-try {
-    initSelectionHandlers();
-} catch (e) {
-    console.error("Ошибка инициализации обработчиков:", e);
+// Запуск с защитой от ошибок
+if (typeof handleFormSubmit === 'function') {
+    try {
+        initSelectionHandlers();
+    } catch (e) {
+        console.error("Initialization error:", e);
+    }
+} else {
+    console.error("handleFormSubmit is not defined");
 }
 
 // NEW: handle browser back/forward
