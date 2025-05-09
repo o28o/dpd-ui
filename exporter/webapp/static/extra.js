@@ -397,52 +397,67 @@ if (typeof changeLanguage === 'function') {
 
 
 // улучшенные функции двойных кликов и табов.
-
-dpdPane.addEventListener("dblclick", processSelection);
-historyPane.addEventListener("dblclick", processSelection);
-
-let lastTap = 0;
-const doubleTapDelay = 300; // milliseconds
-
-dpdPane.addEventListener("touchend", handleTouchEnd);
-historyPane.addEventListener("touchend", handleTouchEnd);
-
-function handleTouchEnd(event) {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - lastTap;
-
-    // Detect double-tap
-    if (tapLength < doubleTapDelay && tapLength > 0) {
-        event.preventDefault();
-
-        // NEW: skip if touched element is a table header (TH)
-        if (event.target.closest('th')) {
-            return;
-        }
-
-        const selection = window.getSelection().toString();
-        if (selection.trim() !== "") {
-            searchBox.value = selection;
-            handleFormSubmit();
-        }
-    }
-
-    lastTap = currentTime;
-}
-
-
+// Основная функция обработки выделения
 function processSelection(event) {
     if (event.target.closest('th')) {
         return;
     }
 
-    const selection = window.getSelection().toString();
-    if (selection.trim() !== "") {
-        const selectedText = selection.trim();
-        history.pushState({ selectedText }, "", `#${encodeURIComponent(selectedText)}`);
+    const selection = window.getSelection().toString().trim();
+    if (selection) {
         searchBox.value = selection;
         handleFormSubmit();
+        
+        // Добавляем в историю только если нужно
+        if (history.pushState) {
+            history.pushState({ selectedText: selection }, "", `#${encodeURIComponent(selection)}`);
+        }
     }
+}
+
+// Обработчик двойного тапа
+function handleDoubleTap(event) {
+    const now = Date.now();
+    const isDoubleTap = (now - lastTapTime < 300) && 
+                       (event.target === lastTapTarget) &&
+                       !event.target.closest('th');
+
+    if (isDoubleTap) {
+        event.preventDefault();
+        processSelection(event);
+    }
+
+    lastTapTime = now;
+    lastTapTarget = event.target;
+}
+
+// Инициализация
+let lastTapTime = 0;
+let lastTapTarget = null;
+
+// Добавляем обработчики
+function initSelectionHandlers() {
+    const options = { passive: false }; // Важно для preventDefault()
+    
+    // Для кликов
+    dpdPane.addEventListener("dblclick", processSelection);
+    historyPane.addEventListener("dblclick", processSelection);
+    
+    // Для тач-устройств
+    dpdPane.addEventListener("touchend", handleDoubleTap, options);
+    historyPane.addEventListener("touchend", handleDoubleTap, options);
+    
+    // Предотвращаем масштабирование при двойном тапе
+    document.addEventListener("touchstart", function(e) {
+        if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+}
+
+// Запускаем инициализацию
+try {
+    initSelectionHandlers();
+} catch (e) {
+    console.error("Ошибка инициализации обработчиков:", e);
 }
 
 // NEW: handle browser back/forward

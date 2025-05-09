@@ -16,8 +16,8 @@
   "start_url": "/ru/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4a6da7",
+  "background_color": "#E4F8FF",
+  "theme_color": "#00131B",
   "description": "Онлайн Пали-Русский словарь с улучшенным интерфейсом.",
   "lang": "",
   "share_target": {
