@@ -375,7 +375,7 @@ if (typeof changeLanguage === 'function') {
 const tabsToggle = document.getElementById("tabs-toggle");
 const tabContainer = document.getElementById("tab-container");
 
-// Проверяем, существуют ли элементы перед выполнением кода
+// Проверяем, существуют ли элементы
 if (!tabsToggle || !tabContainer) {
     return;
 }
@@ -384,30 +384,29 @@ if (!tabsToggle || !tabContainer) {
 function updateTabVisibility() {
     const tabsHidden = localStorage.getItem("tabsHidden");
 
-    // Если состояние скрытых табов не задано, считаем, что табы должны быть СКРЫТЫ по умолчанию
+    // Если состояние не задано — считаем, что табы СКРЫТЫ по умолчанию
     if (tabsHidden === "true" || tabsHidden === null) {
-        tabContainer.style.display = 'none';  // Скрываем табы
-        tabsToggle.checked = true;  // Устанавливаем флажок
+        tabContainer.style.display = 'none';     // Скрываем табы
+        tabsToggle.checked = false;              // Переключатель ВЫКЛЮЧЕН (hide)
     } else {
-        tabContainer.style.display = 'flex';  // Показываем табы
-        tabsToggle.checked = false;  // Убираем флажок
+        tabContainer.style.display = 'flex';     // Показываем табы
+        tabsToggle.checked = true;               // Переключатель ВКЛЮЧЁН (show)
     }
 }
 
-// Проверяем состояние в localStorage и устанавливаем видимость табов при загрузке
+// Применяем начальное состояние
 updateTabVisibility();
 
-// Обработчик переключения состояния
+// Обработчик изменения переключателя
 tabsToggle.addEventListener("change", function () {
-    const isHidden = this.checked;
+    const isShown = this.checked;
 
-    // Обновляем состояние видимости табов
-    if (isHidden) {
-        tabContainer.style.display = 'none';  // Скрываем табы
-        localStorage.setItem("tabsHidden", "true"); // Сохраняем состояние в localStorage
+    if (isShown) {
+        tabContainer.style.display = 'flex';          // show
+        localStorage.setItem("tabsHidden", "false");
     } else {
-        tabContainer.style.display = 'flex';  // Показываем табы
-        localStorage.setItem("tabsHidden", "false"); // Сохраняем состояние в localStorage
+        tabContainer.style.display = 'none';          // hide
+        localStorage.setItem("tabsHidden", "true");
     }
 });
 
