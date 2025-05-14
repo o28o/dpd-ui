@@ -384,8 +384,8 @@ if (!tabsToggle || !tabContainer) {
 function updateTabVisibility() {
     const tabsHidden = localStorage.getItem("tabsHidden");
 
-    // Если состояние скрытых табов равно "true", скрываем табы, иначе показываем
-    if (tabsHidden === "true") {
+    // Если состояние скрытых табов не задано, считаем, что табы должны быть СКРЫТЫ по умолчанию
+    if (tabsHidden === "true" || tabsHidden === null) {
         tabContainer.style.display = 'none';  // Скрываем табы
         tabsToggle.checked = true;  // Устанавливаем флажок
     } else {
