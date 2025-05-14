@@ -172,142 +172,132 @@ searchButton.addEventListener("submit", handleFormSubmit);
 //// submit search
 let isSubmitting = false; // Флаг для отслеживания состояния отправки
 
-async function handleFormSubmit(event) {
-    if (event) {
-        event.preventDefault();
-    }
-    
-    // Если уже выполняется, игнорируем новый вызов
-    if (isSubmitting) {
-        return;
-    }
-    
+// === Основная функция поиска ===
+async function handleFormSubmit(event, skipFetch = false) {
+    if (event) event.preventDefault();
+
+    if (isSubmitting) return;
+    isSubmitting = true;
+
     let searchQuery = searchBox.value || "";
-    
-        // Очистка текста при шейринге
+
+    // Очистка текста при шейринге
     if (searchQuery.includes('http://') || searchQuery.includes('https://')) {
-        // Берем только первое слово до пробела/URL
         searchQuery = searchQuery.split(/\s+/)[0];
     }
-    
+
     // Удаляем все кавычки (двойные и одинарные)
     searchQuery = searchQuery.replace(/["']/g, '');
 
-    
-    
-    if (searchQuery.trim() !== "") {
-        try {
-            isSubmitting = true; // Устанавливаем флаг
-            
-            // Закрываем выпадающий список автоподсказок
-            if ($("#search-box").hasClass("ui-autocomplete-input")) {
-                $("#search-box").autocomplete("close");
-            }
-            
-            showSpinner(); 
-            addToHistory(searchQuery);
-            
-            // Adjust the search URL based on the current language
-            let searchUrl = '/search_json';
-            if (language === 'ru') {
-                searchUrl = '/ru/search_json';
-            }
-            
-            const response = await fetch(`${searchUrl}?q=${encodeURIComponent(searchQuery)}`);
-            const data = await response.json();
-
-            //// add the summary_html
-            if (data.summary_html.trim() != "") {
-                if (language === 'en') {
-                    summaryResults.innerHTML = "<h3>Summary</h3>";
-                } else {
-                    summaryResults.innerHTML = "<h3>Сводка</h3>";
-                }
-                summaryResults.innerHTML += data.summary_html; 
-                summaryResults.innerHTML += "<hr>";
-            } else {
-                summaryResults.innerHTML = "";
-            }
-            showHideSummary();
-
-            //// add dpd_html
-            const dpdDiv = document.createElement("div");
-            dpdDiv.innerHTML += data.dpd_html;
-            
-            //// niggahita toggle
-            if (niggahitaToggle.checked) {
-                niggahitaUp(dpdDiv);
-            }
-    
-            //// grammar button toggle
-            if (grammarToggle.checked) {
-                const grammarButtons = dpdDiv.querySelectorAll('[name="grammar-button"]');
-                const grammarDivs = dpdDiv.querySelectorAll('[name="grammar-div"]');
-                grammarButtons.forEach(button => {
-                    button.classList.add("active");
-                });
-                grammarDivs.forEach(div => {
-                    div.classList.remove("hidden");
-                });
-            };
-    
-            //// example button toggle
-            if (exampleToggle.checked) {
-                const exampleButtons = dpdDiv.querySelectorAll('[name="example-button"]');
-                const exampleDivs = dpdDiv.querySelectorAll('[name="example-div"]');
-                exampleButtons.forEach(button => {
-                    button.classList.add("active");
-                });
-                exampleDivs.forEach(div => {
-                    div.classList.remove("hidden");
-                });
-            };
-
-            dpdResults.innerHTML = dpdDiv.innerHTML;
-            dpdResultsContent = dpdDiv.innerHTML;
-
-            //// sandhi button toggle
-            showHideSandhi();
-            
-            populateHistoryBody();
-            dpdPane.focus();
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-            dpdPane.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-            // Update the URL with the search query
-            let url = `/?q=${encodeURIComponent(searchQuery)}`;
-            if (language === 'ru') {
-                url = `/ru/?q=${encodeURIComponent(searchQuery)}`;
-            }            
-            history.pushState({ q: searchQuery }, "", url);
-            
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        } finally {
-            isSubmitting = false; // Сбрасываем флаг в любом случае
-        }
-    } else {
-    // Clear the URL and reset results if search query is empty
-    if (language === 'en') {
-        history.pushState({ q: '' }, "", "/");
-    } else if (language === 'ru') {
-        history.pushState({ q: '' }, "", "/ru/");
+    // Если пусто — сброс
+    if (searchQuery.trim() === "") {
+        dpdResults.innerHTML = startMessage;
+        summaryResults.innerHTML = "";
+        hideSpinner();
+        history.pushState({ q: '' }, "", language === 'ru' ? "/ru/" : "/");
+        isSubmitting = false;
+        return;
     }
-    
-    // Reset UI to initial state
-    dpdResults.innerHTML = startMessage;
-    summaryResults.innerHTML = "";
+
+    try {
+        // Если это вызов через popstate и данные уже есть в истории — не делаем fetch
+        if (skipFetch && history.state?.q === searchQuery && history.state?.data) {
+            restoreSearchResults(history.state.data);
+            isSubmitting = false;
+            return;
+        }
+
+        // Закрываем автокомплит
+        if ($("#search-box").hasClass("ui-autocomplete-input")) {
+            $("#search-box").autocomplete("close");
+        }
+
+        showSpinner();
+        addToHistory(searchQuery);
+
+        // URL для поиска
+        const searchUrl = language === 'ru' ? '/ru/search_json' : '/search_json';
+
+        const response = await fetch(`${searchUrl}?q=${encodeURIComponent(searchQuery)}`);
+        const data = await response.json();
+
+        // Восстановление данных
+        restoreSearchResults(data);
+
+        // Обновляем URL и историю
+        const url = language === 'ru' 
+            ? `/ru/?q=${encodeURIComponent(searchQuery)}`
+            : `/?q=${encodeURIComponent(searchQuery)}`;
+        
+        history.pushState({ q: searchQuery, data }, "", url);
+
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    } finally {
+        isSubmitting = false;
+    }
+}
+
+// === Восстановление результатов из состояния ===
+function restoreSearchResults(data) {
+    // Summary
+    if (data.summary_html?.trim()) {
+        summaryResults.innerHTML = `<h3>${language === 'en' ? 'Summary' : 'Сводка'}</h3>`;
+        summaryResults.innerHTML += data.summary_html;
+        summaryResults.innerHTML += "<hr>";
+    } else {
+        summaryResults.innerHTML = "";
+    }
+    showHideSummary();
+
+    // DPD HTML
+    const dpdDiv = document.createElement("div");
+    dpdDiv.innerHTML = data.dpd_html;
+
+    // Niggahita toggle
+    if (niggahitaToggle.checked) niggahitaUp(dpdDiv);
+
+    // Grammar toggle
+    if (grammarToggle.checked) {
+        dpdDiv.querySelectorAll('[name="grammar-button"]').forEach(b => b.classList.add("active"));
+        dpdDiv.querySelectorAll('[name="grammar-div"]').forEach(d => d.classList.remove("hidden"));
+    }
+
+    // Example toggle
+    if (exampleToggle.checked) {
+        dpdDiv.querySelectorAll('[name="example-button"]').forEach(b => b.classList.add("active"));
+        dpdDiv.querySelectorAll('[name="example-div"]').forEach(d => d.classList.remove("hidden"));
+    }
+
+    dpdResults.innerHTML = dpdDiv.innerHTML;
+    dpdResultsContent = dpdDiv.innerHTML;
+
+    showHideSandhi();
+    populateHistoryBody();
+    dpdPane.focus();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    dpdPane.scrollTo({ top: 0, behavior: "smooth" });
     hideSpinner();
 }
-    
-}
 
+// === Обработчик событий "Назад"/"Вперёд" ===
+window.addEventListener("popstate", (event) => {
+    const state = event.state;
+
+    if (state && state.q !== undefined) {
+        searchBox.value = state.q;
+        if (state.data) {
+            restoreSearchResults(state.data);
+        } else {
+            handleFormSubmit(null, true); // Повторный fetch
+        }
+    } else {
+        dpdResults.innerHTML = startMessage;
+        summaryResults.innerHTML = "";
+    }
+});
+
+//end of new handleFormSubmit
 //// url query param
 
 function applyUrlQuery() {
