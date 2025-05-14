@@ -372,27 +372,45 @@ if (typeof changeLanguage === 'function') {
 }
 */ 
 
-    const tabsToggle = document.getElementById("tabs-toggle");
-    const tabContainer = document.getElementById("tab-container");
+const tabsToggle = document.getElementById("tabs-toggle");
+const tabContainer = document.getElementById("tab-container");
 
-    // Проверяем, существуют ли элементы перед выполнением кода
-    if (!tabsToggle || !tabContainer) {
-        return;
+// Проверяем, существуют ли элементы перед выполнением кода
+if (!tabsToggle || !tabContainer) {
+    return;
+}
+
+// Функция для обновления видимости табов
+function updateTabVisibility() {
+    const tabsHidden = localStorage.getItem("tabsHidden");
+
+    // Если состояние скрытых табов равно "true", скрываем табы, иначе показываем
+    if (tabsHidden === "true") {
+        tabContainer.style.display = 'none';  // Скрываем табы
+        tabsToggle.checked = true;  // Устанавливаем флажок
+    } else {
+        tabContainer.style.display = 'flex';  // Показываем табы
+        tabsToggle.checked = false;  // Убираем флажок
     }
+}
 
-    // Проверяем состояние в localStorage или скрываем по умолчанию
-    if (localStorage.getItem("tabsHidden") === null || localStorage.getItem("tabsHidden") === "true") {
-        tabContainer.classList.add("hidden");
-        tabsToggle.checked = true;
-        localStorage.setItem("tabsHidden", "true"); // Запоминаем состояние
+// Проверяем состояние в localStorage и устанавливаем видимость табов при загрузке
+updateTabVisibility();
+
+// Обработчик переключения состояния
+tabsToggle.addEventListener("change", function () {
+    const isHidden = this.checked;
+
+    // Обновляем состояние видимости табов
+    if (isHidden) {
+        tabContainer.style.display = 'none';  // Скрываем табы
+        localStorage.setItem("tabsHidden", "true"); // Сохраняем состояние в localStorage
+    } else {
+        tabContainer.style.display = 'flex';  // Показываем табы
+        localStorage.setItem("tabsHidden", "false"); // Сохраняем состояние в localStorage
     }
+});
 
-    // Обработчик переключения
-    tabsToggle.addEventListener("change", function () {
-        const isHidden = this.checked;
-        tabContainer.classList.toggle("hidden", isHidden);
-        localStorage.setItem("tabsHidden", isHidden ? "true" : "false");
-    });
 });
 
 
