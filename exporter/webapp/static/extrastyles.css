@@ -1217,3 +1217,15 @@ align-items: center;
     width: 100%;
   }
 }
+
+#tab-container {
+    display: none;  /* По умолчанию скрыто */
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
+
