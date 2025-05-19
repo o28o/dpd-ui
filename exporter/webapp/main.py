@@ -15,7 +15,6 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 app = FastAPI()
 
-
 async def clean_query_params(request: Request, call_next):
     # Получаем текущие query-параметры
     query_params = dict(request.query_params)
@@ -28,7 +27,7 @@ async def clean_query_params(request: Request, call_next):
             # Применяем очистку
             cleaned = re.sub(r'https?://\S+', '', original)  # Удаляем URL
             cleaned = re.sub(r'["\'()[\]]', '', cleaned)      # Удаляем кавычки и скобки
-            cleaned = cleaned.split()[0] if cleaned.split() else ""  # Берем первое слово
+            cleaned = cleaned.strip()  # Удаляем лишние пробелы
             cleaned = cleaned.lower()  # Приводим к lowercase
             
             if original != cleaned:
