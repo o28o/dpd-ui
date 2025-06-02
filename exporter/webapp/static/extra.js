@@ -1,3 +1,61 @@
+// ======================
+// 1. Проверяем язык при загрузке страницы
+// ======================
+document.addEventListener("DOMContentLoaded", () => {
+    const savedLang = localStorage.getItem("preferredLanguage");
+    const currentPath = window.location.pathname;
+    
+    // Если русский язык сохранён, но не в URL
+    if (savedLang === "ru" && !currentPath.startsWith("/ru/")) {
+        redirectWithLanguage("/ru/");
+    } 
+    // Если английский сохранён, но URL русский
+    else if (savedLang !== "ru" && currentPath.startsWith("/ru/")) {
+        redirectWithLanguage("/");
+    }
+});
+
+// ======================
+// 2. Переключение языка по горячим клавишам
+// ======================
+document.addEventListener("keydown", (event) => {
+    // Срабатывает на Alt+1 или Ctrl+1
+    if ((event.altKey || event.ctrlKey) && event.code === "Digit1") {
+        event.preventDefault();
+        toggleLanguage();
+    }
+});
+
+function toggleLanguage() {
+    const currentPath = window.location.pathname;
+    let newLang, newPath;
+    
+    // Определяем новый язык
+    if (currentPath.startsWith("/ru/")) {
+        newLang = "en";
+        newPath = currentPath.replace("/ru/", "/");
+    } else {
+        newLang = "ru";
+        newPath = "/ru" + currentPath;
+    }
+    
+    // Сохраняем выбор
+    localStorage.setItem("preferredLanguage", newLang);
+    
+    // Перенаправляем
+    redirectWithLanguage(newPath);
+}
+
+// ======================
+// 3. Вспомогательная функция для редиректа
+// ======================
+function redirectWithLanguage(newPath) {
+    const url = new URL(window.location.href);
+    url.pathname = newPath;
+    window.location.href = url.toString();
+}
+
+
 //установка фокуса в инпуте по нажатию / 
 document.addEventListener('keydown', function(event) {
     // Проверяем именно символ / (код 191 или Slash)
