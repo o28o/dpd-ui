@@ -3,11 +3,11 @@ const LANGUAGE_PREFIX = '/ru'; // Префикс для русского язы�
 const DEFAULT_LANG = 'en';     // Язык по умолчанию
 
 // ======== Основной код ========
-document.addEventListener("DOMContentLoaded", applySavedLanguage);
+//document.addEventListener("DOMContentLoaded", applySavedLanguage);
 document.addEventListener("keydown", handleLanguageShortcut);
 
 // Применяем сохраненный язык при загрузке
-function applySavedLanguage() {
+/* function applySavedLanguage() {
     const savedLang = localStorage.getItem("preferredLanguage");
     const currentPath = window.location.pathname;
     
@@ -17,7 +17,7 @@ function applySavedLanguage() {
     } else if (savedLang !== 'ru' && currentPath.startsWith(LANGUAGE_PREFIX)) {
         redirectWithLanguage(currentPath.slice(LANGUAGE_PREFIX.length));
     }
-}
+}*/
 
 // Обработка горячих клавиш
 function handleLanguageShortcut(event) {
