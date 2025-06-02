@@ -265,28 +265,8 @@ window.addEventListener('resize', function() {
 });
 
 
-
-// extra.js
-function setOneButtonToggleDefault() {
-    const toggleId = "one-button-toggle";
-    const savedState = localStorage.getItem(toggleId);
-    
-    if (savedState === null) {
-        const toggleElement = document.getElementById(toggleId);
-        if (toggleElement) {
-            toggleElement.checked = true;
-            // Опционально: сохраняем в localStorage, чтобы при следующей загрузке
-            // поведение было согласованным
-            localStorage.setItem(toggleId, 'true');
-        }
-    }
-}
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
    
- setOneButtonToggleDefault();
 
     const button = document.getElementById('search-button');
     if (!button) return;
