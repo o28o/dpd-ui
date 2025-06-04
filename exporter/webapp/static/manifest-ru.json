@@ -78,7 +78,7 @@
       "icons": [
         {
           "src": "/static/dg_icon_white-192.png",
-          "type": "image/svg+xml",
+          "type": "image/png",
           "sizes": "192x192"
         }
       ]
@@ -91,6 +91,17 @@
         {
           "src": "/static/dpd-dark-icon.svg",
           "type": "image/svg+xml",
+          "sizes": "192x192"
+        }
+      ]
+    },
+		    {
+      "name": "Aksharamukha.com",
+      "url": "/static/openDG.html?url=https://www.aksharamukha.com/converter",
+      "icons": [
+        {
+          "src": "/static/maniIcon.png",
+         "type": "image/png", 
           "sizes": "192x192"
         }
       ]
