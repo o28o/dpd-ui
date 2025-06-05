@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
  
     $.ajax({
-        url: "/assets/texts/sutta_words.txt",
+        url: "/static/sutta_words.txt",
         dataType: "text",
         success: function(data) {
             var accentMap = {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var allWords = data.split('\n');
 
-            $("#paliauto").autocomplete({
+            $("#search-box").autocomplete({
                 position: {
                     my: "left bottom",
                     at: "left top",
@@ -203,12 +203,14 @@ var normalizedTerm = normalizeTerm(request.term);
                     }
 
                     this.value = terms.join("");
-                    
-                    // Сохраняем в историю
-                    var history = JSON.parse(localStorage.getItem("localSearchHistory")) || [];
-                   // history.unshift([selectedValue]);
-                   // localStorage.setItem("localSearchHistory", JSON.stringify(history));
-                    
+                   
+
+           // Закрываем автоподсказки
+           $(this).autocomplete("close");
+
+           // Инициируем поиск
+           handleFormSubmit();
+
                     return false;
                 }
             }).autocomplete("widget").addClass("fixed-height");
