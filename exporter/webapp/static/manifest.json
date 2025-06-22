@@ -83,17 +83,6 @@
         }
       ]
     },
-	    {
-      "name": "DPD Russian",
-      "url": "/ru/",
-      "icons": [
-        {
-          "src": "/static/dpd-dark-icon.svg",
-          "type": "image/svg+xml",
-          "sizes": "192x192"
-        }
-      ]
-    },
 		    {
       "name": "Aksharamukha.com",
       "url": "/static/openDG.html?url=https://www.aksharamukha.com/converter",
@@ -112,6 +101,17 @@
         {
           "src": "/static/maniIcon.png",
          "type": "image/png", 
+          "sizes": "192x192"
+        }
+      ]
+    },
+          {
+      "name": "DPD Russian",
+      "url": "/ru/",
+      "icons": [
+        {
+          "src": "/static/dpd-dark-icon.svg",
+          "type": "image/svg+xml",
           "sizes": "192x192"
         }
       ]
