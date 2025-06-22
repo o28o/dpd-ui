@@ -104,6 +104,17 @@
           "sizes": "192x192"
         }
       ]
+    },
+            {
+      "name": "Dharmamitra.org",
+      "url": "/static/openDG.html?url=https://dharmamitra.org/",
+      "icons": [
+        {
+          "src": "/static/maniIcon.png",
+         "type": "image/png", 
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
