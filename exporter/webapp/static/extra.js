@@ -150,7 +150,7 @@ function initStartMessage(lang) {
   <div class="messages-content">
 <p class="message">Ищите на пали с <b>Автоподсказками</b> или <b>Velthuis</b>, или русском .</p>
 <p class="message"><b>Кликните по таблице</b> в Словаре Грамматики, её можно сортировать.</p>
-<p class="message"><b>Переводите слова на любых сайтов и в приложениях</b>: Меню Chrome Mobile → "Добавить на главную" → <a href='#' id='installLink'>Install</a>
+<p class="message"><b>Словарь на любом сайте и в приложениях </b>: Меню Chrome Android → "Добавить на главную" → <a href='#' id='installLink'>Install</a>
 . Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
   </div>
 
