@@ -108,9 +108,6 @@ new MutationObserver((mutations) => {
 //конец фокуса в инпуте по нажатию / 
 
 
-
-
-
 let startMessage;
 //<p class="message"><a class="installButton" >Install Dict.DG</a> to enable lookup by sharing words from any site of app</p>
 //<p class="message">
@@ -132,6 +129,7 @@ function initStartMessage(lang) {
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
   
   <div class="collapsible">
+    <p class="message">Install Chrome / Opera / Edge <a href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=en'>extention and lookup pali on any site.</p>
     <p class="message">Use <b>Hotkeys</b>: press / to activate search bar. Press Ctrl + 1 or Alt + 1 to toggle En/Ru language. </p>
     <p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - on Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
@@ -152,12 +150,14 @@ function initStartMessage(lang) {
   <div class="messages-content">
 <p class="message">Ищите на пали с <b>Автоподсказками</b> или <b>Velthuis</b>, или русском .</p>
 <p class="message"><b>Кликните по таблице</b> в Словаре Грамматики, её можно сортировать.</p>
-<p class="message"><b>Переводите слова на любых сайтов и в приложениях</b>: Меню Chrome Mobile → "Добавить на главную" → Install. Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
+<p class="message"><b>Переводите слова на любых сайтов и в приложениях</b>: Меню Chrome Mobile → "Добавить на главную" → <a href="#" id="installLink">Install</a>
+. Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
   </div>
 
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
   
   <div class="collapsible">
+<p class="message">Установите <a href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>расширение для  Chrome / Opera / Edge и используйте словарь на любом сайте.</p>
 <p class="message">Используйте <b>Горячие Клавиши</b>: нажмите / чтобы активировать строку поиска. Ctrl + 1 или Alt + 1, чтобы переключаться между Рус и Англ. </p>
 <p class="message"><b>Ссылки в футере</b> DG - поиск слова в Суттах, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
@@ -638,42 +638,22 @@ window.addEventListener('popstate', function(event) {
 
 
 //PWA installation
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/static/sw.js')
-      .then(function(registration) {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      })
-      .catch(function(err) {
-        console.log('ServiceWorker registration failed: ', err);
-      });
-  }
-
-  let deferredPrompt;
-  const installButtons = document.querySelectorAll('.installButton');
+let deferredPrompt = null;
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    deferredPrompt = e;
-
-    // Показываем все кнопки с классом installButton
-    installButtons.forEach(button => {
-      button.style.display = 'inline-block';
-    });
+    deferredPrompt = e; // Сохраняем событие для будущей установки
   });
 
-  // Добавляем обработчик события click для каждой кнопки
-  installButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('Пользователь принял предложение установки');
-          } else {
-            console.log('Пользователь отклонил предложение установки');
-          }
-          deferredPrompt = null;
-        });
-      }
-    });
+  document.getElementById('installLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response: ${outcome}`);
+      deferredPrompt = null;
+    } 
   });
+
+
+  
