@@ -129,7 +129,7 @@ function initStartMessage(lang) {
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
   
   <div class="collapsible">
-    <p class="message">For Desktop: Install Chrome / Opera / Edge <a href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=en'>extention and lookup pali on any site.</p>
+    <p class="message">Install Chrome / Opera / Edge <a href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=en'>extention</a> and lookup pali on any site.</p>
     <p class="message">Use <b>Hotkeys</b>: press / to activate search bar. Press Ctrl + 1 or Alt + 1 to toggle En/Ru language. </p>
     <p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - on Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
