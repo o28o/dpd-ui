@@ -152,7 +152,7 @@ function initStartMessage(lang) {
   <div class="messages-content">
 <p class="message">Ищите на пали с <b>Автоподсказками</b> или <b>Velthuis</b>, или русском .</p>
 <p class="message"><b>Кликните по таблице</b> в Словаре Грамматики, её можно сортировать.</p>
-<p class="message"><b>Словарь на любом сайте</b>: <a target='_blant' title='Chrome / Opera / Edge' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>расширение</a>. Или <a title='также через Меню Chrome Android → "Добавить на главную" → Установить' href='#' id='installLink'>установить</a> в Android. 
+<p class="message"><b>Словарь на любом сайте</b>: <a target='_blant' title='Chrome / Opera / Edge' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>расширение</a>. Или <a title='также через Меню Chrome Android → "Добавить на главную" → Установить' href='#' id='installLink'>установка</a> в Android. 
 Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
   </div>
 
