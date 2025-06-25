@@ -395,9 +395,8 @@ setOneButtonToggleDefault();
 //    document.getElementById('theme-toggle')?.addEventListener('change', updateButton);
     
 //    updateButton(); // Инициализация
-});
 
-document.addEventListener("DOMContentLoaded", function () {
+
 
 /*
 // Переопределяем поведение после загрузки home.js
@@ -489,6 +488,26 @@ tabsToggle.addEventListener("change", function () {
         localStorage.setItem("tabsHidden", "true");
     }
 });
+
+//PWA installation
+let deferredPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e; // Сохраняем событие для будущей установки
+  });
+
+  document.getElementById('installLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response: ${outcome}`);
+      deferredPrompt = null;
+    } 
+  });
+
+
 
 });
 
@@ -637,23 +656,6 @@ window.addEventListener('popstate', function(event) {
 
 
 
-//PWA installation
-let deferredPrompt = null;
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e; // Сохраняем событие для будущей установки
-  });
-
-  document.getElementById('installLink').addEventListener('click', async (e) => {
-    e.preventDefault();
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response: ${outcome}`);
-      deferredPrompt = null;
-    } 
-  });
 
 
   
