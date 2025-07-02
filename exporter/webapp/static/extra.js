@@ -229,7 +229,7 @@ function initStartMessage(lang) {
     
     </p>
     <p class="message">Available <b>Hotkeys</b>: press <strong>/</strong> to activate the search bar<br>
-    <strong>Ctrl+1</strong> or <strong>Alt+1</strong> toggle En / Ru<br>
+    <strong>Ctrl+1</strong> or <strong>Alt+1</strong> toggle En/Ru<br>
     <strong>Ctrl+2</strong> or <strong>Alt+2</strong> open Dhamma.Gift Read<br>
     <strong>Ctrl+3</strong> or <strong>Alt+3</strong> open Dhamma.Gift Search
     </p>
@@ -260,7 +260,7 @@ function initStartMessage(lang) {
   
   <div class="collapsible">
 <p class="message">Доступные <b>Горячие Клавиши</b>: нажмите <strong>/</strong> чтобы активировать строку поиска<br>
-<strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключать Рус / Англ<br>
+<strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключить Рус/Англ<br>
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
 <strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search
 </p>
