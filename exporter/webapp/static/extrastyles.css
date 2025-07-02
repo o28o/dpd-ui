@@ -944,18 +944,18 @@ align-items: center;
         border-radius: 50% !important;
         padding: 0 !important;
         margin-left: 3px !important;
-        position: relative;
-        font-size: 0;
+        font-size: 12px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .search-button::after {
+    .search-button span {
+        display: none;
+    }
+
+    .search-button::before {
         content: "Go";
-        font-size: 12px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        white-space: nowrap;
     }
 
     .round-button {
