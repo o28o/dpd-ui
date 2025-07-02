@@ -944,6 +944,18 @@ align-items: center;
         border-radius: 50% !important;
         padding: 0 !important;
         margin-left: 3px !important;
+        position: relative;
+        font-size: 0;
+    }
+
+    .search-button::after {
+        content: "Go";
+        font-size: 12px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
     }
 
     .round-button {
@@ -955,14 +967,14 @@ align-items: center;
     .header-pane > * {
         flex-shrink: 1;
     }
-}
 
-     .input-group {
+    .input-group {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
     }
+}
 
  
 }
