@@ -813,7 +813,48 @@ align-items: center;
     display: none;
   }
 
+.round-button {
+    /* Размеры и форма */
+    width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    min-width: 1.8em; /* Фиксированная минимальная ширина */
+    
+    /* Стили */
+    background-color: var(--primary);
+    border: none;
+    box-shadow: var(--shadow-default);
+    color: var(--light);
+    
+    /* Выравнивание содержимого */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Текст */
+    font-size: 1em;
+    line-height: 1;
+    
+    /* Поведение */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0; /* Убираем стандартные отступы */
+}
 
+/* Состояния кнопки */
+.round-button:hover {
+    background-color: var(--primary-alt);
+    box-shadow: var(--shadow-hover);
+}
+
+.round-button:active {
+    transform: scale(0.95);
+}
+
+/* Темная тема */
+.dark-mode .round-button {
+    color: var(--dark);
+}
 
 @media (max-width: 768px) {
 
