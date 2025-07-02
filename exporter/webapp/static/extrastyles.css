@@ -1004,7 +1004,7 @@ align-items: center;
 
 
 .loading-spinner {
-    opacity: 0.7;
+    opacity: 0.6;
     width: 40px;
     height: 40px;
     filter: invert(0%);
