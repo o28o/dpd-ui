@@ -776,10 +776,10 @@ align-items: center;
 
 .round-button {
     /* Размеры и форма */
-    width: 1.8em;
-    height: 1.8em;
+          width: 30px;
+        height: 30px;
     border-radius: 50%;
-    min-width: 1.8em; /* Фиксированная минимальная ширина */
+    /*min-width: 1.8em;  Фиксированная минимальная ширина */
     
     /* Стили */
     background-color: var(--primary);
