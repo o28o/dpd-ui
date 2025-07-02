@@ -987,12 +987,18 @@ align-items: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Изменено с center на flex-start */
     padding: 20px;
+    position: relative;
+    min-height: 100px; /* Минимальная высота для видимости */
 }
 
 .transparent-spinner {
-    opacity: 0.7;
+    position: absolute;
+    top: 20px; /* Отступ сверху (можно регулировать) */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
 }
 
 .loading-spinner {
@@ -1002,7 +1008,6 @@ align-items: center;
     animation: spin 1s linear infinite;
 }
 
-/* Тёмная тема */
 .dark-mode .loading-spinner {
     filter: invert(100%);
 }
@@ -1010,6 +1015,7 @@ align-items: center;
 .loading-text {
     margin-top: 10px;
     color: #666;
+    text-align: center;
 }
 
 .dark-mode .loading-text {
@@ -1026,13 +1032,6 @@ align-items: center;
     position: relative;
 }
 
-.transparent-spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-}
 
 
 /* More Hide */ 
