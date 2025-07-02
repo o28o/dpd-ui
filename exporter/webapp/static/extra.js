@@ -19,6 +19,23 @@ document.addEventListener("keydown", handleLanguageShortcut);
     }
 }*/
 
+  if (event.ctrlKey && event.code === 'Digit3') {
+    event.preventDefault();
+
+    const currentUrl = window.location.href;
+    let targetUrl;
+
+    if (currentUrl.includes('/ru/') || currentUrl.includes('/r/') || currentUrl.includes('/ml/')) {
+      targetUrl = 'https://dhamma.gift/ru/';
+    } else {
+      targetUrl = 'https://dhamma.gift/';
+    }
+
+    window.location.href = targetUrl;
+  }
+
+
+
 // Обработка горячих клавиш
 function handleLanguageShortcut(event) {
     if ((event.altKey || event.ctrlKey) && event.code === "Digit1") {
