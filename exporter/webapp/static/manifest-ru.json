@@ -1,6 +1,6 @@
 {
-  "short_name": "DGift DPD Ru",
-  "name": "DPD Русский. Dhamma.Gift версия с улучшениями UI",
+  "short_name": "DGift DPD",
+  "name": "DPD Dhamma.Gift",
   "icons": [
     {
       "src": "/static/dpd.ico",
@@ -18,7 +18,7 @@
   "display": "standalone",
   "background_color": "#E4F8FF",
   "theme_color": "#00131B",
-  "description": "Онлайн Пали-Русский словарь с улучшенным интерфейсом.",
+  "description": "DPD Онлайн Пали-Русский словарь с улучшенным интерфейсом.",
   "lang": "",
   "share_target": {
     "action": "/ru/search_html",

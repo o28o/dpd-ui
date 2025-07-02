@@ -1,6 +1,6 @@
 {
   "short_name": "DGift DPD",
-  "name": "Digital Pali Dictionary with Dhamma.Gift UI improvements",
+  "name": "DPD Dhamma.Gift",
   "icons": [
     {
       "src": "/static/dpd.ico",
@@ -18,7 +18,7 @@
   "display": "standalone",
   "background_color": "#E4F8FF",
   "theme_color": "#00131B",
-  "description": "Online Pali-English dictionary with interface improvements.",
+  "description": "DPD Online Pali-English dictionary with interface improvements.",
   "lang": "en",
   "share_target": {
     "action": "/search_html",
