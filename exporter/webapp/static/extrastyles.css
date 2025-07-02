@@ -1297,7 +1297,6 @@ align-items: center;
 /* Особый случай для очень узких экранов */
 @media (max-width: 300px) {
 
-
 .round-button {
     /* Размеры и форма */
     width: 30px !important;
