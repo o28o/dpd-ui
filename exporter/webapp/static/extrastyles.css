@@ -924,21 +924,20 @@ align-items: center;
 }
 
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
     .header-pane {
-        flex-wrap: nowrap;
+        flex-wrap: nowrap !important;
         gap: 3px;
         padding: 5px;
     }
 
-   .search-box {
-        min-width: 60%;
-        max-width: 250px;
-        flex: 3;
-        margin: 0;
-        width: 100%;
+    .search-box {
+        min-width: 0;
+        flex: 1;
+        font-size: 14px;
+        padding: 2px 5px;
     }
-	
+
     .search-button {
         width: 30px !important;
         height: 30px !important;
@@ -956,6 +955,7 @@ align-items: center;
     .header-pane > * {
         flex-shrink: 1;
     }
+}
 
      .input-group {
         display: flex;
