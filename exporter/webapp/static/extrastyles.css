@@ -776,8 +776,8 @@ align-items: center;
 
 .round-button {
     /* Размеры и форма */
-          width: 30px;
-        height: 30px;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 50%;
     /*min-width: 1.8em;  Фиксированная минимальная ширина */
     
@@ -959,8 +959,6 @@ align-items: center;
     }
 
     .round-button {
-        width: 30px;
-        height: 30px;
         font-size: 14px;
     }
 
