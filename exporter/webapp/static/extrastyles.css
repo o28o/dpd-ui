@@ -778,6 +778,9 @@ align-items: center;
     /* Размеры и форма */
     width: 30px !important;
     height: 30px !important;
+    flex-shrink: 0 !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
     border-radius: 50%;
     /*min-width: 1.8em;  Фиксированная минимальная ширина */
     
@@ -1296,12 +1299,6 @@ align-items: center;
 
 /* Особый случай для очень узких экранов */
 @media (max-width: 300px) {
-
-.round-button {
-    /* Размеры и форма */
-    width: 30px !important;
-    height: 30px !important;
-}
 
   .pwa-install {
     min-width: auto;
