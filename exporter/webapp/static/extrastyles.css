@@ -924,7 +924,7 @@ align-items: center;
 }
 
 
-@media (max-width: 430px) {
+@media (max-width: 450px) {
     .header-pane {
         flex-wrap: nowrap !important;
         gap: 3px;
