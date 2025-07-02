@@ -4,6 +4,32 @@ const DEFAULT_LANG = 'en';     // Язык по умолчанию
 
 // ======== Основной код ========
 //document.addEventListener("DOMContentLoaded", applySavedLanguage);
+
+document.addEventListener('keydown', function(event) {
+  const isCtrl3 = event.ctrlKey && event.code === 'Digit3';
+  const isAlt3 = event.altKey && event.code === 'Digit3';
+
+  if (isCtrl3 || isAlt3) {
+    event.preventDefault();
+
+    const currentUrl = window.location.href;
+    let targetUrl;
+
+    if (
+      currentUrl.includes('/ru/') ||
+      currentUrl.includes('/r/') ||
+      currentUrl.includes('/ml/')
+    ) {
+      targetUrl = 'https://dhamma.gift/ru/';
+    } else {
+      targetUrl = 'https://dhamma.gift/';
+    }
+
+    window.location.href = targetUrl;
+  }
+});
+
+
 document.addEventListener("keydown", handleLanguageShortcut);
 
 // Применяем сохраненный язык при загрузке
@@ -18,23 +44,6 @@ document.addEventListener("keydown", handleLanguageShortcut);
         redirectWithLanguage(currentPath.slice(LANGUAGE_PREFIX.length));
     }
 }*/
-
-  if (event.ctrlKey && event.code === 'Digit3') {
-    event.preventDefault();
-
-    const currentUrl = window.location.href;
-    let targetUrl;
-
-    if (currentUrl.includes('/ru/') || currentUrl.includes('/r/') || currentUrl.includes('/ml/')) {
-      targetUrl = 'https://dhamma.gift/ru/';
-    } else {
-      targetUrl = 'https://dhamma.gift/';
-    }
-
-    window.location.href = targetUrl;
-  }
-
-
 
 // Обработка горячих клавиш
 function handleLanguageShortcut(event) {
