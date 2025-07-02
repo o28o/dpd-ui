@@ -812,7 +812,12 @@ align-items: center;
 .header-lang-button {
     display: none;
   }
-.header-pane {
+
+
+
+@media (max-width: 768px) {
+
+  .header-pane {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -825,7 +830,7 @@ align-items: center;
     min-width: 0;
 }
 
-@media (max-width: 768px) {
+
   .logo-title {
         display: none;
     }
