@@ -812,18 +812,27 @@ align-items: center;
 .header-lang-button {
     display: none;
   }
+.header-pane {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
 
+/* Чтобы форма поиска занимала оставшееся пространство */
+#search-form {
+    flex-grow: 1;
+    min-width: 0;
+}
 
 @media (max-width: 768px) {
   .logo-title {
-    display: none;
-  }
+        display: none;
+    }
+    .header-lang-button {
+        display: flex;
+    }
 
-
-.header-lang-button {
-    display: block;
-    align-items: center;
-}
 
 
     #history-content {
