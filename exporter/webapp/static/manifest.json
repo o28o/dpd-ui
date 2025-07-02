@@ -24,8 +24,7 @@
     "action": "/search_html",
     "method": "GET",
     "params": {
-      "text": "q",
-      "source": "pwa"
+      "text": "q"
     }
   },
   "screenshots": [
