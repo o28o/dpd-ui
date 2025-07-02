@@ -732,39 +732,7 @@ align-items: center;
 
 }
 
-@media (max-width: 768px) {
-.input-group {
-        display: flex; /* Делаем контейнер flex */
-        align-items: center; /* Выравниваем элементы по центру вертикально */
-        justify-content: center; /* Выравниваем элементы по центру горизонтально */
-        width: 100%; /* Занимаем всю доступную ширину */
-    }
 
-.search-box {
-    min-width: 200px; /* Минимальная ширина поля ввода */
-    max-width: 350px; /* Максимальная ширина поля ввода */
-   /*  flex: 3; Занимает 3/4 ширины */
-    margin: 0; /* Убираем отступы */
-    width: 100%; /* Заполняет доступное пространство */
-}
-
-#search-help-button {
-        display: none;
-    }
- 
-.hideOnMobile {
-        display: none;
-    }
-
-.hideOnMobile .divider-custom {
-        display: none;
-    }
- 
-.imgonmain {
-    max-width: 95%;
-  }
-   
-}
 
 /* DPD extra*/
 .hidden {
@@ -849,8 +817,40 @@ align-items: center;
     color: var(--dark);
 }
 
-@media (max-width: 768px) {
 
+
+@media (max-width: 768px) {
+.input-group {
+        display: flex; /* Делаем контейнер flex */
+        align-items: center; /* Выравниваем элементы по центру вертикально */
+        justify-content: center; /* Выравниваем элементы по центру горизонтально */
+        width: 100%; /* Занимаем всю доступную ширину */
+    }
+
+.search-box {
+    min-width: 200px; /* Минимальная ширина поля ввода */
+    max-width: 350px; /* Максимальная ширина поля ввода */
+   /*  flex: 3; Занимает 3/4 ширины */
+    margin: 0; /* Убираем отступы */
+    width: 100%; /* Заполняет доступное пространство */
+}
+
+#search-help-button {
+        display: none;
+    }
+ 
+.hideOnMobile {
+        display: none;
+    }
+
+.hideOnMobile .divider-custom {
+        display: none;
+    }
+ 
+.imgonmain {
+    max-width: 95%;
+  }
+ 
 .header-pane {
     display: flex;
     flex-direction: row;
@@ -931,13 +931,14 @@ align-items: center;
         padding: 5px;
     }
 
-    .search-box {
-        min-width: 0;
-        flex: 1;
-        font-size: 14px;
-        padding: 2px 5px;
+   .search-box {
+        min-width: 60%;
+        max-width: 250px;
+        flex: 3;
+        margin: 0;
+        width: 100%;
     }
-
+	
     .search-button {
         width: 30px !important;
         height: 30px !important;
@@ -955,9 +956,7 @@ align-items: center;
     .header-pane > * {
         flex-shrink: 1;
     }
-}
 
-@media (max-width: 368px) {
      .input-group {
         display: flex;
         align-items: center;
@@ -965,13 +964,7 @@ align-items: center;
         width: 100%;
     }
 
-    .search-box {
-        min-width: 60%;
-        max-width: 250px;
-        flex: 3;
-        margin: 0;
-        width: 100%;
-    }
+ 
 }
 
   #history-list {
