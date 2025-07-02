@@ -524,6 +524,9 @@ let deferredPrompt = null;
     deferredPrompt = e; // Сохраняем событие для будущей установки
   });
 
+const installLink = document.getElementById('installLink');
+
+if (installLink) {
   document.getElementById('installLink').addEventListener('click', async (e) => {
     e.preventDefault();
     if (deferredPrompt) {
@@ -533,8 +536,7 @@ let deferredPrompt = null;
       deferredPrompt = null;
     } 
   });
-
-
+}
 
 });
 
