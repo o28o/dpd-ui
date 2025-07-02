@@ -259,7 +259,7 @@ function initStartMessage(lang) {
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
   
   <div class="collapsible">
-<p class="message">Доступные <b>Горячие Клавиши</b>: нажмите <strong>/</strong> чтобы активировать строку поиска<br>
+<p class="message"><b>Горячие Клавиши</b>: нажмите <strong>/</strong> чтобы активировать строку поиска<br>
 <strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключить Рус/Англ<br>
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
 <strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search
