@@ -1002,9 +1002,6 @@ align-items: center;
     padding: 20px;
 }
 
-.dark-mode .transparent-spinner {
-    background: rgba(0, 0, 0, 0.8);
-}
 
 .loading-spinner {
     width: 40px;
