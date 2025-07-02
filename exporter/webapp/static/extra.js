@@ -254,17 +254,22 @@ function changeLanguage(lang) {
   let path = url.pathname; // Путь (например, "/ru")
   const searchParams = url.search; // Параметры запроса (например, "?q=dukkha")
   const hash = url.hash; // Хэш (например, "#section")
-
+let siteLanguage = '';
   // Удаляем все существующие вхождения '/ru' из пути
   path = path.replace(/^\/ru/, '');
 
   // Если выбран язык 'ru', добавляем '/ru' в начало пути
   if (lang === 'ru') {
     path = '/ru' + path;
+    siteLanguage = 'ru'; 
+  } else {
+siteLanguage = 'en';
   }
 
   // Обновляем путь в URL
   url.pathname = path;
+
+    localStorage.setItem('siteLanguage', siteLanguage);
 
   // Принудительно обновляем страницу с новым URL
   window.location.href = url.toString();
