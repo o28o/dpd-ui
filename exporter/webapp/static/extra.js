@@ -228,7 +228,12 @@ function initStartMessage(lang) {
     <p class="message">
     
     </p>
-    <p class="message">Use <b>Hotkeys</b>: press / to activate search bar. Press Ctrl + 3 or Alt + 3 to switch to Dhamma.Gift, Ctrl + 1 or Alt + 1 to toggle En/Ru language. </p>
+    <p class="message">Use <b>Hotkeys</b>:<br> 
+    <strong>/</strong> activates the search bar<br>
+    <strong>Ctrl+1</strong> or <strong>Alt+1</strong> toggle En / Ru<br>
+    <strong>Ctrl+2</strong> or <strong>Alt+2</strong> open Dhamma.Gift Read<br>
+    <strong>Ctrl+3</strong> or <strong>Alt+3</strong> open Dhamma.Gift Search
+    </p>
     <p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - on Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
@@ -255,7 +260,12 @@ function initStartMessage(lang) {
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
   
   <div class="collapsible">
-<p class="message">Используйте <b>Горячие Клавиши</b>: нажмите / чтобы активировать строку поиска, Ctrl + 3 или Alt + 3 открыть Dhamma.Gift, Ctrl + 1 или Alt + 1, чтобы переключать Рус и Англ. </p>
+<p class="message">Используйте <b>Горячие Клавиши</b>:<br>
+<strong>/</strong> активирует строку поиска<br>
+<strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключать Рус / Англ<br>
+<strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
+<strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search
+</p>
 <p class="message"><b>Ссылки в футере</b> DG - поиск слова в Суттах, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру: kāmarāgapariyuṭṭhitena мир kar gacchatīti Root✓</p>
