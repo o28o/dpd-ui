@@ -733,11 +733,6 @@ align-items: center;
 }
 
 @media (max-width: 768px) {
-
-
-    .header-lang-button {
-        margin-left: auto;
-    }  
 .input-group {
         display: flex; /* Делаем контейнер flex */
         align-items: center; /* Выравниваем элементы по центру вертикально */
@@ -856,18 +851,12 @@ align-items: center;
 
 @media (max-width: 768px) {
 
- .header-pane {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: nowrap; /* Добавьте это, чтобы предотвратить перенос */
-    }
-
-    .search-box {
-        width: 100%;
-        min-width: 0; /* Позволяет полю ввода сжиматься */
-    }
+.header-pane {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
 
 /* Чтобы форма поиска занимала оставшееся пространство */
 #search-form {
@@ -875,14 +864,16 @@ align-items: center;
     min-width: 0;
 }
 
+
   .logo-title {
         display: none;
     }
 
-    .header-lang-button {
-        flex-shrink: 0; /* Предотвращает сжатие кнопки */
-        margin-left: 5px; /* Небольшой отступ */
+.header-lang-button {
+        display: flex;
     }
+
+
 
     #history-content {
     display: none; /* Скрыть контент по умолчанию */
@@ -935,11 +926,6 @@ align-items: center;
 
 @media (max-width: 368px) {
  
-.header-lang-button {
-        display: flex;
-    }
-
-
      .input-group {
         display: flex; /* Делаем контейнер flex */
         align-items: center; /* Выравниваем элементы по центру вертикально */
@@ -1248,37 +1234,11 @@ align-items: center;
 
 /* Адаптация для мобильных устройств */
 @media (max-width: 400px) {
-
-  .header-pane {
-        flex-wrap: wrap;
-    }
-    
-    .logo-title {
-        order: 1;
-        width: 100%;
-        margin-bottom: 5px;
-    }
-    
-    #search-form {
-        order: 2;
-        flex-basis: calc(100% - 50px);
-    }
-    
-    .header-lang-button {
-        order: 3;
-    }
-    
-    .search-box {
-        min-width: 100px;
-    }
-
   .pwa-install {
     flex-wrap: wrap;
     padding-bottom: 12px;
   }
   
-
-
   .pwa-install-content {
     width: 100%;
     margin-right: 0;
@@ -1309,10 +1269,6 @@ align-items: center;
     width: calc(100% - 32px);
   }
   
-  .header-lang-button {
-        display: flex;
-    }
-
   .pwa-install .actions {
     flex-direction: column;
     width: 100%;
