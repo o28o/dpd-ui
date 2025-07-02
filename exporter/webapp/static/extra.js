@@ -16,9 +16,9 @@ document.addEventListener('keydown', function(event) {
     let targetUrl;
 
     if (
-      currentUrl.includes('/ru/') ||
-      currentUrl.includes('/r/') ||
-      currentUrl.includes('/ml/')
+      currentUrl.includes('/ru') ||
+      currentUrl.includes('/r') ||
+      currentUrl.includes('/ml')
     ) {
       targetUrl = 'https://dhamma.gift/ru/';
     } else {
@@ -158,7 +158,7 @@ function initStartMessage(lang) {
     <p class="message">
     
     </p>
-    <p class="message">Use <b>Hotkeys</b>: press / to activate search bar. Press Ctrl + 1 or Alt + 1 to toggle En/Ru language. </p>
+    <p class="message">Use <b>Hotkeys</b>: press / to activate search bar. Press Ctrl + 3 or Alt + 3 to switch to Dhamma.Gift, Ctrl + 1 or Alt + 1 to toggle En/Ru language. </p>
     <p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - on Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
@@ -185,7 +185,7 @@ function initStartMessage(lang) {
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
   
   <div class="collapsible">
-<p class="message">Используйте <b>Горячие Клавиши</b>: нажмите / чтобы активировать строку поиска. Ctrl + 1 или Alt + 1, чтобы переключаться между Рус и Англ. </p>
+<p class="message">Используйте <b>Горячие Клавиши</b>: нажмите / чтобы активировать строку поиска, Ctrl + 3 или Alt + 3 открыть Dhamma.Gift, Ctrl + 1 или Alt + 1, чтобы переключать Рус и Англ. </p>
 <p class="message"><b>Ссылки в футере</b> DG - поиск слова в Суттах, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру: kāmarāgapariyuṭṭhitena мир kar gacchatīti Root✓</p>
