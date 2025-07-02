@@ -74,6 +74,32 @@ document.addEventListener('keydown', function(event) {
 });
 
 
+
+document.addEventListener('keydown', function(event) {
+  const isCtrl2 = event.ctrlKey && event.code === 'Digit2';
+  const isAlt2 = event.altKey && event.code === 'Digit2';
+
+  if (isCtrl2 || isAlt2) {
+    event.preventDefault();
+
+    const currentUrl = window.location.href;
+    let targetUrl;
+
+    if (
+      currentUrl.includes('/ru') ||
+      currentUrl.includes('/r') ||
+      currentUrl.includes('/ml')
+    ) {
+      targetUrl = 'https://dhamma.gift/ru/read.php';
+    } else {
+      targetUrl = 'https://dhamma.gift/read.php';
+    }
+
+    window.location.href = targetUrl;
+  }
+});
+
+
 document.addEventListener("keydown", handleLanguageShortcut);
 
 // Применяем сохраненный язык при загрузке
