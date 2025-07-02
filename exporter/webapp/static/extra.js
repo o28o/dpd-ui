@@ -219,7 +219,7 @@ function initStartMessage(lang) {
   <div class="messages-content">
     <p class="message">Search in Pāḷi using <b>Autocomplete</b> or <b>Velthuis</b>, or use English.</p>
     <p class="message"><b>Click the Grammar Dictionary table</b> and it'll become sortable.</p>
-    <p class="message"><b>Lookup Pali on any sites</b> with <a title='Chrome / Opera / Edge' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=en'>extention</a>. Or <a href='#' title='Chrome Android menu → "Add to Home screen"' id='installLink'>Install</a> in Android. Then: select the word → in OS "share" menu choose Dict.DG.</p>
+    <p class="message"><b>Lookup Pali on any sites</b> with <a title='Chrome, Opera, Brave, Edge or Yandex Browser. Also available in Firefox Add-ons' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=en'>extention</a>. Or <a href='#' title='Chrome Android menu → "Add to Home screen"' id='installLink'>Install</a> in Android. Then: select the word → in OS "share" menu choose Dict.DG.</p>
   </div>
 
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
@@ -248,7 +248,7 @@ function initStartMessage(lang) {
   <div class="messages-content">
 <p class="message">Ищите на пали с <b>Автоподсказками</b> или <b>Velthuis</b>, или русском .</p>
 <p class="message"><b>Кликните по таблице</b> в Словаре Грамматики, её можно сортировать.</p>
-<p class="message"><b>Словарь на любом сайте</b>: <a target='_blant' title='Chrome / Opera / Edge' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>расширение</a>. Или <a title='также через Меню Chrome Android → "Добавить на главную" → Установить' href='#' id='installLink'>установка</a> в Android. 
+<p class="message"><b>Словарь на любом сайте</b>: <a target='_blant' title='Chrome, Opera, Brave, Edge или Yandex Browser. Также есть в Fierfox Add-ons' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>расширение</a>. Или <a title='также через Меню Chrome Android → "Добавить на главную" → Установить' href='#' id='installLink'>установка</a> в Android. 
 Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
   </div>
 
