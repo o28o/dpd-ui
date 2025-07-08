@@ -150,6 +150,15 @@ function redirectWithLanguage(newPath) {
     }
 }
 
+
+document.addEventListener('keydown', (event) => {
+  if (event.altKey && (event.code === 'Period' || event.code === 'KeyQ')) {
+    event.preventDefault();
+
+openDictionaries(event);
+  }
+});
+
 //установка фокуса в инпуте по нажатию / 
 document.addEventListener('keydown', function(event) {
     // Проверяем именно символ / (код 191 или Slash)
@@ -233,7 +242,7 @@ function initStartMessage(lang) {
     <strong>Ctrl+2</strong> or <strong>Alt+2</strong> open Dhamma.Gift Read<br>
     <strong>Ctrl+3</strong> or <strong>Alt+3</strong> open Dhamma.Gift Search
     </p>
-    <p class="message"><b>Footer links</b>: DG to search the word in Suttas, DPD - on Dpdict.net</p>
+    <p class="message"><b>Footer links</b>: Dict - to search the word in many dictionaries, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
   </div>
@@ -264,7 +273,7 @@ function initStartMessage(lang) {
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
 <strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search
 </p>
-<p class="message"><b>Ссылки в футере</b> DG - поиск слова в Суттах, DPD - на Dpdict.net</p>
+<p class="message"><b>Ссылки в футере</b> Dict - поиск слова в нескольких словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру: kāmarāgapariyuṭṭhitena мир kar gacchatīti Root✓</p>
   </div>

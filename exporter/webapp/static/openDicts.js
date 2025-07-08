@@ -21,12 +21,12 @@ function openDictionaries(event) {
       base: 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
       fallback: 'https://dsal.uchicago.edu/dictionaries/pali/'
     },
-      {
+   /*   {
       name: 'DPD',
       method: 'GET',
       base: 'https://dict.dhamma.gift/search_html?source=pwa&q=',
       fallback: 'https://dict.dhamma.gift/?source=pwa'
-    },
+    },*/
     {
       name: 'CPD', 
       method: 'POST', // POST-поиск: CPD доделать 
