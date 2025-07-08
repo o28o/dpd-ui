@@ -48,7 +48,6 @@ const DEFAULT_LANG = 'en';     // Язык по умолчанию
 
 // ======== Основной код ========
 //document.addEventListener("DOMContentLoaded", applySavedLanguage);
-
 document.addEventListener('keydown', function(event) {
   const isCtrl3 = event.ctrlKey && event.code === 'Digit3';
   const isAlt3 = event.altKey && event.code === 'Digit3';
@@ -57,6 +56,8 @@ document.addEventListener('keydown', function(event) {
     event.preventDefault();
 
     const currentUrl = window.location.href;
+    const currentParams = window.location.search; // включает ? и все параметры
+
     let targetUrl;
 
     if (
@@ -69,10 +70,14 @@ document.addEventListener('keydown', function(event) {
       targetUrl = 'https://dhamma.gift/';
     }
 
+    // Добавляем параметры, если есть
+    if (currentParams) {
+      targetUrl += currentParams;
+    }
+
     window.location.href = targetUrl;
   }
 });
-
 
 
 document.addEventListener('keydown', function(event) {
@@ -239,9 +244,9 @@ function initStartMessage(lang) {
     </p>
     <p class="message">Available <b>Hotkeys</b>: press <strong>/</strong> to activate the search bar<br>
     <strong>Ctrl+1</strong> or <strong>Alt+1</strong> toggle En/Ru<br>
-    <strong>Ctrl+2</strong> or <strong>Alt+2</strong> open Dhamma.Gift Read<br>
-    <strong>Ctrl+3</strong> or <strong>Alt+3</strong> open Dhamma.Gift Search
-    </p>
+    <strong>Ctrl+2</strong> or <strong>Alt+2</strong> to open Dhamma.Gift Read<br>
+    <strong>Ctrl+3</strong> or <strong>Alt+3</strong> to open Dhamma.Gift Search<br>
+    <strong>Alt+Q</strong> to open word in many dictionaries</p>
     <p class="message"><b>Footer links</b>: Dict - to search the word in many dictionaries, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
@@ -271,7 +276,9 @@ function initStartMessage(lang) {
 <p class="message"><b>Горячие Клавиши</b>: нажмите <strong>/</strong> чтобы активировать строку поиска<br>
 <strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключить Рус/Англ<br>
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
-<strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search
+<strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search<br>
+<strong>Alt+Q</strong> открыть открыть слово в нескольких словарях
+
 </p>
 <p class="message"><b>Ссылки в футере</b> Dict - поиск слова в нескольких словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
