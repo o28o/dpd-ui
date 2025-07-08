@@ -311,6 +311,8 @@ siteLanguage = 'en';
   window.location.href = url.toString();
 }
 
+
+
 //ссылки в футере
 const searchBoxForFooter = document.getElementById('search-box');
 
@@ -334,15 +336,18 @@ function updateLink(linkId, baseUrl) {
   link.href = url.toString();
 }
 
-// Обработчик ввода в поисковой строке
-searchBoxForFooter.addEventListener('input', () => {
-  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
-  updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
-});
-
 // Инициализация ссылок при загрузке
   updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
 updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
+
+//и обновление при клике
+document.getElementById('fdg-link')?.addEventListener('click', () => {
+  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
+});
+document.getElementById('dpd-link')?.addEventListener('click', () => {
+  updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
+});
+
 //ссылки в футере конец
 
 /* первый вариант
