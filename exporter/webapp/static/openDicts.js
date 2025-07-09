@@ -130,38 +130,38 @@ function openWithQuery(event, baseUrl) {
   return false;
 }
 
-
 function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
   event.preventDefault();
   
-  // 1. Получаем запрос из search-box
+  // 1. Get query from search-box
   const searchInput = document.getElementById('search-box');
   const query = searchInput?.value.trim().toLowerCase() || '';
   
   if (!query) {
-    showBubbleNotification('Введите поисковый запрос');
+    showBubbleNotification('Please enter a search query');
     return false;
   }
 
-  // 2. Копируем в буфер
+  // 2. Copy to clipboard
   navigator.clipboard.writeText(query)
-    .then(() => showBubbleNotification('Запрос скопирован: ' + query))
-    .catch(err => console.error('Ошибка копирования:', err));
+    .then(() => showBubbleNotification('Query copied: ' + query))
+    .catch(err => console.error('Copy failed:', err));
 
-  // 3. Подготавливаем и открываем URL
+  // 3. Prepare and open URLs
   const encodedQ = encodeURIComponent(query);
   baseUrls.forEach((baseUrl, index) => {
-    const finalUrl = baseUrl + paramTemplate.replace('{{q}}', encodedQ);
+    // Handle URLs that already have parameters
+    const separator = baseUrl.includes('?') ? '&' : '?';
+    const finalUrl = baseUrl + (paramTemplate ? separator + paramTemplate.replace('{{q}}', encodedQ) : encodedQ);
     
     setTimeout(() => {
+      console.log('Opening:', finalUrl); // Debug log
       window.open(finalUrl, '_blank');
-    }, 100 * index); // Задержка для обхода блокировки
+    }, 100 * index);
   });
 
   return false;
 }
-
-
 
 function toggleDictDropdown(event) {
   event.preventDefault();
