@@ -27,13 +27,7 @@ function openDictionaries(event) {
       base: 'https://dict.dhamma.gift/search_html?source=pwa&q=',
       fallback: 'https://dict.dhamma.gift/?source=pwa'
     },*/
-    {
-      name: 'CPD', 
-      method: 'POST', // POST-поиск: CPD доделать 
-      base: 'https://cpd.uni-koeln.de/search',
-      params: { getText: '' },
-      fallback: 'https://cpd.uni-koeln.de/search'
-    },
+    
     {
       name: 'Gandhari', // Нет поддержки поиска извне
       method: 'GET',
@@ -41,12 +35,13 @@ function openDictionaries(event) {
       fallback: 'https://gandhari.org/dop'
     },
     {
-      name: 'DharmaMitra',
-      method: 'GET',
-      base: 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=',
-      fallback: 'https://dharmamitra.org/?target_lang=english-explained'
+      name: 'CPD', 
+      method: 'POST', // POST-поиск: CPD доделать 
+      base: 'https://cpd.uni-koeln.de/search',
+      params: { getText: '' },
+      fallback: 'https://cpd.uni-koeln.de/search'
     },
-
+  
     {
       name: 'Glosbe',
       method: 'GET',
