@@ -3,7 +3,7 @@
 
 function openDictionaries(event) {
   event.preventDefault();
-  const query = document.getElementById('search-box')?.value.trim();
+const query = document.getElementById('search-box')?.value.trim().toLowerCase();
 
 
  // Копирование в буфер обмена
@@ -111,7 +111,7 @@ function openWithQuery(event, baseUrl) {
   
   // 1. Получаем значение из поля поиска
   const searchInput = document.getElementById('search-box');
-  const query = searchInput?.value.trim() || '';
+  const query = searchInput?.value.trim().toLowerCase() || '';
   
   // 2. Копируем в буфер (как у вас уже работало)
   if (query) {
@@ -142,7 +142,7 @@ function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
   
   // 1. Получаем запрос из search-box
   const searchInput = document.getElementById('search-box');
-  const query = searchInput?.value.trim() || '';
+  const query = searchInput?.value.trim().toLowerCase() || '';
   
   if (!query) {
     showBubbleNotification('Введите поисковый запрос');
