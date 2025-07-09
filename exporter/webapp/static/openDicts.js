@@ -106,14 +106,93 @@ function openDictionaries(event) {
   });
 }
 
-function convertText(event, target = 'Devanagari') {
+function openWithQuery(event, baseUrl) {
   event.preventDefault();
-  const query = document.getElementById('paliauto')?.value.trim();
+  
+  // 1. Получаем значение из поля поиска
+  const searchInput = document.getElementById('search-box');
+  const query = searchInput?.value.trim() || '';
+  
+  // 2. Копируем в буфер (как у вас уже работало)
+  if (query) {
+    navigator.clipboard.writeText(query)
+      .then(() => console.log('Скопировано:', query))
+      .catch(err => console.error('Ошибка:', err));
+  }
 
-  const base = 'https://www.aksharamukha.com/converter';
-  const url = query
-    ? `${base}?target=${encodeURIComponent(target)}&text=${encodeURIComponent(query)}`
-    : base;
+  // 3. Формируем URL (просто добавляем query в конец)
+  const finalUrl = baseUrl + encodeURIComponent(query);
+  console.log('Открываю:', finalUrl);
+  
+  // 4. Открываем в новой вкладке
+  window.open(finalUrl, '_blank');
+  
+  return false;
+}
 
-  window.open(url, '_blank');
+
+/**
+ * Открывает несколько словарей с текущим поисковым запросом
+ * @param {Event} event - Событие клика
+ * @param {string[]} baseUrls - Массив базовых URL словарей
+ * @param {string} paramTemplate - Шаблон параметра ('key={{q}}' или '?q={{q}}')
+ */
+function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
+  event.preventDefault();
+  
+  // 1. Получаем запрос из search-box
+  const searchInput = document.getElementById('search-box');
+  const query = searchInput?.value.trim() || '';
+  
+  if (!query) {
+    showBubbleNotification('Введите поисковый запрос');
+    return false;
+  }
+
+  // 2. Копируем в буфер
+  navigator.clipboard.writeText(query)
+    .then(() => showBubbleNotification('Запрос скопирован: ' + query))
+    .catch(err => console.error('Ошибка копирования:', err));
+
+  // 3. Подготавливаем и открываем URL
+  const encodedQ = encodeURIComponent(query);
+  baseUrls.forEach((baseUrl, index) => {
+    const finalUrl = baseUrl + paramTemplate.replace('{{q}}', encodedQ);
+    
+    setTimeout(() => {
+      window.open(finalUrl, '_blank');
+    }, 100 * index); // Задержка для обхода блокировки
+  });
+
+  return false;
+}
+
+
+
+function toggleDictDropdown(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const container = event.currentTarget.closest('.dict-dropdown-container');
+  const dropdown = container.querySelector('.dict-dropdown-menu');
+  
+  // Закрыть все открытые dropdowns
+  document.querySelectorAll('.dict-dropdown-menu.show').forEach(el => {
+    if (el !== dropdown) el.classList.remove('show');
+  });
+  
+  // Переключить текущий dropdown
+  container.classList.toggle('show');
+  dropdown.classList.toggle('show');
+  
+  // Закрытие при клике вне дропдауна
+  const closeHandler = function(e) {
+    if (!container.contains(e.target)) {
+      container.classList.remove('show');
+      dropdown.classList.remove('show');
+      document.removeEventListener('click', closeHandler);
+    }
+  };
+  
+  document.addEventListener('click', closeHandler);
 }
