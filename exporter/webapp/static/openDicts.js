@@ -109,10 +109,8 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase();
 function openWithQuery(event, baseUrl) {
   event.preventDefault();
   
-  // Получаем актуальное значение из поля ввода
   const searchInput = document.getElementById('search-box');
-  // Добавляем .value непосредственно перед использованием
-  const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  const query = searchInput?.value.trim().toLowerCase() || '';
   
   if (query) {
     navigator.clipboard.writeText(query)
@@ -120,13 +118,11 @@ function openWithQuery(event, baseUrl) {
       .catch(err => console.error('Ошибка:', err));
   }
 
-  // Формируем URL с учетом текущего значения
-  const separator = baseUrl.includes('?') ? '&' : '?';
-  const finalUrl = baseUrl + separator + encodeURIComponent(query);
+  // Заменяем плейсхолдер {{q}} на закодированный запрос
+  const finalUrl = baseUrl.replace('{{q}}', encodeURIComponent(query));
   console.log('Открываю:', finalUrl);
   
   window.open(finalUrl, '_blank');
-  
   return false;
 }
 
