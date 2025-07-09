@@ -157,7 +157,7 @@ function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
     setTimeout(() => {
       console.log('Opening:', finalUrl); // Debug log
       window.open(finalUrl, '_blank');
-    }, 100 * index);
+    }, 1 * index);
   });
 
   return false;
