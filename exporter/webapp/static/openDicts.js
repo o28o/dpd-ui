@@ -109,8 +109,7 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase();
 function openWithQuery(event, baseUrl) {
   event.preventDefault();
   
-  const searchInput = document.getElementById('search-box');
-  const query = searchInput?.value.trim().toLowerCase() || '';
+  const query = document.getElementById('search-box')?.value.trim().toLowerCase() || '';
   
   if (query) {
     navigator.clipboard.writeText(query)
@@ -130,8 +129,8 @@ function openWithQuery(event, baseUrl) {
 function openWithQueryMulti(event, baseUrls) {
   event.preventDefault();
   
-  const searchInput = document.getElementById('search-box');
-  const query = searchInput?.value.trim().toLowerCase() || '';
+  const query = document.getElementById('search-box')?.value.trim().toLowerCase() || '';
+
   
   navigator.clipboard.writeText(query)
     .then(() => showBubbleNotification('Query copied: ' + query))
