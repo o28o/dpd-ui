@@ -205,25 +205,25 @@ Tabs hide / show
       <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
         <span class="dropdown-icon">📚</span> 4 Pali + 4 Skr + Wlib
       </a>
-      <a class="dropdown-item" target="_blank" href="#" 
-         title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
-         onclick="return openWithQueryMulti(event, [
-           'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
-           'https://cpd.uni-koeln.de/search?query=',
-           'https://gandhari.org/dictionary?section=dop&search='
-         ], '{{q}}')">
-        <span class="dropdown-icon">📚</span> Pali PTS, Cone, CPD
-      </a>
-      <a class="dropdown-item" target="_blank" href="#" 
-         title="Monier-Williams + Shabda-Sagara + Apte Practical + Macdonell"
-         onclick="return openWithQueryMulti(event, [
-           'https://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&',
-           'https://www.sanskrit-lexicon.uni-koeln.de/scans/SHSScan/2020/web/webtc/indexcaller.php?transLit=roman&',
-           'https://www.sanskrit-lexicon.uni-koeln.de/scans/APScan/2020/web/webtc/indexcaller.php?transLit=roman&',
-           'https://www.sanskrit-lexicon.uni-koeln.de/scans/MDScan/2020/web/webtc/indexcaller.php?transLit=roman&'
-         ], 'key={{q}}')">
-        <span class="dropdown-icon">📚</span> Srk MW, SHS, AP, MD
-      </a>
+     <a class="dropdown-item" target="_blank" href="#" 
+   title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
+   onclick="return openWithQueryMulti(event, [
+     'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs={{q}}',
+     'https://cpd.uni-koeln.de/search?query={{q}}',
+     'https://gandhari.org/dictionary?section=dop&search={{q}}'
+   ])">
+  <span class="dropdown-icon">📚</span> Pali PTS, Cone, CPD
+</a>
+<a class="dropdown-item" target="_blank" href="#" 
+   title="Monier-Williams + Shabda-Sagara + Apte Practical + Macdonell"
+   onclick="return openWithQueryMulti(event, [
+     'https://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key={{q}}',
+     'https://www.sanskrit-lexicon.uni-koeln.de/scans/SHSScan/2020/web/webtc/indexcaller.php?transLit=roman&key={{q}}',
+     'https://www.sanskrit-lexicon.uni-koeln.de/scans/APScan/2020/web/webtc/indexcaller.php?transLit=roman&key={{q}}',
+     'https://www.sanskrit-lexicon.uni-koeln.de/scans/MDScan/2020/web/webtc/indexcaller.php?transLit=roman&key={{q}}'
+   ])">
+  <span class="dropdown-icon">📚</span> Skr MW, SHS, AP, MD
+</a>
     </div>
     
     <div class="dropdown-section">

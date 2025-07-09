@@ -127,44 +127,25 @@ function openWithQuery(event, baseUrl) {
   return false;
 }
 
-function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
+function openWithQueryMulti(event, baseUrls) {
   event.preventDefault();
   
   const searchInput = document.getElementById('search-box');
   const query = searchInput?.value.trim().toLowerCase() || '';
   
-  if (!query) {
-    showBubbleNotification('Please enter a search query');
-    return false;
-  }
-
   navigator.clipboard.writeText(query)
     .then(() => showBubbleNotification('Query copied: ' + query))
     .catch(err => console.error('Copy failed:', err));
 
   const encodedQ = encodeURIComponent(query);
   baseUrls.forEach((baseUrl, index) => {
-    // Исправлено: правильно обрабатываем параметры URL
-    let finalUrl;
-    if (paramTemplate) {
-      const paramStr = paramTemplate.replace('{{q}}', encodedQ);
-      const hasQuery = baseUrl.includes('?');
-      const endsWithAmp = baseUrl.endsWith('&');
-      const endsWithQuestion = baseUrl.endsWith('?');
-      
-      if (hasQuery && !endsWithAmp && !endsWithQuestion) {
-        finalUrl = baseUrl + '&' + paramStr;
-      } else {
-        finalUrl = baseUrl + (hasQuery ? '' : '?') + paramStr;
-      }
-    } else {
-      finalUrl = baseUrl + encodedQ;
-    }
+    // Просто заменяем {{q}} в URL на закодированный запрос
+    const finalUrl = baseUrl.replace('{{q}}', encodedQ);
     
     setTimeout(() => {
       console.log('Opening:', finalUrl);
       window.open(finalUrl, '_blank');
-    }, 1 * index);
+    }, 100 * index); // Небольшая задержка между открытием вкладок
   });
 
   return false;
