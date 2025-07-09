@@ -131,12 +131,6 @@ function openWithQuery(event, baseUrl) {
 }
 
 
-/**
- * Открывает несколько словарей с текущим поисковым запросом
- * @param {Event} event - Событие клика
- * @param {string[]} baseUrls - Массив базовых URL словарей
- * @param {string} paramTemplate - Шаблон параметра ('key={{q}}' или '?q={{q}}')
- */
 function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
   event.preventDefault();
   
