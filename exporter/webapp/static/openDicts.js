@@ -109,22 +109,19 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase();
 function openWithQuery(event, baseUrl) {
   event.preventDefault();
   
-  // 1. Получаем значение из поля поиска
   const searchInput = document.getElementById('search-box');
   const query = searchInput?.value.trim().toLowerCase() || '';
   
-  // 2. Копируем в буфер (как у вас уже работало)
   if (query) {
     navigator.clipboard.writeText(query)
       .then(() => console.log('Скопировано:', query))
       .catch(err => console.error('Ошибка:', err));
   }
 
-  // 3. Формируем URL (просто добавляем query в конец)
-  const finalUrl = baseUrl + encodeURIComponent(query);
+  // Исправлено: правильно добавляем query к URL
+  const finalUrl = baseUrl + (baseUrl.includes('?') ? '&' : '?') + 'q=' + encodeURIComponent(query);
   console.log('Открываю:', finalUrl);
   
-  // 4. Открываем в новой вкладке
   window.open(finalUrl, '_blank');
   
   return false;
@@ -133,7 +130,6 @@ function openWithQuery(event, baseUrl) {
 function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
   event.preventDefault();
   
-  // 1. Get query from search-box
   const searchInput = document.getElementById('search-box');
   const query = searchInput?.value.trim().toLowerCase() || '';
   
@@ -142,20 +138,31 @@ function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
     return false;
   }
 
-  // 2. Copy to clipboard
   navigator.clipboard.writeText(query)
     .then(() => showBubbleNotification('Query copied: ' + query))
     .catch(err => console.error('Copy failed:', err));
 
-  // 3. Prepare and open URLs
   const encodedQ = encodeURIComponent(query);
   baseUrls.forEach((baseUrl, index) => {
-    // Handle URLs that already have parameters
-    const separator = baseUrl.includes('?') ? '&' : '?';
-    const finalUrl = baseUrl + (paramTemplate ? separator + paramTemplate.replace('{{q}}', encodedQ) : encodedQ);
+    // Исправлено: правильно обрабатываем параметры URL
+    let finalUrl;
+    if (paramTemplate) {
+      const paramStr = paramTemplate.replace('{{q}}', encodedQ);
+      const hasQuery = baseUrl.includes('?');
+      const endsWithAmp = baseUrl.endsWith('&');
+      const endsWithQuestion = baseUrl.endsWith('?');
+      
+      if (hasQuery && !endsWithAmp && !endsWithQuestion) {
+        finalUrl = baseUrl + '&' + paramStr;
+      } else {
+        finalUrl = baseUrl + (hasQuery ? '' : '?') + paramStr;
+      }
+    } else {
+      finalUrl = baseUrl + encodedQ;
+    }
     
     setTimeout(() => {
-      console.log('Opening:', finalUrl); // Debug log
+      console.log('Opening:', finalUrl);
       window.open(finalUrl, '_blank');
     }, 1 * index);
   });
