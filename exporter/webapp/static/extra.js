@@ -242,11 +242,13 @@ function initStartMessage(lang) {
     <p class="message">
     
     </p>
-    <p class="message">Available <b>Hotkeys</b>: press <strong>/</strong> to activate the search bar<br>
-    <strong>Ctrl+1</strong> or <strong>Alt+1</strong> toggle En/Ru<br>
-    <strong>Ctrl+2</strong> or <strong>Alt+2</strong> to open Dhamma.Gift Read<br>
-    <strong>Ctrl+3</strong> or <strong>Alt+3</strong> to open Dhamma.Gift Search<br>
-    <strong>Alt+Q</strong> to open word in many dictionaries</p>
+    <p class="message">
+  <b>Available Hotkeys:</b> press <strong>/</strong> to activate the search bar<br>
+  <strong>Ctrl+1</strong> or <strong>Alt+1</strong> — Toggle English/Russian<br>
+  <strong>Ctrl+2</strong> or <strong>Alt+2</strong> — Open <em>Dhamma.Gift Read</em><br>
+  <strong>Ctrl+3</strong> or <strong>Alt+3</strong> — Open <em>Dhamma.Gift Search</em><br>
+  <strong>Alt+Q</strong> — Look up word in multiple dictionaries
+</p>
     <p class="message"><b>Footer links</b>: Dict - to search the word in many dictionaries, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
@@ -277,7 +279,7 @@ function initStartMessage(lang) {
 <strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключить Рус/Англ<br>
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
 <strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search<br>
-<strong>Alt+Q</strong> открыть открыть слово в нескольких словарях
+<strong>Alt+Q</strong> открыть слово в нескольких словарях
 
 </p>
 <p class="message"><b>Ссылки в футере</b> Dict - поиск слова в нескольких словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
