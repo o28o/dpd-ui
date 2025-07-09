@@ -1,6 +1,4 @@
-
 //  <a href="#" onclick="openDictionaries(event)">Dict</a>
-
 function openDictionaries(event) {
   event.preventDefault();
 const query = document.getElementById('search-box')?.value.trim().toLowerCase();
@@ -106,33 +104,37 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase();
   });
 }
 
+// Универсальная функция для получения текущего значения поиска
+function getCurrentSearchQuery() {
+  const searchInput = document.getElementById('search-box');
+  if (!searchInput) {
+    console.warn('Search input not found');
+    return '';
+  }
+  return searchInput.value.trim().toLowerCase();
+}
+
+// Улучшенная функция для одиночных словарей
 function openWithQuery(event, baseUrl) {
   event.preventDefault();
-  
-  const searchInput = document.getElementById('search-box');
-  const query = searchInput?.value.trim().toLowerCase() || '';
+  const query = getCurrentSearchQuery();
   
   if (query) {
     navigator.clipboard.writeText(query)
-      .then(() => console.log('Скопировано:', query))
-      .catch(err => console.error('Ошибка:', err));
+      .then(() => console.log('Copied:', query))
+      .catch(err => console.error('Copy error:', err));
   }
 
-  // Заменяем плейсхолдер {{q}} на закодированный запрос
   const finalUrl = baseUrl.replace('{{q}}', encodeURIComponent(query));
-  console.log('Открываю:', finalUrl);
-  
+  console.log('Opening:', finalUrl);
   window.open(finalUrl, '_blank');
   return false;
 }
 
+// Улучшенная функция для нескольких словарей
 function openWithQueryMulti(event, baseUrls) {
   event.preventDefault();
-  
-  // Получаем актуальное значение из поля ввода
-  const searchInput = document.getElementById('search-box');
-  // Добавляем .value непосредственно перед использованием
-  const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  const query = getCurrentSearchQuery();
   
   if (!query) {
     showBubbleNotification('Please enter a search query');
@@ -140,22 +142,18 @@ function openWithQueryMulti(event, baseUrls) {
   }
 
   navigator.clipboard.writeText(query)
-    .then(() => showBubbleNotification('Query copied: ' + query))
+    .then(() => showBubbleNotification('Copied: ' + query))
     .catch(err => console.error('Copy failed:', err));
 
   const encodedQ = encodeURIComponent(query);
   baseUrls.forEach((baseUrl, index) => {
-    // Заменяем плейсхолдер на актуальное значение
     const finalUrl = baseUrl.replace('{{q}}', encodedQ);
-    
-    setTimeout(() => {
-      console.log('Opening:', finalUrl);
-      window.open(finalUrl, '_blank');
-    }, 100 * index);
+    setTimeout(() => window.open(finalUrl, '_blank'), 100 * index);
   });
 
   return false;
 }
+
 
 function toggleDictDropdown(event) {
   event.preventDefault();
