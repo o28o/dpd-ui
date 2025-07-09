@@ -109,7 +109,10 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase();
 function openWithQuery(event, baseUrl) {
   event.preventDefault();
   
-  const query = document.getElementById('search-box')?.value.trim().toLowerCase() || '';
+  // Получаем актуальное значение из поля ввода
+  const searchInput = document.getElementById('search-box');
+  // Добавляем .value непосредственно перед использованием
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
   
   if (query) {
     navigator.clipboard.writeText(query)
@@ -117,8 +120,9 @@ function openWithQuery(event, baseUrl) {
       .catch(err => console.error('Ошибка:', err));
   }
 
-  // Исправлено: правильно добавляем query к URL
-  const finalUrl = baseUrl + (baseUrl.includes('?') ? '&' : '?') + 'q=' + encodeURIComponent(query);
+  // Формируем URL с учетом текущего значения
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  const finalUrl = baseUrl + separator + encodeURIComponent(query);
   console.log('Открываю:', finalUrl);
   
   window.open(finalUrl, '_blank');
@@ -129,22 +133,29 @@ function openWithQuery(event, baseUrl) {
 function openWithQueryMulti(event, baseUrls) {
   event.preventDefault();
   
-  const query = document.getElementById('search-box')?.value.trim().toLowerCase() || '';
-
+  // Получаем актуальное значение из поля ввода
+  const searchInput = document.getElementById('search-box');
+  // Добавляем .value непосредственно перед использованием
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
   
+  if (!query) {
+    showBubbleNotification('Please enter a search query');
+    return false;
+  }
+
   navigator.clipboard.writeText(query)
     .then(() => showBubbleNotification('Query copied: ' + query))
     .catch(err => console.error('Copy failed:', err));
 
   const encodedQ = encodeURIComponent(query);
   baseUrls.forEach((baseUrl, index) => {
-    // Просто заменяем {{q}} в URL на закодированный запрос
+    // Заменяем плейсхолдер на актуальное значение
     const finalUrl = baseUrl.replace('{{q}}', encodedQ);
     
     setTimeout(() => {
       console.log('Opening:', finalUrl);
       window.open(finalUrl, '_blank');
-    }, 100 * index); // Небольшая задержка между открытием вкладок
+    }, 100 * index);
   });
 
   return false;
