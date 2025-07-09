@@ -106,23 +106,28 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase();
   });
 }
 
-function openWithQuery(event, base = 'https://www.aksharamukha.com/converter?target=Devanagari&text={{q}}') {
-  const queryInput = document.getElementById('search-box');
-  const query = queryInput?.value.trim().toLowerCase() || ''; // даже если пусто, подставляем ""
-
+function openWithQuery(event, baseUrl) {
+  event.preventDefault();
+  
+  // Получаем актуальное значение из поля ввода
+  const searchInput = document.getElementById('search-box');
+  // Добавляем .value непосредственно перед использованием
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  
   if (query) {
-    showBubbleNotification('Copied to clipboard');
-    navigator.clipboard.writeText(query).catch(err => {
-      console.warn('Clipboard copy failed:', err);
-    });
+    navigator.clipboard.writeText(query)
+      .then(() => console.log('Скопировано:', query))
+      .catch(err => console.error('Ошибка:', err));
   }
 
-  const url = base.replace('{{q}}', encodeURIComponent(query));
-  const el = event.currentTarget;
-
-  el.href = url;
-
-  return true; // разрешаем браузеру следовать по ссылке с учетом target
+  // Формируем URL с учетом текущего значения
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  const finalUrl = baseUrl + separator + encodeURIComponent(query);
+  console.log('Открываю:', finalUrl);
+  
+  window.open(finalUrl, '_blank');
+  
+  return false;
 }
 
 function openWithQueryMulti(event, baseUrls) {
