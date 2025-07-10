@@ -1466,6 +1466,7 @@ align-items: center;
 }
 
 .round-button.dict-dropdown-toggle {
+  background-color: var(--gray-transparent);  
   background: none;
   font-size: 1.2em;
   padding: 0.3em 0.6em;
@@ -1476,7 +1477,6 @@ align-items: center;
 .dark-mode .round-button.dict-dropdown-toggle {
   border: 2px solid var(--gray-transparent);  
     box-shadow: var(--primary);
-
 }
 
 .round-button.dict-dropdown-toggle:hover {
