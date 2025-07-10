@@ -15,373 +15,241 @@
   <meta name="theme-color" content="#1a8bdb">
 
   <link rel="canonical" href="https://dict.dhamma.gift/ru/">
-<link rel="alternate" href="https://dict.dhamma.gift/ru/" hreflang="ru">
-<link rel="alternate" href="https://dict.dhamma.gift/" hreflang="en">
-<link rel="alternate" href="https://dict.dhamma.gift/" hreflang="x-default">
+  <link rel="alternate" href="https://dict.dhamma.gift/ru/" hreflang="ru">
+  <link rel="alternate" href="https://dict.dhamma.gift/" hreflang="en">
+  <link rel="alternate" href="https://dict.dhamma.gift/" hreflang="x-default">
 
   <link rel="stylesheet" type="text/css" href="/static/home.css">
   <link rel="stylesheet" type="text/css" href="/static/switch.css">
   <link rel="stylesheet" type="text/css" href="/static/dpd.css">
   <link rel="icon" type="image/png" href="/static/dpd-logo.svg">
   <link href="/static/jquery-ui.min.css" rel="stylesheet" />
-<link href="/static/extrastyles.css" rel="stylesheet" />
-<script src="/static/jquery-3.7.0.min.js"></script>
-<script src="/static/jquery-ui.min.js"></script>
+  <link href="/static/extrastyles.css" rel="stylesheet" />
+  <script src="/static/jquery-3.7.0.min.js"></script>
+  <script src="/static/jquery-ui.min.js"></script>
 </head>
 
 <body>
-<div id="tab-container" class="tab-buttons">
-<button class="tab-link active" onclick="openTab(event, 'dpd-tab')">DPD</button>
-<button class="tab-link" onclick="openTab(event, 'bold-def-tab')">Определения CST</button>
-</div>
+  <div id="tab-container" class="tab-buttons">
+    <button class="tab-link active" onclick="openTab(event, 'dpd-tab')">DPD</button>
+    <button class="tab-link" onclick="openTab(event, 'bold-def-tab')">Определения CST</button>
+  </div>
 
-<div id="dpd-tab" class="tab-content active">
-<div class="header-pane">
-<div class="logo-title">
-<a href="javascript:void(0)" title="переключить Рус/Англ (Alt+1 или Ctrl+1)" onclick="changeLanguage('en')" class="alogo"><img src="/static/dpd-logo.svg" alt="dpd logo" id="header-image" class="header-image"></a>
-<h2 class="title" id="title-clear"><a href="/ru/" class="alogo">DPD</a></h2>
-</div>
+  <div id="dpd-tab" class="tab-content active">
+    <div class="header-pane">
+      <div class="logo-title">
+        <a href="javascript:void(0)" title="переключить Рус/Англ (Alt+1 или Ctrl+1)" onclick="changeLanguage('en')"
+          class="alogo"><img src="/static/dpd-logo.svg" alt="dpd logo" id="header-image" class="header-image"></a>
+        <h2 class="title" id="title-clear"><a href="/ru/" class="alogo">DPD</a></h2>
+      </div>
 
-<div class="header-lang-button">
-<button class="round-button" title="переключить Рус/Англ (Alt+1 или Ctrl+1)" onclick="changeLanguage('en')">en</button>
-</div>
+      <div class="header-lang-button">
+        <button class="round-button" title="переключить Рус/Англ (Alt+1 или Ctrl+1)"
+          onclick="changeLanguage('en')">en</button>
+      </div>
 
 
-<!-- Dropdown Dict -->
-<div class="dict-dropdown-container">
-  <button class="round-button dict-dropdown-toggle" title="Открыть слово в разных словарях" onclick="toggleDictDropdown(event)">
-    📘
-  </button>
-  <div class="dict-dropdown-menu-down">
-    <div class="dropdown-section">
-      <div class="dropdown-header">Группы Словарей</div>
-      <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
-        <span class="dropdown-icon">📚</span> 4 Pali + 4 Skr + Wlib
-      </a>
- <a class="dropdown-item" target="_blank" href="#" 
-   title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
-   onclick="return openWithQueryMulti(event, [
-     'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
-     'https://cpd.uni-koeln.de/search?query=',
-     'https://gandhari.org/dictionary?section=dop&search='
-   ])">
-  <span class="dropdown-icon">📚</span> Pali PTS, Cone, CPD
-</a>
-<a class="dropdown-item" target="_blank" href="#" 
-   title="Monier-Williams + Shabda-Sagara + Apte Practical + Macdonell"
-   onclick="return openWithQueryMulti(event, [
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/SHSScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/APScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/MDScan/2020/web/webtc/indexcaller.php?transLit=roman&key='
-   ])">
-  <span class="dropdown-icon">📚</span> Skr MW, SHS, AP, MD
-</a>
+      <div class="dict-dropdown-container">
+        <button class="round-button dict-dropdown-toggle" title="Открыть слово в разных словарях"
+          onclick="toggleDictDropdown(event)">
+          📘
+        </button>
+        <div class="dict-dropdown-menu-down"></div>
+      </div>
+
+
+
+
+      <form id="search-form">
+        <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
+          <input class="search-box" type="search" name="search" id="search-box" placeholder="Поиск..."
+            autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
+          <button class="search-button" id="search-button"><span>найти</span></button>
+          <button class="help small-button" id="search-help-button">?
+            <span class="tooltip velthuis">
+              <b>Ввод Velthuis:</b><br><br>
+              aa - ā<br>
+              ii - ī<br>
+              uu - ū<br>
+              "n - ṅ<br>
+              ~n - ñ<br>
+              .t - ṭ<br>
+              .d - ḍ<br>
+              .n - ṇ<br>
+              .m - ṃ<br>
+              .l - ḷ
+            </span>
+          </button>
+        </div>
+      </form>
     </div>
-    
-    <div class="dropdown-section">
-      <div class="dropdown-header">Палийские словари</div>
-        <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=')">
-        <span class="dropdown-icon">🏛️</span> PTS Dictionary
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://gandhari.org/dictionary?section=dop&search=')">
-        <span class="dropdown-icon">🏛️</span> Cone Gandhari.org
-      </a>
-   <!--   <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://ru.dpdict.net/search_html?q=')">
-        <span class="dropdown-icon">🏛️</span> DPDict.net
-      </a> -->
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://cpd.uni-koeln.de/search?query=')">
-        <span class="dropdown-icon">🏛️</span> Critical Pali Dict (CPD)
-      </a>
 
+    <div class="main-pane" id="main-pane">
+      <div class="history-pane" id="history-pane">
+        <button class="collapse-btn" onclick="toggleHistory()">
+          <h3>История <div class="history-icon"></div>
+          </h3>
+        </button>
+        <div id="history-content">
+          <button id="clear-history-button" class="clear-history-button">x</button>
+          <div class="history-list-pane" id="history-list-pane"></div>
+        </div>
+      </div>
+
+      <div class="dpd-pane" id="dpd-pane">
+        <div class="summary-results" id="summary-results"></div>
+        <div class="dpd-results" id="dpd-results">
+          {{ dpd_results|safe }}
+        </div>
+      </div>
+
+      <div class="settings-pane">
+        <button class="collapse-btn" onclick="toggleSettings()">
+          <h3>Настройки <div class="settings-icon"></div>
+          </h3>
+        </button>
+        <div id="settings-content">
+          <p>
+          <div class="language-switcher">
+            <span class="language-icon" title="Язык"> 🌐 Изменить язык
+              <span class="tooltip"><b>Язык</b></span>
+            </span>
+            <div class="dropdown" style="display: none;">
+              <a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('en')">Английский</a>
+              <a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
+            </div>
+          </div>
+          </p>
+          <p>
+            <button class="small-button" id="font-size-down">-</button>
+            <button class="small-button" id="font-size-up">+</button>
+            Размер шрифта <span id="font-size-display"></span>
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label>
+            ночь / день
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="sans-serif-toggle"><span
+                class="slider round"></span></label> sans / serif шрифт
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="niggahita-toggle"><span
+                class="slider round"></span></label> ниггахита ṃ / ṁ
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="grammar-toggle"><span class="slider round"></span></label>
+            раздел грамматики свёрнут / развёрнут
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="example-toggle"><span class="slider round"></span></label>
+            раздел примеров свёрнут / развёрнут
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="one-button-toggle" checked><span
+                class="slider round"></span></label> по одному разделу за раз выкл / вкл
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="summary-toggle"><span class="slider round"></span></label>
+            сводка свёрнута / развёрнута
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="sandhi-toggle"><span class="slider round"></span></label>
+            символ sandhi ’ выкл / вкл
+          </p>
+          <p>
+            <label class="switch"><input type="checkbox" id="tabs-toggle"><span class="slider round"></span></label>
+            вкладки скрыть / показать
+          </p>
+        </div>
+      </div>
     </div>
-    
-    <div class="dropdown-section">
-      <div class="dropdown-header">Санскритские словари</div>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key=')">
-        <span class="dropdown-icon">📜</span> Monier-Williams
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.sanskritdictionary.com/?iencoding=iast&lang=sans&action=Search&q=')">
-        <span class="dropdown-icon">📜</span> Sanskrit Dictionary
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.learnsanskrit.cc/translate?dir=au&search=')">
-        <span class="dropdown-icon">📜</span> LearnSanskrit
-      </a>
-    </div>
-    
-    <div class="dropdown-section">
 
-            <div class="dropdown-header">Другие ресурсы</div>
+    <div class="footer-pane">
 
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
-        <span class="dropdown-icon">🌍</span> Mitra Translator
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.wisdomlib.org/index.php?type=search&division=glossary&item=&mode=text&input=')">
-        <span class="dropdown-icon">🌍</span> Wisdomlib
-      </a>
-              <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://glosbe.com/pi/sa/')">
-        <span class="dropdown-icon">🌍</span> Glosbe Pli-Srk
-      </a>
-      
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.aksharamukha.com/converter?target=&text=')">
-        <span class="dropdown-icon">🌍</span> Aksharamukha
-      </a>
+      <div class="dict-dropdown-container">
+        <button class="dict-dropdown-toggle" title="Открыть слово в рвзных словарях"
+          onclick="toggleDictDropdown(event)">
+          Dict
+        </button>
+        <div class="dict-dropdown-menu"></div>
+      </div>
+
+
+      <a id="fdg-link" href="" target="" title="Искать слово с помощью Dhamma.Gift">DG</a> <a
+        href="http://dhamma.gift/assets/dictTest.html" style="all: unset; cursor: pointer;">©</a> <a id="dpd-link"
+        href="" title="Открыть слово в ru.Dpdict.net" target="_blank">DPD</a>
     </div>
   </div>
-</div>
 
-
-
-
-<form id="search-form">
-<div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
-<input class="search-box" type="search" name="search" id="search-box" placeholder="Поиск..." autocomplete="off" inputmode="text" autocapitalize="off" autofocus>
-<button class="search-button" id="search-button"><span>найти</span></button>
-<button class="help small-button" id="search-help-button">?
-<span class="tooltip velthuis">
-<b>Ввод Velthuis:</b><br><br>
-aa - ā<br>
-ii - ī<br>
-uu - ū<br>
-"n - ṅ<br>
-~n - ñ<br>
-.t - ṭ<br>
-.d - ḍ<br>
-.n - ṇ<br>
-.m - ṃ<br>
-.l - ḷ
-</span>
-</button>
-</div>
-</form>
-</div>
-
-<div class="main-pane" id="main-pane">
-<div class="history-pane" id="history-pane">
-<button class="collapse-btn" onclick="toggleHistory()">
-<h3>История <div class="history-icon"></div>
-</h3>
-</button>
-<div id="history-content">
-<button id="clear-history-button" class="clear-history-button">x</button>
-<div class="history-list-pane" id="history-list-pane"></div>
-</div>
-</div>
-
-<div class="dpd-pane" id="dpd-pane">
-<div class="summary-results" id="summary-results"></div>
-<div class="dpd-results" id="dpd-results">
-{{ dpd_results|safe }}
-</div>
-</div>
-
-<div class="settings-pane">
-<button class="collapse-btn" onclick="toggleSettings()">
-<h3>Настройки <div class="settings-icon"></div>
-</h3>
-</button>
-<div id="settings-content">
-<p>
-<div class="language-switcher">
-<span class="language-icon" title="Язык"> 🌐 Изменить язык
-<span class="tooltip"><b>Язык</b></span>
-</span>
-<div class="dropdown" style="display: none;">
-<a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('en')">Английский</a>
-<a href="javascript:void(0)" class="dropdown-item" onclick="changeLanguage('ru')">Русский</a>
-</div>
-</div>
-</p>
-<p>
-<button class="small-button" id="font-size-down">-</button>
-<button class="small-button" id="font-size-up">+</button>
-Размер шрифта <span id="font-size-display"></span>
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="theme-toggle"><span class="slider round"></span></label> ночь / день
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="sans-serif-toggle"><span class="slider round"></span></label> sans / serif шрифт
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="niggahita-toggle"><span class="slider round"></span></label> ниггахита ṃ / ṁ
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="grammar-toggle"><span class="slider round"></span></label> раздел грамматики свёрнут / развёрнут
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="example-toggle"><span class="slider round"></span></label> раздел примеров свёрнут / развёрнут
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="one-button-toggle" checked><span class="slider round"></span></label> по одному разделу за раз выкл / вкл
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="summary-toggle"><span class="slider round"></span></label> сводка свёрнута / развёрнута
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="sandhi-toggle"><span class="slider round"></span></label> символ sandhi ’ выкл / вкл
-</p>
-<p>
-<label class="switch"><input type="checkbox" id="tabs-toggle"><span class="slider round"></span></label> вкладки скрыть / показать
-</p>
-</div>
-</div>
-</div>
-
-<div class="footer-pane">
-
-<!-- Dropdown Dict -->
-<div class="dict-dropdown-container">
-  <button class="dict-dropdown-toggle" title="Открыть слово в рвзных словарях" onclick="toggleDictDropdown(event)">
-    Dict
-  </button>
-  <div class="dict-dropdown-menu">
-    <div class="dropdown-section">
-      <div class="dropdown-header">Группы Словарей</div>
-      <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
-        <span class="dropdown-icon">📚</span> 4 Pali + 4 Skr + Wlib
-      </a>
- <a class="dropdown-item" target="_blank" href="#" 
-   title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
-   onclick="return openWithQueryMulti(event, [
-     'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
-     'https://cpd.uni-koeln.de/search?query=',
-     'https://gandhari.org/dictionary?section=dop&search='
-   ])">
-  <span class="dropdown-icon">📚</span> Pali PTS, Cone, CPD
-</a>
-<a class="dropdown-item" target="_blank" href="#" 
-   title="Monier-Williams + Shabda-Sagara + Apte Practical + Macdonell"
-   onclick="return openWithQueryMulti(event, [
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/SHSScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/APScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
-     'https://www.sanskrit-lexicon.uni-koeln.de/scans/MDScan/2020/web/webtc/indexcaller.php?transLit=roman&key='
-   ])">
-  <span class="dropdown-icon">📚</span> Skr MW, SHS, AP, MD
-</a>
+  <div id="bold-def-tab" class="tab-content">
+    <div class="header-pane bd-header-pane">
+      <div class="logo-title">
+        <h2 class="title" id="bd-title-clear">Определения жирным CST</h2>
+      </div>
+      <p class="centered-text">
+        Найдено <b>360k+</b> выделенных жирным терминов в Чаттха Сангаяна Типитаке
+      </p>
+      <div class="bd-search-pane">
+        <h4>Искать определения термина</h4>
+        <form id="bd-search-form">
+          <input class="search-box bd-search-box" type="text" name="bd-search-1" id="bd-search-box-1"
+            value="{{ search }}" autocomplete="off">
+        </form>
+        <h4>которые содержат</h4>
+        <form id="bd-search-form">
+          <input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2"
+            value="{{ search }}" autocomplete="off">
+        </form>
+        <h4>внутри них.</h4>
+        <button class="search-button" id="bd-search-button">Найти</button>
+        <button class="help small-button" id="search-help-button">?
+          <span class="tooltip velthuis">
+            <b>Ввод Velthuis:</b><br><br>
+            aa > ā<br>
+            ii > ī<br>
+            uu > ū<br>
+            "n > ṅ<br>
+            ~n > ñ<br>
+            .t > ṭ<br>
+            .d > ḍ<br>
+            .n > ṇ<br>
+            .m > ṃ<br>
+            .l > ḷ
+          </span>
+        </button>
+      </div>
+      <div class="bd-search-options">
+        <input type="radio" id="option1" name="option" value="starts_with">
+        <label for="option1">начинается с</label>
+        <input type="radio" id="option2" name="option" value="regex" checked>
+        <label for="option2">обычный/рег. выраж.</label>
+        <input type="radio" id="option3" name="option" value="fuzzy">
+        <label for="option3">неточный</label>
+        <button type="button" class="bd-search-option-clear">очистить</button>
+      </div>
     </div>
-    
-    <div class="dropdown-section">
-      <div class="dropdown-header">Палийские словари</div>
-        <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=')">
-        <span class="dropdown-icon">🏛️</span> PTS Dictionary
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://gandhari.org/dictionary?section=dop&search=')">
-        <span class="dropdown-icon">🏛️</span> Cone Gandhari.org
-      </a>
-   <!--   <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://ru.dpdict.net/search_html?q=')">
-        <span class="dropdown-icon">🏛️</span> DPDict.net
-      </a> -->
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://cpd.uni-koeln.de/search?query=')">
-        <span class="dropdown-icon">🏛️</span> Critical Pali Dict (CPD)
-      </a>
-
+    <div class="scrolling-pane" id="bd-results">
+      {{ bd_results|safe }}
     </div>
-    
-    <div class="dropdown-section">
-      <div class="dropdown-header">Санскритские словари</div>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key=')">
-        <span class="dropdown-icon">📜</span> Monier-Williams
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.sanskritdictionary.com/?iencoding=iast&lang=sans&action=Search&q=')">
-        <span class="dropdown-icon">📜</span> Sanskrit Dictionary
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.learnsanskrit.cc/translate?dir=au&search=')">
-        <span class="dropdown-icon">📜</span> LearnSanskrit
-      </a>
-    </div>
-    
-    <div class="dropdown-section">
-
-            <div class="dropdown-header">Другие ресурсы</div>
-
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
-        <span class="dropdown-icon">🌍</span> Mitra Translator
-      </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.wisdomlib.org/index.php?type=search&division=glossary&item=&mode=text&input=')">
-        <span class="dropdown-icon">🌍</span> Wisdomlib
-      </a>
-              <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://glosbe.com/pi/sa/')">
-        <span class="dropdown-icon">🌍</span> Glosbe Pli-Srk
-      </a>
-      
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.aksharamukha.com/converter?target=&text=')">
-        <span class="dropdown-icon">🌍</span> Aksharamukha
-      </a>
+    <div class="footer-pane">
+      <a href="javascript:void(0)" title="Открыть слово в PTS, CPD, CONE, Skr, Wisdomlib (Alt + Q)"
+        onclick="openDictionaries(event)">Dict</a>
+      <a id="fdg-link" href="" target="" title="Искать слово с помощью Dhamma.Gift">DG</a> <a
+        href="http://dhamma.gift/assets/dictTest.html" style="all: unset; cursor: pointer;">©</a> <a id="dpd-link"
+        href="https://digitalpalidictionary.github.io/webapp/cst_bold_def/" title="Открыть слово в ru.Dpdict.net"
+        target="_blank">DPD</a>
     </div>
   </div>
-</div>
 
-
-<!-- <a href="javascript:void(0)" title="Открыть слово в PTS, CPD, CONE, Skr, Wisdomlib (Alt + Q)" onclick="openDictionaries(event)">Dict</a> -->
-
-<a id="fdg-link" href="" target="" title="Искать слово с помощью Dhamma.Gift" >DG</a> <a href="http://dhamma.gift/assets/dictTest.html" style="all: unset; cursor: pointer;">©</a> <a id="dpd-link" href="" title="Открыть слово в ru.Dpdict.net" target="_blank">DPD</a>
-</div>
-</div>
-
-<div id="bold-def-tab" class="tab-content">
-<div class="header-pane bd-header-pane">
-<div class="logo-title">
-<h2 class="title" id="bd-title-clear">Определения жирным CST</h2>
-</div>
-<p class="centered-text">
-Найдено <b>360k+</b> выделенных жирным терминов в Чаттха Сангаяна Типитаке
-</p>
-<div class="bd-search-pane">
-<h4>Искать определения термина</h4>
-<form id="bd-search-form">
-<input class="search-box bd-search-box" type="text" name="bd-search-1" id="bd-search-box-1" value="{{ search }}" autocomplete="off">
-</form>
-<h4>которые содержат</h4>
-<form id="bd-search-form">
-<input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2" value="{{ search }}" autocomplete="off">
-</form>
-<h4>внутри них.</h4>
-<button class="search-button" id="bd-search-button">Найти</button>
-<button class="help small-button" id="search-help-button">?
-<span class="tooltip velthuis">
-<b>Ввод Velthuis:</b><br><br>
-aa > ā<br>
-ii > ī<br>
-uu > ū<br>
-"n > ṅ<br>
-~n > ñ<br>
-.t > ṭ<br>
-.d > ḍ<br>
-.n > ṇ<br>
-.m > ṃ<br>
-.l > ḷ
-</span>
-</button>
-</div>
-<div class="bd-search-options">
-<input type="radio" id="option1" name="option" value="starts_with">
-<label for="option1">начинается с</label>
-<input type="radio" id="option2" name="option" value="regex" checked>
-<label for="option2">обычный/рег. выраж.</label>
-<input type="radio" id="option3" name="option" value="fuzzy">
-<label for="option3">неточный</label>
-<button type="button" class="bd-search-option-clear">очистить</button>
-</div>
-</div>
-<div class="scrolling-pane" id="bd-results">
-{{ bd_results|safe }}
-</div>
-<div class="footer-pane">
-     <a href="javascript:void(0)" title="Открыть слово в PTS, CPD, CONE, Skr, Wisdomlib (Alt + Q)" onclick="openDictionaries(event)">Dict</a>
-<a id="fdg-link" href="" target="" title="Искать слово с помощью Dhamma.Gift" >DG</a> <a href="http://dhamma.gift/assets/dictTest.html" style="all: unset; cursor: pointer;">©</a> <a id="dpd-link" href="https://digitalpalidictionary.github.io/webapp/cst_bold_def/" title="Открыть слово в ru.Dpdict.net" target="_blank">DPD</a>
-</div>
-</div>
-
-<script src="static/home.js"></script>
-<script src="static/tabs.js"></script>
-<script src="static/bold_definitions.js"></script>
-<script src="static/dpd.js"></script>
-<script src="static/autopali.js"></script>
-<script src="static/extra.js"></script>
-<script src="static/sortableTable.js"></script>
-<script src="static/openDicts.js"></script>
+  <script src="static/home.js"></script>
+  <script src="static/tabs.js"></script>
+  <script src="static/bold_definitions.js"></script>
+  <script src="static/dpd.js"></script>
+  <script src="static/autopali.js"></script>
+  <script src="static/extra.js"></script>
+  <script src="static/sortableTable.js"></script>
+  <script src="static/openDicts.js"></script>
 </body>
 
 </html>

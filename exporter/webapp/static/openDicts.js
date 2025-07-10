@@ -196,3 +196,100 @@ function toggleDictDropdown(event) {
   
   document.addEventListener('click', container._closeHandler);
 }
+
+
+function createDropdowns() {
+  const dictionaryData = {
+    ru: {
+      groups: "Группы Словарей",
+      pali: "Палийские словари",
+      sanskrit: "Санскритские словари",
+      other: "Другие ресурсы",
+    },
+    en: {
+      groups: "Dictionary Groups",
+      pali: "Pali Dictionaries",
+      sanskrit: "Sanskrit Dictionaries",
+      other: "Other Resources",
+    },
+  };
+
+  const lang = document.documentElement.lang === "ru" ? "ru" : "en";
+  const texts = dictionaryData[lang];
+
+  const dropdownHTML = `
+    <div class="dropdown-section">
+      <div class="dropdown-header">${texts.groups}</div>
+      <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
+        <span class="dropdown-icon">📚</span> 4 Pali + 4 Skr + Wlib
+      </a>
+      <a class="dropdown-item" target="_blank" href="#" 
+        title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
+        onclick="return openWithQueryMulti(event, [
+          'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
+          'https://cpd.uni-koeln.de/search?query=',
+          'https://gandhari.org/dictionary?section=dop&search='
+        ])">
+        <span class="dropdown-icon">📚</span> Pali PTS, Cone, CPD
+      </a>
+      <a class="dropdown-item" target="_blank" href="#" 
+        title="Monier-Williams + Shabda-Sagara + Apte Practical + Macdonell"
+        onclick="return openWithQueryMulti(event, [
+          'https://www.sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
+          'https://www.sanskrit-lexicon.uni-koeln.de/scans/SHSScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
+          'https://www.sanskrit-lexicon.uni-koeln.de/scans/APScan/2020/web/webtc/indexcaller.php?transLit=roman&key=',
+          'https://www.sanskrit-lexicon.uni-koeln.de/scans/MDScan/2020/web/webtc/indexcaller.php?transLit=roman&key='
+        ])">
+        <span class="dropdown-icon">📚</span> Skr MW, SHS, AP, MD
+      </a>
+    </div>
+    
+    <div class="dropdown-section">
+      <div class="dropdown-header">${texts.pali}</div>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=')">
+        <span class="dropdown-icon">🏛️</span> PTS Dictionary
+      </a>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://gandhari.org/dictionary?section=dop&search=')">
+        <span class="dropdown-icon">🏛️</span> Cone Gandhari.org
+      </a>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://cpd.uni-koeln.de/search?query=')">
+        <span class="dropdown-icon">🏛️</span> Critical Pali Dict (CPD)
+      </a>
+    </div>
+    
+    <div class="dropdown-section">
+      <div class="dropdown-header">${texts.sanskrit}</div>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key=')">
+        <span class="dropdown-icon">📜</span> Monier-Williams
+      </a>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.sanskritdictionary.com/?iencoding=iast&lang=sans&action=Search&q=')">
+        <span class="dropdown-icon">📜</span> Sanskrit Dictionary
+      </a>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.learnsanskrit.cc/translate?dir=au&search=')">
+        <span class="dropdown-icon">📜</span> LearnSanskrit
+      </a>
+    </div>
+    
+    <div class="dropdown-section">
+      <div class="dropdown-header">${texts.other}</div>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
+        <span class="dropdown-icon">🌍</span> Mitra Translator
+      </a>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.wisdomlib.org/index.php?type=search&division=glossary&item=&mode=text&input=')">
+        <span class="dropdown-icon">🌍</span> Wisdomlib
+      </a>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://glosbe.com/pi/sa/')">
+        <span class="dropdown-icon">🌍</span> Glosbe Pli-Skr
+      </a>
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.aksharamukha.com/converter?target=&text=')">
+        <span class="dropdown-icon">🌍</span> Aksharamukha
+      </a>
+    </div>
+  `;
+
+  document.querySelectorAll(".dict-dropdown-menu-down, .dict-dropdown-menu").forEach(
+    (el) => (el.innerHTML = dropdownHTML)
+  );
+}
+
+document.addEventListener("DOMContentLoaded", createDropdowns);
