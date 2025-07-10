@@ -54,13 +54,11 @@
 <button class="round-button" title="toggle En/Ru (Alt+1 or Ctrl+1)" onclick="changeLanguage('ru')">ru</button>
 </div>
 
-
-
 <div class="dict-dropdown-container">
-  <button class="dict-dropdown-toggle" title="Open dictionaries" onclick="toggleDictDropdown(event)">
+  <button class="round-button dict-dropdown-toggle" title="Open dictionaries" onclick="toggleDictDropdown(event)">
     Dict</span>
   </button>
-  <div class="dict-dropdown-menu">
+  <div class="dict-dropdown-menu-down">
     <div class="dropdown-section">
       <div class="dropdown-header">Dictionary Groups</div>
       <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
@@ -131,11 +129,6 @@
   </div>
 </div>
 
-
-
-<div class="header-dict-button">
-  <button class="round-button" title="Open dictionaries" onclick="toggleRemoteDictDropdown(event, this)">Dict</button>
-</div>
 <form id="search-form">
 <div class="mb-3 form-group input-group ui-widget dropup rounded-pill">
 <label class="sr-only dropup" for="search-box"></label>
