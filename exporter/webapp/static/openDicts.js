@@ -311,11 +311,13 @@ function toggleDictDropdown(event) {
 }
 
 
-
 function adjustDropdownHeight(container, dropdown) {
   const rect = container.getBoundingClientRect();
   const margin = 8;
   const padding = 16;
+
+  // Высота окна и ограничение 70% от неё
+  const maxVhHeight = window.innerHeight * 0.7;
 
   let availableSpace;
 
@@ -325,6 +327,8 @@ function adjustDropdownHeight(container, dropdown) {
     availableSpace = rect.top - margin - padding;
   }
 
-  availableSpace = Math.max(100, availableSpace);
-  dropdown.style.maxHeight = `${availableSpace}px`;
+  // Ограничим меньшим из двух: доступным и 70vh
+  const finalHeight = Math.max(100, Math.min(availableSpace, maxVhHeight));
+
+  dropdown.style.maxHeight = `${finalHeight}px`;
 }
