@@ -249,7 +249,7 @@ function initStartMessage(lang) {
   <strong>Ctrl+3</strong> or <strong>Alt+3</strong> — Open <em>Dhamma.Gift Search</em><br>
   <strong>Alt+Q</strong> — Look up word in multiple dictionaries
 </p>
-    <p class="message"><b>Footer links</b>: Dict - to search the word in many dictionaries, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
+    <p class="message"><b>Footer links</b>: Dict - to search the word in other dicts, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
   </div>
@@ -282,7 +282,7 @@ function initStartMessage(lang) {
 <strong>Alt+Q</strong> открыть слово в нескольких словарях
 
 </p>
-<p class="message"><b>Ссылки в футере</b> Dict - поиск слова в нескольких словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
+<p class="message"><b>Ссылки в футере</b> Dict - поиск слова в разных словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру: kāmarāgapariyuṭṭhitena мир kar gacchatīti Root✓</p>
   </div>

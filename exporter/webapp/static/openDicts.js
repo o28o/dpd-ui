@@ -161,7 +161,6 @@ function openWithQueryMulti(event, baseUrls) {
   return false;
 }
 
-
 function toggleDictDropdown(event) {
   event.preventDefault();
   event.stopPropagation();
@@ -171,18 +170,47 @@ function toggleDictDropdown(event) {
   
   // Закрыть все открытые dropdowns
   document.querySelectorAll('.dict-dropdown-menu.show').forEach(el => {
-    if (el !== dropdown) el.classList.remove('show');
+    if (el !== dropdown) {
+      el.classList.remove('show', 'dropdown-up', 'dropdown-down');
+      el.closest('.dict-dropdown-container').classList.remove('show');
+    }
   });
   
   // Переключить текущий dropdown
-  container.classList.toggle('show');
-  dropdown.classList.toggle('show');
+  const isShowing = container.classList.contains('show');
+  
+  if (!isShowing) {
+    // Показываем dropdown перед расчетами
+    container.classList.add('show');
+    dropdown.classList.add('show');
+    
+    // Получаем позиции элементов
+    const toggleRect = event.currentTarget.getBoundingClientRect();
+    const dropdownHeight = dropdown.offsetHeight;
+    
+    // Проверяем доступное пространство
+    const spaceBelow = window.innerHeight - toggleRect.bottom;
+    const spaceAbove = toggleRect.top;
+    
+    // Определяем направление (с запасом в 20px)
+    if (spaceBelow >= dropdownHeight + 20 || spaceBelow >= spaceAbove) {
+      dropdown.classList.remove('dropdown-up');
+      dropdown.classList.add('dropdown-down');
+    } else {
+      dropdown.classList.remove('dropdown-down');
+      dropdown.classList.add('dropdown-up');
+    }
+  } else {
+    // Закрываем dropdown
+    container.classList.remove('show');
+    dropdown.classList.remove('show', 'dropdown-up', 'dropdown-down');
+  }
   
   // Закрытие при клике вне дропдауна
-  const closeHandler = function(e) {
+  const closeHandler = (e) => {
     if (!container.contains(e.target)) {
       container.classList.remove('show');
-      dropdown.classList.remove('show');
+      dropdown.classList.remove('show', 'dropdown-up', 'dropdown-down');
       document.removeEventListener('click', closeHandler);
     }
   };
