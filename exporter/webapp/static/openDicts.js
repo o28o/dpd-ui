@@ -3,7 +3,7 @@
 
 function openDictionaries(event) {
   event.preventDefault();
-const query = document.getElementById('search-box')?.value.trim().toLowerCase();
+const query = document.getElementById('search-box')?.value.trim().toLowerCase().replace(/ṁ/g, 'ṃ');
 
 
  // Копирование в буфер обмена
@@ -111,7 +111,7 @@ function openWithQuery(event, baseUrl) {
   
   // 1. Получаем текущее значение из поля поиска
   const searchInput = document.getElementById('search-box');
-  const query = searchInput?.value.trim().toLowerCase() || '';
+  const query = searchInput?.value.trim().toLowerCase().replace(/ṁ/g, 'ṃ') || '';
   
   // 2. Копируем в буфер обмена
   if (query) {
@@ -135,7 +135,7 @@ function openWithQueryMulti(event, baseUrls) {
   
   // 1. Получаем текущее значение из поля поиска
   const searchInput = document.getElementById('search-box');
-  const query = searchInput?.value.trim().toLowerCase() || '';
+  const query = searchInput?.value.trim().toLowerCase().replace(/ṁ/g, 'ṃ') || '';
   
   if (!query) {
     showBubbleNotification('Please enter a search query');
@@ -192,8 +192,8 @@ function createDropdowns() {
         title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
         onclick="return openWithQueryMulti(event, [
           'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
-          'https://cpd.uni-koeln.de/search?query=',
           'https://gandhari.org/dictionary?section=dop&search='
+          'https://cpd.uni-koeln.de/search?query=',
         ])">
         <span class="dropdown-icon">📚</span> Pali PTS, Cone, CPD
       </a>
