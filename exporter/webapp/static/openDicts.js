@@ -260,7 +260,7 @@ function createDropdowns() {
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://glosbe.com/pi/sa/')">
         <span class="dropdown-icon">🌍</span> Glosbe Pli-Skr
       </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.aksharamukha.com/converter?target=&text=')">
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.aksharamukha.com/converter?target=Devanagari&text=')">
         <span class="dropdown-icon">🌍</span> Aksharamukha
       </a>
     </div>
