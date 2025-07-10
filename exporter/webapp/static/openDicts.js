@@ -155,7 +155,7 @@ function openWithQueryMulti(event, baseUrls) {
     setTimeout(() => {
       console.log('Opening:', finalUrl);
       window.open(finalUrl, '_blank');
-    }, 100 * index); // Небольшая задержка между открытием вкладок
+    }, 1 * index); // Небольшая задержка между открытием вкладок
   });
 
   return false;
