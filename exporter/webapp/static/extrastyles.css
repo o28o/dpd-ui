@@ -1436,7 +1436,7 @@ align-items: center;
 
 /* Темная тема */
 .dark-mode .dict-dropdown-menu,
-.dict-dropdown-menu-down {
+.dark-mode .dict-dropdown-menu-down {
   background-color: var(--dark);
   border-color: var(--gray-transparent);
 }
