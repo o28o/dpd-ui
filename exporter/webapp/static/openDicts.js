@@ -141,10 +141,9 @@ function openWithQueryMulti(event, baseUrls) {
   // 2. Копируем в буфер обмена
   
   if (query) {
-    showBubbleNotification('Copied to clipboard');
-    navigator.clipboard.writeText(query).catch(err => {
-      console.warn('Clipboard copy failed:', err);
-    });
+    navigator.clipboard.writeText(query)
+      .then(() => console.log('Скопировано:', query))
+      .catch(err => console.error('Ошибка:', err));
   }
 
   // 3. Формируем и открываем URL для каждого словаря
