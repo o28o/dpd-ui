@@ -1474,6 +1474,7 @@ align-items: center;
 }
 
 .dark-mode .round-button.dict-dropdown-toggle {
+  border: 2px solid var(--gray-transparent);  
     box-shadow: var(--primary);
 
 }
