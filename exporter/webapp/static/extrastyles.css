@@ -1467,13 +1467,15 @@ align-items: center;
 
 .round-button.dict-dropdown-toggle {
   background: none;
-  border: 2px solid var(--primary);  
   font-size: 1.2em;
   padding: 0.3em 0.6em;
   cursor: pointer;
   transition: opacity 0.2s;
 }
 
+.dark-mode .round-button.dict-dropdown-toggle {
+  border: 2px solid var(--primary);  
+}
 
 .round-button.dict-dropdown-toggle:hover {
   text-decoration: none !important; /* Убираем подчёркивание при наведении */
