@@ -161,98 +161,28 @@ function openWithQueryMulti(event, baseUrls) {
   return false;
 }
 
-// Основная функция для кнопок внутри контейнера
-function toggleDictDropdown(event, button) {
+
+function toggleDictDropdown(event) {
   event.preventDefault();
   event.stopPropagation();
   
-  const container = button.closest('.dict-dropdown-container');
+  const container = event.currentTarget.closest('.dict-dropdown-container');
   const dropdown = container.querySelector('.dict-dropdown-menu');
   
   // Закрыть все открытые dropdowns
-  closeAllDropdowns(dropdown);
+  document.querySelectorAll('.dict-dropdown-menu.show').forEach(el => {
+    if (el !== dropdown) el.classList.remove('show');
+  });
   
   // Переключить текущий dropdown
-  const isShowing = container.classList.contains('show');
+  container.classList.toggle('show');
+  dropdown.classList.toggle('show');
   
-  if (!isShowing) {
-    showDropdown(container, dropdown, button);
-  } else {
-    closeDropdown(container, dropdown);
-  }
-  
-  setupCloseHandler(container, dropdown);
-}
-
-// Функция для удалённых кнопок
-function toggleRemoteDictDropdown(event, button) {
-  event.preventDefault();
-  event.stopPropagation();
-  
-  // Находим основной dropdown по ID (можно использовать data-атрибут)
-  const dropdownId = button.getAttribute('data-dropdown-id') || 'dict-dropdown-1';
-  const container = document.querySelector(`.dict-dropdown-container`);
-  const dropdown = container.querySelector('.dict-dropdown-menu');
-  
-  // Закрыть все открытые dropdowns
-  closeAllDropdowns(dropdown);
-  
-  // Позиционируем dropdown относительно кликнутой кнопки
-  showDropdown(container, dropdown, button);
-  
-  setupCloseHandler(container, dropdown);
-}
-
-// Общие вспомогательные функции
-function closeAllDropdowns(currentDropdown) {
-  document.querySelectorAll('.dict-dropdown-menu.show').forEach(el => {
-    if (el !== currentDropdown) {
-      el.classList.remove('show', 'dropdown-up', 'dropdown-down');
-      el.closest('.dict-dropdown-container').classList.remove('show');
-    }
-  });
-}
-
-function showDropdown(container, dropdown, triggerElement) {
-  container.classList.add('show');
-  dropdown.classList.add('show');
-  
-  // Позиционируем dropdown относительно триггерного элемента
-  positionDropdown(dropdown, triggerElement);
-}
-
-function closeDropdown(container, dropdown) {
-  container.classList.remove('show');
-  dropdown.classList.remove('show', 'dropdown-up', 'dropdown-down');
-}
-
-function positionDropdown(dropdown, triggerElement) {
-  const triggerRect = triggerElement.getBoundingClientRect();
-  const dropdownHeight = dropdown.offsetHeight;
-  
-  // Проверяем доступное пространство
-  const spaceBelow = window.innerHeight - triggerRect.bottom;
-  const spaceAbove = triggerRect.top;
-  
-  // Сбрасываем предыдущее позиционирование
-  dropdown.classList.remove('dropdown-up', 'dropdown-down');
-  
-  // Определяем направление (с запасом в 20px)
-  if (spaceBelow >= dropdownHeight + 20 || spaceBelow >= spaceAbove) {
-    dropdown.classList.add('dropdown-down');
-    dropdown.style.left = `${triggerRect.left}px`;
-    dropdown.style.top = `${triggerRect.bottom}px`;
-  } else {
-    dropdown.classList.add('dropdown-up');
-    dropdown.style.left = `${triggerRect.left}px`;
-    dropdown.style.bottom = `${window.innerHeight - triggerRect.top}px`;
-  }
-}
-
-function setupCloseHandler(container, dropdown) {
-  const closeHandler = (e) => {
-    if (!container.contains(e.target) {
-      closeDropdown(container, dropdown);
+  // Закрытие при клике вне дропдауна
+  const closeHandler = function(e) {
+    if (!container.contains(e.target)) {
+      container.classList.remove('show');
+      dropdown.classList.remove('show');
       document.removeEventListener('click', closeHandler);
     }
   };
