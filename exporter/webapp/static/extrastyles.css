@@ -350,12 +350,13 @@ overflow: auto;
 
 @media only screen and (min-width: 1024px) {
 
-body {
-    max-height: 100vh !important; /* Заменяет height: 100vh */
-    overflow: auto;    /* Заменяет overflow: hidden */
+  body {
+    min-height: 100vh; /* Вместо max-height */
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-}
+  }
 
 .tabs {
     flex: 1; /* Растягивает контейнер, чтобы футер оставался внизу */
@@ -366,12 +367,7 @@ body {
     margin-top: auto; /* Прижать футер к низу */
 }
 
-
-
-
-
-
-    .hideOnMobile {
+.hideOnMobile {
         display: block;
     }
     .hideOnMobile .divider-custom {
