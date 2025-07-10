@@ -1474,9 +1474,9 @@ align-items: center;
   padding: 0;
   cursor: pointer;
   transition: opacity 0.2s;
+  background-color: var(--primary);
 }
 
 .round-button.dict-dropdown-toggle:hover {
-  opacity: 0.9;
   text-decoration: none !important; /* Убираем подчёркивание при наведении */
 }
