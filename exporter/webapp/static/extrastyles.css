@@ -1477,5 +1477,6 @@ align-items: center;
 }
 
 .round-button.dict-dropdown-toggle:hover {
-  opacity: 0.9; /* Легкое затемнение при наведении */
+  opacity: 0.9;
+  text-decoration: none !important; /* Убираем подчёркивание при наведении */
 }
