@@ -138,7 +138,6 @@ if (query) {
 
   // 3. Формируем URL (просто добавляем query в конец)
   const finalUrl = baseUrl + encodeURIComponent(query);
-  console.log('Открываю:', finalUrl);
   
   // 4. Открываем в новой вкладке
   window.open(finalUrl, '_blank');
@@ -169,7 +168,6 @@ function openWithQueryMulti(event, baseUrls) {
     const finalUrl = baseUrl + encodedQ;
     
     setTimeout(() => {
-      console.log('Opening:', finalUrl);
       window.open(finalUrl, '_blank');
     }, 1 * index); // Небольшая задержка между открытием вкладок
   });
