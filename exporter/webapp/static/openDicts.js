@@ -1,5 +1,18 @@
 
 //  <a href="#" onclick="openDictionaries(event)">Dict</a>
+// Показать уведомление
+function showBubbleNotification(text) {
+  const bubble = document.getElementById('bubbleNotification');
+  if (!bubble) return;
+  
+  bubble.textContent = text;
+  bubble.classList.add('show');
+  
+  setTimeout(() => {
+    bubble.classList.remove('show');
+  }, 2000);
+}
+
 
 function openDictionaries(event) {
   event.preventDefault();
@@ -7,11 +20,12 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase().
 
 
  // Копирование в буфер обмена
-  if (query) {
-    navigator.clipboard.writeText(query).catch(err => {
-      console.warn('Clipboard copy failed:', err);
-    });
-  }
+if (query) {
+    showBubbleNotification('Copied to clipboard');
+  navigator.clipboard.writeText(query).catch(err => {
+    console.warn('Clipboard copy failed:', err);
+  });
+}
 
   const dictionaries = [
     // GET-поиск
@@ -114,11 +128,13 @@ function openWithQuery(event, baseUrl) {
   const query = searchInput?.value.trim().toLowerCase().replace(/ṁ/g, 'ṃ') || '';
   
   // 2. Копируем в буфер обмена
-  if (query) {
-    navigator.clipboard.writeText(query)
-      .then(() => console.log('Скопировано:', query))
-      .catch(err => console.error('Ошибка:', err));
-  }
+
+if (query) {
+    showBubbleNotification('Copied to clipboard');
+  navigator.clipboard.writeText(query).catch(err => {
+    console.warn('Clipboard copy failed:', err);
+  });
+}
 
   // 3. Формируем URL (просто добавляем query в конец)
   const finalUrl = baseUrl + encodeURIComponent(query);
@@ -141,9 +157,10 @@ function openWithQueryMulti(event, baseUrls) {
   // 2. Копируем в буфер обмена
   
   if (query) {
-    navigator.clipboard.writeText(query)
-      .then(() => console.log('Скопировано:', query))
-      .catch(err => console.error('Ошибка:', err));
+    showBubbleNotification('Copied to clipboard');
+    navigator.clipboard.writeText(query).catch(err => {
+      console.warn('Clipboard copy failed:', err);
+    });
   }
 
   // 3. Формируем и открываем URL для каждого словаря
