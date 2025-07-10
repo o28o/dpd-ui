@@ -161,41 +161,6 @@ function openWithQueryMulti(event, baseUrls) {
   return false;
 }
 
-function toggleDictDropdown(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  
-  const container = event.currentTarget.closest('.dict-dropdown-container');
-  if (!container) return;
-  
-  // Ищем оба возможных варианта меню
-  const dropdown = container.querySelector('.dict-dropdown-menu, .dict-dropdown-menu-down');
-  if (!dropdown) return;
-  
-  // Закрываем все другие открытые dropdowns
-  document.querySelectorAll('.dict-dropdown-menu.show, .dict-dropdown-menu-down.show').forEach(el => {
-    if (el !== dropdown) el.classList.remove('show');
-  });
-  
-  // Переключаем только меню (не контейнер)
-  dropdown.classList.toggle('show');
-  
-  // Удаляем предыдущий обработчик, если был
-  if (container._closeHandler) {
-    document.removeEventListener('click', container._closeHandler);
-  }
-  
-  // Новый обработчик закрытия
-  container._closeHandler = function(e) {
-    if (!container.contains(e.target)) {
-      dropdown.classList.remove('show');
-      document.removeEventListener('click', container._closeHandler);
-      delete container._closeHandler;
-    }
-  };
-  
-  document.addEventListener('click', container._closeHandler);
-}
 
 
 function createDropdowns() {
@@ -293,3 +258,73 @@ function createDropdowns() {
 }
 
 document.addEventListener("DOMContentLoaded", createDropdowns);
+
+
+function toggleDictDropdown(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const container = event.currentTarget.closest('.dict-dropdown-container');
+  if (!container) return;
+
+  const dropdown = container.querySelector('.dict-dropdown-menu, .dict-dropdown-menu-down');
+  if (!dropdown) return;
+
+  // Закрываем другие открытые меню
+  document.querySelectorAll('.dict-dropdown-menu.show, .dict-dropdown-menu-down.show').forEach(el => {
+    if (el !== dropdown) el.classList.remove('show');
+  });
+
+  // Переключаем видимость текущего меню
+  dropdown.classList.toggle('show');
+
+  // === Адаптация max-height при открытии ===
+  if (dropdown.classList.contains('show')) {
+    adjustDropdownHeight(container, dropdown);
+  }
+
+  // Удаляем предыдущий обработчик закрытия
+  if (container._closeHandler) {
+    document.removeEventListener('click', container._closeHandler);
+  }
+
+  // Назначаем новый обработчик закрытия
+  container._closeHandler = function(e) {
+    if (!container.contains(e.target)) {
+      dropdown.classList.remove('show');
+      document.removeEventListener('click', container._closeHandler);
+      window.removeEventListener('resize', container._resizeHandler);
+      delete container._closeHandler;
+      delete container._resizeHandler;
+    }
+  };
+
+  document.addEventListener('click', container._closeHandler);
+
+  // === Добавляем обработчик resize ===
+  container._resizeHandler = function() {
+    if (dropdown.classList.contains('show')) {
+      adjustDropdownHeight(container, dropdown);
+    }
+  };
+  window.addEventListener('resize', container._resizeHandler);
+}
+
+
+
+function adjustDropdownHeight(container, dropdown) {
+  const rect = container.getBoundingClientRect();
+  const margin = 8;
+  const padding = 16;
+
+  let availableSpace;
+
+  if (dropdown.classList.contains('dict-dropdown-menu-down')) {
+    availableSpace = window.innerHeight - rect.bottom - margin - padding;
+  } else {
+    availableSpace = rect.top - margin - padding;
+  }
+
+  availableSpace = Math.max(100, availableSpace);
+  dropdown.style.maxHeight = `${availableSpace}px`;
+}
