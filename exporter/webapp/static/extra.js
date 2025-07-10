@@ -252,6 +252,12 @@ function initStartMessage(lang) {
     <p class="message"><b>Footer links</b>: Dict - to search the word in other dicts, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
+ <p class="message">
+<strong>Autosuggestions</strong>: starting from 3 characters — words from the Four Nikāyas (DN, MN, SN, AN), parts of the KN (Dhp, Iti, Ud, Snp), and all sections of the Vinaya, Mahāsaṅgīti edition; variant readings are not shown.<br>
+<strong>Match count</strong> (e.g., mettā 27) indicates how many times the word appears in these texts.
+</p>
+
+
   </div>
   
   <div class="toggle-button-container">
@@ -280,11 +286,15 @@ function initStartMessage(lang) {
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
 <strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search<br>
 <strong>Alt+Q</strong> открыть слово в нескольких словарях
-
 </p>
 <p class="message"><b>Ссылки в футере</b> Dict - поиск слова в разных словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру: kāmarāgapariyuṭṭhitena мир kar gacchatīti Root✓</p>
+  
+<p class="message">
+<strong>Автоподсказки</strong>: от 3 символов — слова из Четырёх Никай (DN, MN, SN, AN), части KN (Dhp, Iti, Ud, Snp) и всех разделов Винаи, редиацкции Mahasangiti, варианты не выводятся.<br>
+<strong>Кол-во совпадений</strong> (например, mettā 27) показывает, сколько раз слово встречается в этих текстах.
+</p>
   </div>
   
   <div class="toggle-button-container">
