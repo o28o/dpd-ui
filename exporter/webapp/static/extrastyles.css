@@ -1360,7 +1360,7 @@ align-items: center;
   left: 0; /* Жесткое выравнивание по левому краю */
   background-color: var(--light);
   border-radius: 7px;
-  min-width: 240px;
+  min-width: 260px;
   max-height: 70vh;
   overflow-y: auto;
   z-index: 1001;
