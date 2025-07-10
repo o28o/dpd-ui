@@ -18,7 +18,7 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase().
     {
       name: 'PTS',
       method: 'GET',
-      base: 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
+      base: 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?matchtype=default&qs=',
       fallback: 'https://dsal.uchicago.edu/dictionaries/pali/'
     },
    /*   {
@@ -137,15 +137,15 @@ function openWithQueryMulti(event, baseUrls) {
   const searchInput = document.getElementById('search-box');
   const query = searchInput?.value.trim().toLowerCase().replace(/ṁ/g, 'ṃ') || '';
   
-  if (!query) {
-    showBubbleNotification('Please enter a search query');
-    return false;
-  }
 
   // 2. Копируем в буфер обмена
-  navigator.clipboard.writeText(query)
-    .then(() => showBubbleNotification('Query copied: ' + query))
-    .catch(err => console.error('Copy failed:', err));
+  
+  if (query) {
+    showBubbleNotification('Copied to clipboard');
+    navigator.clipboard.writeText(query).catch(err => {
+      console.warn('Clipboard copy failed:', err);
+    });
+  }
 
   // 3. Формируем и открываем URL для каждого словаря
   const encodedQ = encodeURIComponent(query);
@@ -191,7 +191,7 @@ function createDropdowns() {
       <a class="dropdown-item" target="_blank" href="#" 
         title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
         onclick="return openWithQueryMulti(event, [
-          'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=',
+          'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?matchtype=default&qs=',
           'https://gandhari.org/dictionary?section=dop&search='
           'https://cpd.uni-koeln.de/search?query=',
         ])">
@@ -211,7 +211,7 @@ function createDropdowns() {
     
     <div class="dropdown-section">
       <div class="dropdown-header">${texts.pali}</div>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?searchhws=yes&matchtype=default&qs=')">
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?matchtype=default&qs=')">
         <span class="dropdown-icon">🏛️</span> PTS Dictionary
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://gandhari.org/dictionary?section=dop&search=')">
