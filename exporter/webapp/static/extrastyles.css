@@ -1356,8 +1356,8 @@ align-items: center;
 .dict-dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%; /* Изменено с bottom: 100% на top: 100% */
-  left: 0;
+  bottom: 100%;
+  left: 0; /* Жесткое выравнивание по левому краю */
   background-color: var(--light);
   border-radius: 7px;
   min-width: 240px;
@@ -1367,9 +1367,8 @@ align-items: center;
   padding: 8px 0;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   border: 1px solid var(--gray-transparent);
-  margin-top: 8px; /* Изменено с margin-bottom на margin-top */
+  margin-bottom: 8px;
 }
-
 .dict-dropdown-menu-down {
   display: none;
   position: absolute;
