@@ -1464,3 +1464,18 @@ align-items: center;
     transform: translateY(0);
   }
 }
+
+
+.round-button.dict-dropdown-toggle {
+  color: hsla(0, 0%, 50%, 0.7) !important; /* Серый с прозрачностью */
+  background: none;
+  border: none;
+  font-size: 1.2em; /* Увеличим размер эмоджи */
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.round-button.dict-dropdown-toggle:hover {
+  opacity: 0.9; /* Легкое затемнение при наведении */
+}
