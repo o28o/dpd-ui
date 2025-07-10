@@ -1468,7 +1468,6 @@ align-items: center;
 .round-button.dict-dropdown-toggle {
   background: none;
   border: 2px solid var(--primary);  
-  border-radius: 5px; /* Скругление, если нужно */
   font-size: 1.2em;
   padding: 0.3em 0.6em;
   cursor: pointer;
