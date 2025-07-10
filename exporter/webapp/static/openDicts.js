@@ -208,8 +208,8 @@ function createDropdowns() {
         title="PTS Pali Dictionary + Critical Pali Dictionary + Gandhari Dictionary"
         onclick="return openWithQueryMulti(event, [
           'https://dsal.uchicago.edu/cgi-bin/app/pali_query.py?matchtype=default&qs=',
-          'https://gandhari.org/dictionary?section=dop&search='
-          'https://cpd.uni-koeln.de/search?query=',
+          'https://gandhari.org/dictionary?section=dop&search=',
+          'https://cpd.uni-koeln.de/search?query='
         ])">
         <span class="dropdown-icon">📚</span> Pali PTS, Cone, CPD
       </a>
