@@ -1474,9 +1474,12 @@ align-items: center;
 }
 
 .dark-mode .round-button.dict-dropdown-toggle {
-  border: 2px solid var(--primary);  
+    box-shadow: var(--primary);
+
 }
 
 .round-button.dict-dropdown-toggle:hover {
   text-decoration: none !important; /* Убираем подчёркивание при наведении */
+ box-shadow: var(--shadow-default);
 }
+
