@@ -161,31 +161,38 @@ function openWithQueryMulti(event, baseUrls) {
   return false;
 }
 
-
 function toggleDictDropdown(event) {
   event.preventDefault();
   event.stopPropagation();
   
   const container = event.currentTarget.closest('.dict-dropdown-container');
-  const dropdown = container.querySelector('.dict-dropdown-menu');
+  if (!container) return;
   
-  // Закрыть все открытые dropdowns
-  document.querySelectorAll('.dict-dropdown-menu.show').forEach(el => {
+  // Ищем оба возможных варианта меню
+  const dropdown = container.querySelector('.dict-dropdown-menu, .dict-dropdown-menu-down');
+  if (!dropdown) return;
+  
+  // Закрываем все другие открытые dropdowns
+  document.querySelectorAll('.dict-dropdown-menu.show, .dict-dropdown-menu-down.show').forEach(el => {
     if (el !== dropdown) el.classList.remove('show');
   });
   
-  // Переключить текущий dropdown
-  container.classList.toggle('show');
+  // Переключаем только меню (не контейнер)
   dropdown.classList.toggle('show');
   
-  // Закрытие при клике вне дропдауна
-  const closeHandler = function(e) {
+  // Удаляем предыдущий обработчик, если был
+  if (container._closeHandler) {
+    document.removeEventListener('click', container._closeHandler);
+  }
+  
+  // Новый обработчик закрытия
+  container._closeHandler = function(e) {
     if (!container.contains(e.target)) {
-      container.classList.remove('show');
       dropdown.classList.remove('show');
-      document.removeEventListener('click', closeHandler);
+      document.removeEventListener('click', container._closeHandler);
+      delete container._closeHandler;
     }
   };
   
-  document.addEventListener('click', closeHandler);
+  document.addEventListener('click', container._closeHandler);
 }
