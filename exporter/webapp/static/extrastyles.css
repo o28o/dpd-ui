@@ -1465,17 +1465,16 @@ align-items: center;
   }
 }
 
-
 .round-button.dict-dropdown-toggle {
-  color: hsla(0, 0%, 50%, 0.7) !important; /* Серый с прозрачностью */
   background: none;
-  border: none;
-  font-size: 1.2em; /* Увеличим размер эмоджи */
-  padding: 0;
+  border: 2px solid var(--primary);  
+  border-radius: 5px; /* Скругление, если нужно */
+  font-size: 1.2em;
+  padding: 0.3em 0.6em;
   cursor: pointer;
   transition: opacity 0.2s;
-  background-color: var(--primary);
 }
+
 
 .round-button.dict-dropdown-toggle:hover {
   text-decoration: none !important; /* Убираем подчёркивание при наведении */
