@@ -1,4 +1,6 @@
+
 //  <a href="#" onclick="openDictionaries(event)">Dict</a>
+
 function openDictionaries(event) {
   event.preventDefault();
 const query = document.getElementById('search-box')?.value.trim().toLowerCase();
@@ -104,56 +106,66 @@ const query = document.getElementById('search-box')?.value.trim().toLowerCase();
   });
 }
 
-// Универсальная функция для получения текущего значения поиска
-function getCurrentSearchQuery() {
-  const searchInput = document.getElementById('search-box');
-  if (!searchInput) {
-    console.warn('Search input not found');
-    return '';
-  }
-  return searchInput.value.trim().toLowerCase();
-}
-
-// Улучшенная функция для одиночных словарей
 function openWithQuery(event, baseUrl) {
   event.preventDefault();
-  const query = getCurrentSearchQuery();
   
+  // 1. Get current search input value
+  const searchInput = document.getElementById('search-box');
+  const query = searchInput?.value.trim().toLowerCase() || '';
+  
+  // 2. Copy to clipboard
   if (query) {
     navigator.clipboard.writeText(query)
       .then(() => console.log('Copied:', query))
-      .catch(err => console.error('Copy error:', err));
+      .catch(err => console.error('Error:', err));
   }
 
+  // 3. Replace {{q}} placeholder with current query
   const finalUrl = baseUrl.replace('{{q}}', encodeURIComponent(query));
   console.log('Opening:', finalUrl);
+  
+  // 4. Open in new tab
   window.open(finalUrl, '_blank');
+  
   return false;
 }
 
-// Улучшенная функция для нескольких словарей
-function openWithQueryMulti(event, baseUrls) {
+function openWithQueryMulti(event, baseUrls, paramTemplate = 'key={{q}}') {
   event.preventDefault();
-  const query = getCurrentSearchQuery();
+  
+  // 1. Get current search input value
+  const searchInput = document.getElementById('search-box');
+  const query = searchInput?.value.trim().toLowerCase() || '';
   
   if (!query) {
     showBubbleNotification('Please enter a search query');
     return false;
   }
 
+  // 2. Copy to clipboard
   navigator.clipboard.writeText(query)
-    .then(() => showBubbleNotification('Copied: ' + query))
+    .then(() => showBubbleNotification('Query copied: ' + query))
     .catch(err => console.error('Copy failed:', err));
 
+  // 3. Prepare and open URLs with current query
   const encodedQ = encodeURIComponent(query);
   baseUrls.forEach((baseUrl, index) => {
-    const finalUrl = baseUrl.replace('{{q}}', encodedQ);
-    setTimeout(() => window.open(finalUrl, '_blank'), 100 * index);
+    // Replace {{q}} placeholder in base URL
+    const processedUrl = baseUrl.replace('{{q}}', encodedQ);
+    // Handle parameter template if provided
+    const separator = processedUrl.includes('?') ? '&' : '?';
+    const finalUrl = paramTemplate 
+      ? processedUrl + separator + paramTemplate.replace('{{q}}', encodedQ)
+      : processedUrl;
+    
+    setTimeout(() => {
+      console.log('Opening:', finalUrl);
+      window.open(finalUrl, '_blank');
+    }, 1 * index);
   });
 
   return false;
 }
-
 
 function toggleDictDropdown(event) {
   event.preventDefault();
