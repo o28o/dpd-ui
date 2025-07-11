@@ -1,68 +1,75 @@
-(function () {
-  /*–––– 1. Вспомогательная функция для поиска sParam ––––*/
-  function getSParam(link) {
-    // a) bold в предыдущих абзацах
-    const parentP = link.closest('p');
-    if (parentP) {
-      let prev = parentP.previousElementSibling;
-      while (prev) {
-        const bold = prev.querySelector('b');
-        if (bold) return bold.textContent.trim();
-        prev = prev.previousElementSibling;
-      }
-    }
-    // b) fallback – q из адресной строки
-    return new URLSearchParams(location.search).get('q') || '';
-  }
+// Вешаем обработчик на document (не на ссылки!)
 
-  /*–––– 2. Основная обработка одной ссылки ––––*/
-  function rewrite(link) {
-    if (!link.href) return;
+document.addEventListener('click', function(event) {
+  const link = event.target.closest('a');
+  if (!link || !link.href) return;
 
-    const isSutta = link.classList.contains('sutta_link') || link.closest('.sutta');
-    const isOld   = link.href.includes('thebuddhaswords.net');
-    if (!isSutta && !isOld) return;
+  // Проверяем, нужно ли обрабатывать эту ссылку
+  const isSuttaLink = link.classList.contains('sutta_link') || link.closest('.sutta'); // Добавили проверку на родителя с классом sutta
+  const isOldSite = link.href.includes('thebuddhaswords.net');
+  
+  if (!isSuttaLink && !isOldSite) return;
 
-    let url = link.href;
+  event.preventDefault();
+  let newUrl = link.href;
 
-    // замена домена/пути
-    if (isOld) {
-      const m = url.match(/\/(mn|dn|sn|an|dhp|snp|ud)([^/]+?)\.html$/i);
-      if (m) {
-        const suttaCode = m[1].toLowerCase() + m[2];
-        url = location.href.includes('/ru/')
-          ? `https://dhamma.gift/r/?q=${suttaCode}`
-          : `https://dhamma.gift/read/?q=${suttaCode}`;
+  // 1. Замена домена для старых ссылок
+  if (isOldSite) {
+    // Регулярное выражение для поиска сутт (MN, DN, SN, AN) с диапазонами или без
+    const suttaMatch = newUrl.match(/\/(mn|dn|sn|an|dhp|snp|ud)([^\/]+?)\.html$/i);
+    
+    if (suttaMatch) {
+      const suttaType = suttaMatch[1].toLowerCase();
+      const suttaNum = suttaMatch[2];
+      const suttaCode = suttaType + suttaNum;
+      
+      // Проверяем текущий URL страницы на наличие /ru/
+      if (window.location.href.includes('/ru/')) {
+        newUrl = `https://dhamma.gift/r/?q=${suttaCode}`;
       } else {
-        url = url
-          .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
-          .replace('thebuddhaswords.net',  'dhamma.gift/bw');
+        newUrl = `https://dhamma.gift/read/?q=${suttaCode}`;
+      }
+    } else {
+      // Обычная замена для не-сутт
+      newUrl = newUrl
+        .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
+        .replace('thebuddhaswords.net', 'dhamma.gift/bw');
+    }
+  }
+
+  // 2. Определение параметра s
+  let sParam = '';
+
+  // Случай для sutta_link: ищем bold в предыдущих элементах
+  if (isSuttaLink) {
+    const parentParagraph = link.closest('p');
+    if (parentParagraph) {
+      // Ищем ближайший предыдущий элемент с bold
+      let prevElement = parentParagraph.previousElementSibling;
+      while (prevElement) {
+        const boldElement = prevElement.querySelector('b');
+        if (boldElement) {
+          sParam = boldElement.textContent.trim();
+          break;
+        }
+        prevElement = prevElement.previousElementSibling;
       }
     }
-
-    // s‑параметр
-    const s = getSParam(link)
-      .replace(/ṃ/g, "ṁ")
-      .replace(/'/g, "");
-    if (s) {
-      const sep = url.includes('?') ? '&' : '?';
-      url += `${sep}s=${encodeURIComponent(s)}`;
-    }
-
-    link.href = url;
   }
 
-  /*–––– 3. Запуск в «свободное» время ––––*/
-  function rewriteAll() {
-    document.querySelectorAll('a').forEach(rewrite);
+  // Если не нашли bold, берем q из URL
+  if (!sParam) {
+    sParam = new URLSearchParams(window.location.search).get('q') || '';
   }
 
-  const idle = window.requestIdleCallback
-    ? cb => requestIdleCallback(cb, { timeout: 2000 })
-    : cb => setTimeout(cb, 0);
+  // 3. Добавляем параметр s (если есть значение)
+  if (sParam) {
+    const separator = newUrl.includes('?') ? '&' : '?';
+    newUrl += `${separator}s=${encodeURIComponent(sParam.replace(/ṃ/g, "ṁ").replace(/'/g, ""))}`;
+  }
 
-  window.addEventListener('DOMContentLoaded', () => idle(rewriteAll));
-})();
+  window.location.href = newUrl;
+});
 
 
 // переделать в сортируемую таблицу 
@@ -172,77 +179,4 @@
 
 // конец сорт таблиц
 
-// Вешаем обработчик на document (не на ссылки!)
-/*
-document.addEventListener('click', function(event) {
-  const link = event.target.closest('a');
-  if (!link || !link.href) return;
-
-  // Проверяем, нужно ли обрабатывать эту ссылку
-  const isSuttaLink = link.classList.contains('sutta_link') || link.closest('.sutta'); // Добавили проверку на родителя с классом sutta
-  const isOldSite = link.href.includes('thebuddhaswords.net');
-  
-  if (!isSuttaLink && !isOldSite) return;
-
-  event.preventDefault();
-  let newUrl = link.href;
-
-  // 1. Замена домена для старых ссылок
-  if (isOldSite) {
-    // Регулярное выражение для поиска сутт (MN, DN, SN, AN) с диапазонами или без
-    const suttaMatch = newUrl.match(/\/(mn|dn|sn|an|dhp|snp|ud)([^\/]+?)\.html$/i);
-    
-    if (suttaMatch) {
-      const suttaType = suttaMatch[1].toLowerCase();
-      const suttaNum = suttaMatch[2];
-      const suttaCode = suttaType + suttaNum;
-      
-      // Проверяем текущий URL страницы на наличие /ru/
-      if (window.location.href.includes('/ru/')) {
-        newUrl = `https://dhamma.gift/r/?q=${suttaCode}`;
-      } else {
-        newUrl = `https://dhamma.gift/read/?q=${suttaCode}`;
-      }
-    } else {
-      // Обычная замена для не-сутт
-      newUrl = newUrl
-        .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
-        .replace('thebuddhaswords.net', 'dhamma.gift/bw');
-    }
-  }
-
-  // 2. Определение параметра s
-  let sParam = '';
-
-  // Случай для sutta_link: ищем bold в предыдущих элементах
-  if (isSuttaLink) {
-    const parentParagraph = link.closest('p');
-    if (parentParagraph) {
-      // Ищем ближайший предыдущий элемент с bold
-      let prevElement = parentParagraph.previousElementSibling;
-      while (prevElement) {
-        const boldElement = prevElement.querySelector('b');
-        if (boldElement) {
-          sParam = boldElement.textContent.trim();
-          break;
-        }
-        prevElement = prevElement.previousElementSibling;
-      }
-    }
-  }
-
-  // Если не нашли bold, берем q из URL
-  if (!sParam) {
-    sParam = new URLSearchParams(window.location.search).get('q') || '';
-  }
-
-  // 3. Добавляем параметр s (если есть значение)
-  if (sParam) {
-    const separator = newUrl.includes('?') ? '&' : '?';
-    newUrl += `${separator}s=${encodeURIComponent(sParam.replace(/ṃ/g, "ṁ").replace(/'/g, ""))}`;
-  }
-
-  window.location.href = newUrl;
-});
-*/
 
