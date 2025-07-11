@@ -271,8 +271,6 @@ function createDropdowns() {
   );
 }
 
-document.addEventListener("DOMContentLoaded", createDropdowns);
-
 
 function toggleDictDropdown(event) {
   event.preventDefault();
@@ -284,25 +282,27 @@ function toggleDictDropdown(event) {
   const dropdown = container.querySelector('.dict-dropdown-menu, .dict-dropdown-menu-down');
   if (!dropdown) return;
 
+  // 👉 Ленивое создание
+  if (!dropdown.dataset.ready) {
+    createDropdowns();
+    dropdown.dataset.ready = "1";
+  }
+
   // Закрываем другие открытые меню
   document.querySelectorAll('.dict-dropdown-menu.show, .dict-dropdown-menu-down.show').forEach(el => {
     if (el !== dropdown) el.classList.remove('show');
   });
 
-  // Переключаем видимость текущего меню
   dropdown.classList.toggle('show');
 
-  // === Адаптация max-height при открытии ===
   if (dropdown.classList.contains('show')) {
     adjustDropdownHeight(container, dropdown);
   }
 
-  // Удаляем предыдущий обработчик закрытия
   if (container._closeHandler) {
     document.removeEventListener('click', container._closeHandler);
   }
 
-  // Назначаем новый обработчик закрытия
   container._closeHandler = function(e) {
     if (!container.contains(e.target)) {
       dropdown.classList.remove('show');
@@ -315,7 +315,6 @@ function toggleDictDropdown(event) {
 
   document.addEventListener('click', container._closeHandler);
 
-  // === Добавляем обработчик resize ===
   container._resizeHandler = function() {
     if (dropdown.classList.contains('show')) {
       adjustDropdownHeight(container, dropdown);
