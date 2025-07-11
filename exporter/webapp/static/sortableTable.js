@@ -178,5 +178,82 @@ document.addEventListener('click', function(event) {
 
 
 // конец сорт таблиц
+    
 
+function rewriteOldLinksInExampleDivs() {
+  const containers = document.querySelectorAll('div[name="example-div"]');
+  containers.forEach(container => {
+    rewriteOldLinksInContainer(container);
+  });
+}
 
+function rewriteOldLinksInContainer(container) {
+  if (!container) return;
+
+  const links = container.querySelectorAll('a[href*="thebuddhaswords.net"]');
+
+  links.forEach(link => {
+    let url = link.href;
+
+    // Проверяем, есть ли sutta-путь
+    const suttaMatch = url.match(/\/(mn|dn|sn|an|dhp|snp|ud)([^\/]+?)\.html$/i);
+
+    if (suttaMatch) {
+      const suttaType = suttaMatch[1].toLowerCase();
+      const suttaNum = suttaMatch[2];
+      const suttaCode = suttaType + suttaNum;
+
+      if (window.location.href.includes('/ru/')) {
+        url = `https://dhamma.gift/r/?q=${suttaCode}`;
+      } else {
+        url = `https://dhamma.gift/read/?q=${suttaCode}`;
+      }
+    } else {
+      url = url
+        .replace('www.thebuddhaswords.net', 'dhamma.gift/bw')
+        .replace('thebuddhaswords.net', 'dhamma.gift/bw');
+    }
+
+    // Определяем параметр s — ищем bold в предыдущих соседних абзацах
+    let sParam = '';
+    const parentP = link.closest('p');
+    if (parentP) {
+      let prev = parentP.previousElementSibling;
+      while (prev) {
+        const bold = prev.querySelector('b');
+        if (bold) {
+          sParam = bold.textContent.trim();
+          break;
+        }
+        prev = prev.previousElementSibling;
+      }
+    }
+
+    // Если не нашли, берём из URL параметр q
+    if (!sParam) {
+      sParam = new URLSearchParams(window.location.search).get('q') || '';
+    }
+
+    if (sParam) {
+      const sep = url.includes('?') ? '&' : '?';
+      url += `${sep}s=${encodeURIComponent(sParam.replace(/ṃ/g, 'ṁ').replace(/'/g, ''))}`;
+    }
+
+    // Обновляем href
+    link.href = url;
+  });
+}
+
+// Запускать в момент, когда контент подгружен (через idle или setTimeout)
+function rewriteLinksWhenIdle() {
+  const run = () => rewriteOldLinksInExampleDivs();
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(run, { timeout: 2000 });
+  } else {
+    setTimeout(run, 1000);
+  }
+}
+
+// Запускаем перепись ссылок после загрузки/обновления контента
+rewriteLinksWhenIdle();
