@@ -312,7 +312,7 @@ async function handleFormSubmit(event) {
             dpdResults.innerHTML = dpdDiv.innerHTML;
             dpdResultsContent = dpdDiv.innerHTML;
 
-rewriteLinksWhenIdle();  
+//rewriteLinksWhenIdle();  
 
             //// sandhi button toggle
             showHideSandhi();
