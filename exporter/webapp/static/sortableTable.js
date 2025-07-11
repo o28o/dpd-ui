@@ -179,7 +179,7 @@ document.addEventListener('click', function(event) {
 
 // конец сорт таблиц
 
-
+/*
 function rewriteOldLinksInExampleDivs() {
   const containers = document.querySelectorAll('div[name="example-div"]');
   containers.forEach(container => {
@@ -255,3 +255,4 @@ function rewriteLinksWhenIdle() {
   }
 }
 
+*/
