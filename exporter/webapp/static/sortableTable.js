@@ -62,8 +62,8 @@ document.addEventListener('click', function(event) {
     sParam = new URLSearchParams(window.location.search).get('q') || '';
   }
 
-  // 3. Добавляем параметр s (если есть значение)
-  if (sParam) {
+  // 3. Добавляем параметр s (если есть значение) только если его ещё нет в newUrl
+  if (sParam && !newUrl.includes('s=')) {
     const separator = newUrl.includes('?') ? '&' : '?';
     newUrl += `${separator}s=${encodeURIComponent(sParam.replace(/ṃ/g, "ṁ").replace(/'/g, ""))}`;
   }
@@ -178,7 +178,7 @@ document.addEventListener('click', function(event) {
 
 
 // конец сорт таблиц
-    
+
 
 function rewriteOldLinksInExampleDivs() {
   const containers = document.querySelectorAll('div[name="example-div"]');
@@ -255,5 +255,3 @@ function rewriteLinksWhenIdle() {
   }
 }
 
-// Запускаем перепись ссылок после загрузки/обновления контента
-rewriteLinksWhenIdle();
