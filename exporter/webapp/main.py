@@ -74,9 +74,10 @@ class StaticCacheMiddleware(BaseHTTPMiddleware):
 app.add_middleware(StaticCacheMiddleware)
 
 # Монтируем статические файлы (БЕЗ параметра headers)
+# Корректное монтирование статических файлов
 app.mount("/static", StaticFiles(directory="exporter/webapp/static"), name="static")
 app.mount("/ru/static", StaticFiles(directory="exporter/webapp/static"), name="ru_static")
-
+app.mount("/.well-known", StaticFiles(directory="exporter/webapp/static/.well-known", html=False), name="well_known")
 # Set up templates
 templates = Jinja2Templates(directory="exporter/webapp/templates")
 templates_ru = Jinja2Templates(directory="exporter/webapp/ru_templates")
