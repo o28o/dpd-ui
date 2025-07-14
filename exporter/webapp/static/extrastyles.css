@@ -1520,15 +1520,19 @@ align-items: center;
 
 
 
-/* Make footer stick to bottom on mobile */
+/* Стили только для мобильных устройств */
 @media (max-width: 750px) {
     body {
         display: flex;
         flex-direction: column;
-        min-height: 100vh;
+        min-height: 97vh; /* Минимальная высота - весь экран */
     }
 
-    .main-pane {
-        flex-grow: 1;
+    .tabs {
+        flex: 1; /* Растягивает контейнер, чтобы футер оставался внизу */
+    }
+
+    .footer-pane {
+        margin-top: auto; /* Прижимает футер к низу */
     }
 }
