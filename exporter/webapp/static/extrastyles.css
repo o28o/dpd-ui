@@ -1518,3 +1518,17 @@ align-items: center;
  box-shadow: var(--shadow-default);
 }
 
+
+
+/* Make footer stick to bottom on mobile */
+@media (max-width: 750px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .main-pane {
+        flex-grow: 1;
+    }
+}
