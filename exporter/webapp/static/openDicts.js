@@ -257,7 +257,7 @@ function createDropdowns() {
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.wisdomlib.org/index.php?type=search&division=glossary&item=&mode=text&input=')">
         <span class="dropdown-icon">🌍</span> Wisdomlib
       </a>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dhamma.gift//cse.php?q=')">
+      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dhamma.gift/cse.php?q=')">
         <span class="dropdown-icon">🌍</span> Google Custom Search
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://glosbe.com/pi/sa/')">
