@@ -62,7 +62,7 @@ function createDropdowns() {
     <div class="dropdown-section">
       <div class="dropdown-header">${texts.sanskrit}</div>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://sanskrit-lexicon.uni-koeln.de/scans/MWScan/2020/web/webtc/indexcaller.php?transLit=roman&key=')">
-        <span class="dropdown-icon">📜</span> Monier-Williams & 10+ more
+        <span class="dropdown-icon">📜</span> Monier-Williams & more
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.sanskritdictionary.com/?iencoding=iast&lang=sans&action=Search&q=')">
         <span class="dropdown-icon">📜</span> Sanskrit Dictionary
