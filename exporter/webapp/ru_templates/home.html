@@ -168,11 +168,21 @@
     <div class="footer-pane">
 
       <div class="dict-dropdown-container">
-          <a href="javascript:void(0)" title="Open word in PTS, CPD, CONE, Skr, Wisdomlib (Alt + Q)"
-        onclick="openDictionaries(event)">Dict</a>
-      <a id="fdg-link" href="" target="" title="Search with Dhamma.Gift">DG</a> <a
+    <!--      <a href="javascript:void(0)" title="Open word in PTS, CPD, CONE, Skr, Wisdomlib (Alt + Q)"
+        onclick="openDictionaries(event)">Dict</a> -->
+
+
+              <div class="dict-dropdown-container">
+        
+ <a href="javascript:void(0)" clas="dict-dropdown-toggle" title="Открыть в словарях (Alt + Q) в основных"  onclick="toggleDictDropdown(event)">
+          Dict</a>
+        <div class="dict-dropdown-menu"></div>
+      </div>
+
+
+      <a id="fdg-link" href="" target="" title="Искать через Dhamma.Gift">DG</a> <a
         href="/static/dictTest.html" style="all: unset; cursor: pointer;">©</a> <a id="dpd-link"
-        href="" title="Open word in ru.Dpdict.net" target="_blank">DPD</a>
+        href="" title="Открыть на ru.Dpdict.net" target="_blank">DPD</a>
     </div>
   </div>
 
