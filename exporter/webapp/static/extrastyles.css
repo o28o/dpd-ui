@@ -273,6 +273,11 @@ align-items: center;
 
 
 /* DPD extra*/
+
+body {
+    transition: 0s !important;
+}
+
 .hidden {
         display: none;
     }
