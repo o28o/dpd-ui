@@ -1525,7 +1525,7 @@ align-items: center;
     body {
         display: flex;
         flex-direction: column;
-        min-height: 95vh; /* Минимальная высота - весь экран */
+        min-height: 90vh; /* Минимальная высота - весь экран */
     }
 
     .tabs {
