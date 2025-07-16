@@ -365,8 +365,8 @@ function updateLink(linkId, baseUrl) {
 }
 
 // Инициализация ссылок при загрузке
-  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
-updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
+//  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
+// updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
 
 //и обновление при клике
 document.getElementById('fdg-link')?.addEventListener('click', () => {
@@ -378,37 +378,7 @@ document.getElementById('dpd-link')?.addEventListener('click', () => {
 
 //ссылки в футере конец
 
-/* первый вариант
-//ссылки в футере
-//const searchBoxForFooter = document.getElementById('search-box');
 
-function updateFooterLinks(query) {
-  // FDG
-  const fdgUrl = `https://dhamma.gift?p=-kn&q=${encodeURIComponent(query)}`;
-  document.getElementById('fdg-link').href = fdgUrl;
-
-  // DPD
-  const dpdUrl = new URL(window.location.href);
-  dpdUrl.hostname = 'dpdict.net';
-  dpdUrl.protocol = 'https:';
-  dpdUrl.port = '';
-  dpdUrl.searchParams.set('q', query);
-  document.getElementById('dpd-link').href = dpdUrl.toString();
-}
-
-// обновляем при вводе текста
-searchBoxForFooter.addEventListener('input', () => {
-  const query = searchBoxForFooter.value;
-  updateFooterLinks(query);
-});
-
-// при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-  const initQuery = new URL(window.location.href).searchParams.get('q') || '';
-  updateFooterLinks(initQuery);
-});
-//ссылки в футере конец
-*/
 
 function toggleSettings() {
   const settingsContent = document.getElementById('settings-content');
@@ -501,87 +471,6 @@ setOneButtonToggleDefault();
         vertical-align: middle;
     `;
 
-//        transform: scaleX(-1);
-
-
-    function updateButton() {
-        const isMobileOrTablet = window.innerWidth <= 1024;
-        const isDark = document.body.classList.contains('dark-mode');
-        
-        // Настройки иконки
-        icon.style.filter = isDark ? 'invert(0)' : 'invert(1)';
-
-        if (isMobileOrTablet) {
-            // Круглая кнопка с отступом
-            button.innerHTML = '';
-            button.appendChild(icon);
-            button.style.cssText = `
-                width: 30px !important;
-                height: 30px !important;
-                padding: 0;
-                border-radius: 50%;
-                margin-left: 8px !important; // Отступ от инпута
-                border: none !important; // Убираем границы, если они есть
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-        } else {
-            // Исходный вид
-            button.innerHTML = originalHTML;
-            button.style.cssText = ''; // Сброс стилей
-        }
-    }
-
-    // Запуск при изменении размера окна и смене темы
-//    window.addEventListener('resize', updateButton);
-//    document.getElementById('theme-toggle')?.addEventListener('change', updateButton);
-    
-//    updateButton(); // Инициализация
-
-
-
-/*
-// Переопределяем поведение после загрузки home.js
-// Ждем когда home.js выполнит свою инициализацию
-    setTimeout(function() {
-        const dpdResults = document.getElementById('dpd-results');
-        if (!dpdResults) return;
-        
-        // Устанавливаем свой текст независимо от содержимого
-        const language = document.documentElement.lang || 'en';
-        
-        if (language === 'en') {
-            dpdResults.innerHTML = `
-                <p class="message">Search in Pāḷi or English using <b>Autocomplete</b>, <b>Unicode</b> or <b>Velthuis</b>.</p>
-                <p class="message"><b>Double-click</b> any word to search.</p>
-                <p class="message">Adjust <b>Settings</b> as needed.</p>
-                <p class="message"><b>Refresh</b> if issues occur.</p>
-                <p class="message">
-                    More info about: <a href="https://docs.dpdict.net/webapp/" target="_blank">Site</a> or 
-                    <a href="https://docs.dpdict.net/" target="_blank">DPD in general</a>.
-                </p>
-                <p class="message">Try: <b>Double-click</b> words below:</p>
-                <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
-            `;
-        } else if (language === 'ru') {
-            dpdResults.innerHTML = `
-                <p class="message">Ищите на пали или русском с <b>Автоподсказками</b>, <b>Unicode</b> или <b>Velthuis</b>.</p>
-                <p class="message"><b>Двойной клик</b> по слову для поиска.</p>
-                <p class="message"><b>Настройки</b> — доп. функции.</p>
-                <p class="message"><b>Обновите</b> страницу при проблемах.</p>
-                <p class="message">
-                    Подробнее о: <a href="https://docs.dpdict.net/webapp/" target="_blank">Сайте</a> или
-                    <a href="https://docs.dpdict.net/" target="_blank">DPD в целом</a>.
-                </p>
-                <p class="message">Попробуйте: <b>двойной клик</b> по словам ниже:</p>
-                <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
-            `;
-        }
-    }, 50); // Короткая задержка для гарантии выполнения home.js
-
-*/
-
 // Инициализация - устанавливаем начальное значение из URL
   const urlParams = new URLSearchParams(window.location.search);
   searchBoxForFooter.value = urlParams.get('q') || '';
@@ -656,134 +545,7 @@ if (installLink) {
 
 });
 
-/*
-// улучшенные функции двойных кликов и тапов.
-// Конфигурация
-const TAP_DELAY = 300; // Максимальный интервал между тапами
-const SELECTION_CHECK_DELAY = 100; // Задержка проверки выделения
 
-// Переменные состояния
-let lastTapTime = 0;
-let lastTapTarget = null;
-let tapCount = 0;
-let pendingSelectionCheck = null;
-
-// Основной обработчик выделения
-function processSelection(event) {
-    if (event.target.closest('th')) return;
-    
-    const selection = getValidSelection();
-    if (!selection) return;
-    
-    applySelection(selection, event);
-}
-
-// Фолбэк-обработчик тапов
-function handleTapWithFallback(event) {
-    const now = Date.now();
-    const isSameTarget = event.target === lastTapTarget;
-    const isDoubleTap = (now - lastTapTime < TAP_DELAY) && isSameTarget;
-
-    // Обновляем состояние тапов
-    if (isDoubleTap) {
-        tapCount++;
-    } else {
-        tapCount = 1;
-    }
-    
-    lastTapTime = now;
-    lastTapTarget = event.target;
-
-    // Пытаемся обработать как двойной тап
-    if (tapCount === 2) {
-        event.preventDefault();
-        
-        // 1. Пытаемся эмулировать dblclick
-        try {
-            const clickEvent = new MouseEvent('dblclick', {
-                bubbles: true,
-                cancelable: true,
-                view: window,
-                clientX: event.changedTouches?.[0]?.clientX,
-                clientY: event.changedTouches?.[0]?.clientY
-            });
-            event.target.dispatchEvent(clickEvent);
-        } catch (e) {
-            console.log('Double click emulation failed', e);
-        }
-
-        // 2. Фолбэк: прямая обработка через задержку
-        clearTimeout(pendingSelectionCheck);
-        pendingSelectionCheck = setTimeout(() => {
-            const selection = getValidSelection();
-            if (selection && !event.defaultPrevented) {
-                applySelection(selection, event);
-            }
-            tapCount = 0;
-        }, SELECTION_CHECK_DELAY);
-    }
-}
-
-// Вспомогательные функции
-function getValidSelection() {
-    const selection = window.getSelection().toString().trim();
-    return selection && !selection.includes('\n') ? selection : null;
-}
-
-function applySelection(selection, event) {
-    // Отменяем дальнейшую обработку
-    if (event) event.preventDefault();
-    
-    // Применяем выделение
-    searchBox.value = selection;
-    handleFormSubmit();
-    
-    // Пытаемся обновить историю
-    try {
-        history.pushState({ selectedText: selection }, '', `#${encodeURIComponent(selection)}`);
-    } catch (e) {
-        console.log('History update failed', e);
-    }
-}
-
-// Инициализация
-function initSelectionHandlers() {
-    // Стандартные обработчики
-    dpdPane.addEventListener('dblclick', processSelection);
-    historyPane.addEventListener('dblclick', processSelection);
-
-    // Тач-обработчики с фолбэком
-    const touchOptions = { passive: false };
-    dpdPane.addEventListener('touchend', handleTapWithFallback, touchOptions);
-    historyPane.addEventListener('touchend', handleTapWithFallback, touchOptions);
-
-    // Предотвращаем масштабирование
-    document.addEventListener('touchstart', e => {
-        if (e.touches.length > 1) e.preventDefault();
-    }, { passive: false });
-}
-
-// Запускаем с проверкой зависимостей
-if (window.getSelection && searchBox && typeof handleFormSubmit === 'function') {
-    try {
-        initSelectionHandlers();
-        console.log('Selection handlers initialized');
-    } catch (e) {
-        console.error('Initialization failed', e);
-    }
-} else {
-    console.error('Required dependencies not found');
-}
-
-// NEW: handle browser back/forward
-window.addEventListener('popstate', function(event) {
-    if (event.state && event.state.selectedText) {
-        const selectedText = event.state.selectedText;
-        searchBox.value = selectedText;
-        handleFormSubmit();
-    }
-});
-*/
 
  function showSpinner() {
     const currentPath = window.location.pathname;
