@@ -91,7 +91,7 @@ function createDropdowns() {
         <span class="dropdown-icon">🌍</span> Wisdomlib
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dhamma.gift/cse.php?q=')">
-        <span class="dropdown-icon">🌍</span>Google Custom Search
+        <span class="dropdown-icon">🌍</span> Google Custom Search
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://glosbe.com/pi/sa/')">
         <span class="dropdown-icon">🌍</span> Glosbe Pli-Skr
