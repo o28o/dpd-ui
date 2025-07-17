@@ -7,12 +7,19 @@ function createDropdowns() {
       pali: "Палийские словари",
       sanskrit: "Санскритские словари",
       other: "Другие ресурсы",
+      dGift: "https://dhamma.gift/ru/?p=-kn&q=",
+      dGiftHeader: "Dhamma.Gift",
+      dGiftTitle: "Искать через Dhamma.Gift",
     },
     en: {
       groups: "Dictionary Groups",
       pali: "Pali Dictionaries",
       sanskrit: "Sanskrit Dictionaries",
       other: "Other Resources",
+      dGift: "https://dhamma.gift/?p=-kn&q=",
+      dGiftHeader: "Dhamma.Gift",
+      dGiftTitle: "Search with Dhamma.Gift",
+
     },
   };
 
@@ -21,6 +28,9 @@ function createDropdowns() {
 
   const dropdownHTML = `
     <div class="dropdown-section">
+    <a class="dropdown-item" title="${texts.dGiftTitle}" href="javascript:void(0)" onclick="return openWithQuery(event, '${texts.dGift}')">
+      <span class="dropdown-icon">🔎</span> ${texts.dGiftHeader}
+    </a>
       <div class="dropdown-header">${texts.groups}</div>
       <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
         <span class="dropdown-icon">📚</span> 4 Pali + 4 Skr + Wlib
@@ -81,7 +91,7 @@ function createDropdowns() {
         <span class="dropdown-icon">🌍</span> Wisdomlib
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dhamma.gift/cse.php?q=')">
-        <span class="dropdown-icon">🌍</span> DG Google Custom Search
+        <span class="dropdown-icon">🌍</span>Google Custom Search
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://glosbe.com/pi/sa/')">
         <span class="dropdown-icon">🌍</span> Glosbe Pli-Skr
