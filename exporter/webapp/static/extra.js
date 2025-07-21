@@ -262,8 +262,8 @@ function initStartMessage(lang) {
   <strong>Ctrl+1</strong> or <strong>Alt+1</strong> — Toggle English/Russian<br>
   <strong>Ctrl+2</strong> or <strong>Alt+2</strong> — Open <em>Dhamma.Gift Read</em><br>
   <strong>Ctrl+3</strong> or <strong>Alt+3</strong> — Open <em>Dhamma.Gift Search</em><br>
-  <strong>Alt+T</strong> — Toggle Theme<br>
-  <strong>Alt+Q</strong> — Look up word in multiple dictionaries
+  <strong>Alt+Q</strong> — Look up word in multiple dictionaries<br>
+  <strong>Alt+T</strong> — Toggle Theme
 </p>
     <p class="message"><b>Footer links</b>: Dict - to search the word in other dicts, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
@@ -300,8 +300,9 @@ function initStartMessage(lang) {
 <strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключить Рус/Англ<br>
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
 <strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search<br>
-<strong>Alt+T</strong> переключить тему<br>
-<strong>Alt+Q</strong> открыть слово в нескольких словарях
+<strong>Alt+Q</strong> открыть слово в нескольких словарях<br>
+<strong>Alt+T</strong> переключить тему
+
 </p>
 <p class="message"><b>Ссылки в футере</b> Dict - поиск слова в разных словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
