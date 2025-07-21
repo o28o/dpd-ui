@@ -156,6 +156,21 @@ function redirectWithLanguage(newPath) {
 }
 
 
+// Add this with other hotkey listeners
+document.addEventListener('keydown', function(event) {
+  if (event.altKey && event.code === 'KeyT') {
+    event.preventDefault();
+    toggleThemeProgrammatically();
+  }
+});
+
+// Add this function to programmatically toggle the theme
+function toggleThemeProgrammatically() {
+  themeToggle.checked = !themeToggle.checked;
+  const event = new Event('change');
+  themeToggle.dispatchEvent(event);
+}
+
 document.addEventListener('keydown', (event) => {
   if (event.altKey && (event.code === 'Period' || event.code === 'KeyQ')) {
     event.preventDefault();
@@ -247,6 +262,7 @@ function initStartMessage(lang) {
   <strong>Ctrl+1</strong> or <strong>Alt+1</strong> — Toggle English/Russian<br>
   <strong>Ctrl+2</strong> or <strong>Alt+2</strong> — Open <em>Dhamma.Gift Read</em><br>
   <strong>Ctrl+3</strong> or <strong>Alt+3</strong> — Open <em>Dhamma.Gift Search</em><br>
+  <strong>Alt+T</strong> — Toggle Theme<br>
   <strong>Alt+Q</strong> — Look up word in multiple dictionaries
 </p>
     <p class="message"><b>Footer links</b>: Dict - to search the word in other dicts, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
@@ -284,6 +300,7 @@ function initStartMessage(lang) {
 <strong>Ctrl+1</strong> или <strong>Alt+1</strong> переключить Рус/Англ<br>
 <strong>Ctrl+2</strong> или <strong>Alt+2</strong> открыть Dhamma.Gift Read<br>
 <strong>Ctrl+3</strong> или <strong>Alt+3</strong> открыть Dhamma.Gift Search<br>
+<strong>Alt+T</strong> переключить тему<br>
 <strong>Alt+Q</strong> открыть слово в нескольких словарях
 </p>
 <p class="message"><b>Ссылки в футере</b> Dict - поиск слова в разных словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
