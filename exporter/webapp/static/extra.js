@@ -508,6 +508,13 @@ if (!tabsToggle || !tabContainer) {
     return;
 }
 
+ document.body.addEventListener('click', (e) => {
+    if (e.target.closest('.copyright')) {
+      e.preventDefault();
+      window.open('https://creativecommons.org/licenses/by-nc-sa/4.0/', '_blank');
+    }
+  }, { passive: true }); // Флаг passive для оптимизации скролла
+
 // Функция для обновления видимости табов
 function updateTabVisibility() {
     const tabsHidden = localStorage.getItem("tabsHidden");
