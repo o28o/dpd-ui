@@ -167,7 +167,8 @@ openDictionaries(event);
 //установка фокуса в инпуте по нажатию / 
 document.addEventListener('keydown', function(event) {
     // Проверяем именно символ / (код 191 или Slash)
-    if (event.key === '/' || event.code === 'Slash') {
+
+  if (event.isTrusted && (event.key === '/' || event.code === 'Slash')) {
         // Ищем все возможные инпуты
         const inputs = document.querySelectorAll(
             '#search-box[type="search"], #paliauto[type="text"], .dtsb-value.dtsb-input'
@@ -546,21 +547,20 @@ if (installLink) {
 
 
 
- function showSpinner() {
-    const currentPath = window.location.pathname;
-    const isRootPath = currentPath === '/' || currentPath === '/ru/';
-    
-    if (isRootPath) {
-        // Создаем полупрозрачный спиннер
-        dpdResults.insertAdjacentHTML('beforeend', `
-            <div class="spinner-container transparent-spinner">
-                <img src="/static/circle-notch.svg" class="loading-spinner">
-            </div>
-        `);
-        //<div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
-    }
+function showSpinner() {
+    setTimeout(() => {
+        const currentPath = window.location.pathname;
+        const isRootPath = currentPath === '/' || currentPath === '/ru/';
+        
+        if (isRootPath) {
+            dpdResults.insertAdjacentHTML('beforeend', `
+                <div class="spinner-container transparent-spinner">
+                    <img src="/static/circle-notch.svg" class="loading-spinner">
+                </div>
+            `);
+        }
+    }, 1000); // Задержка в 1 секунду
 }
-
 
 
 
