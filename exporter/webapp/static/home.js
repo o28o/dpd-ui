@@ -318,15 +318,16 @@ async function handleFormSubmit(event) {
             showHideSandhi();
             
             populateHistoryBody();
-            dpdPane.focus();
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-            dpdPane.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+   
+ //************************** 
+ // добавлено чтобы починить проблему с неожиданным скроллом
+ //****************************
+
+if (!window.location.href.includes('search_html')) {
+    dpdPane.focus();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    dpdPane.scrollTo({ top: 0, behavior: "smooth" });
+}
 
             // Update the URL with the search query
             let url = `/?q=${encodeURIComponent(searchQuery)}`;
