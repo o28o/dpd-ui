@@ -290,7 +290,7 @@ function initStartMessage(lang) {
   <div class="messages-content">
 <p class="message">Ищите на пали с <b>Автоподсказками</b> или <b>Velthuis</b>, или русском .</p>
 <p class="message"><b>Кликните по таблице</b> в Словаре Грамматики, её можно сортировать.</p>
-<p class="message">Для <b>словаря на любом сайте</b> есть: <a target='_blank' title='Chrome, Opera, Brave, Edge или Yandex Browser. Также есть в Fierfox Add-ons' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>Расширение</a>, и <a title='также через Меню Chrome Android → "Добавить на главную" → Установить' href='#' id='installLink'>Web</a> или <a target="" href="https://dhamma.gift/assets/apk/dict.dhamma.gift-latest.apk" title="Последнее оновление APK для Dict.Dhamma.Gift TWA>Android</a> приложения. 
+<p class="message">Для <b>словаря на любом сайте</b> есть: <a target='_blank' title='Chrome, Opera, Brave, Edge или Yandex Browser. Также есть в Fierfox Add-ons' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>Расширение</a>, и <a title='также через Меню Chrome Android → "Добавить на главную" → Установить' href='#' id='installLink'>Web</a> или <a target="" href="https://dhamma.gift/assets/apk/dict.dhamma.gift-latest.apk" title="Последнее оновление APK для Dict.Dhamma.Gift TWA">Android</a> приложения. 
 Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
   </div>
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
