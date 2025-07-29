@@ -28,8 +28,11 @@ function createDropdowns() {
 
   const dropdownHTML = `
     <div class="dropdown-section">
-    <a class="dropdown-item" title="${texts.dGiftTitle}" href="javascript:void(0)" onclick="return openWithQuery(event, '${texts.dGift}')">
+    <a class="dropdown-item" target="" title="${texts.dGiftTitle}" href="javascript:void(0)" onclick="return openWithQuery(event, '${texts.dGift}')">
       <span class="dropdown-icon">🔎</span> ${texts.dGiftHeader}
+    </a>
+    <a class="dropdown-item" target="" title="DharmaMitra.org Translate and Research" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
+        <span class="dropdown-icon">🌍</span> Mitra Translator
     </a>
       <div class="dropdown-header">${texts.groups}</div>
       <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
@@ -84,9 +87,7 @@ function createDropdowns() {
     
     <div class="dropdown-section">
       <div class="dropdown-header">${texts.other}</div>
-      <a class="dropdown-item" target="" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
-        <span class="dropdown-icon">🌍</span> Mitra Translator
-      </a>
+
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.wisdomlib.org/index.php?type=search&division=glossary&item=&mode=text&input=')">
         <span class="dropdown-icon">🌍</span> Wisdomlib
       </a>
