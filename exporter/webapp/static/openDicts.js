@@ -84,7 +84,7 @@ function createDropdowns() {
     
     <div class="dropdown-section">
       <div class="dropdown-header">${texts.other}</div>
-      <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
+      <a class="dropdown-item" target="" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
         <span class="dropdown-icon">🌍</span> Mitra Translator
       </a>
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.wisdomlib.org/index.php?type=search&division=glossary&item=&mode=text&input=')">
@@ -313,19 +313,22 @@ function openWithQuery(event, baseUrl) {
   const query = searchInput?.value.trim().toLowerCase().replace(/ṁ/g, 'ṃ') || '';
   
   // 2. Копируем в буфер обмена
-
-if (query) {
+  if (query) {
     showBubbleNotification('Copied to clipboard');
-  navigator.clipboard.writeText(query).catch(err => {
-    console.warn('Clipboard copy failed:', err);
-  });
-}
+    navigator.clipboard.writeText(query).catch(err => {
+      console.warn('Clipboard copy failed:', err);
+    });
+  }
 
-  // 3. Формируем URL (просто добавляем query в конец)
+  // 3. Формируем URL
   const finalUrl = baseUrl + encodeURIComponent(query);
   
-  // 4. Открываем в новой вкладке
-  window.open(finalUrl, '_blank');
+  // 4. Получаем target из ссылки и открываем окно
+  const target = event.currentTarget.target || '_self'; // Используем '_self' по умолчанию для текущего окна
+  
+  // Если target пустой или равен '_self', ссылка откроется в текущей вкладке.
+  // Если target равен '_blank', она откроется в новой.
+  window.open(finalUrl, target);
   
   return false;
 }
