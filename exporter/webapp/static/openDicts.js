@@ -32,7 +32,7 @@ function createDropdowns() {
       <span class="dropdown-icon">🔎</span> ${texts.dGiftHeader}
     </a>
     <a class="dropdown-item" target="" title="DharmaMitra.org Translate and Research" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
-        <span class="dropdown-icon">🌍</span> Mitra Translator
+        <span class="dropdown-icon">🐻‍❄️</span> DharamMitra.org
     </a>
       <div class="dropdown-header">${texts.groups}</div>
       <a class="dropdown-item" href="javascript:void(0)" onclick="openDictionaries(event)">
