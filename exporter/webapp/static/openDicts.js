@@ -68,10 +68,8 @@ function createDropdowns() {
         <span class="dropdown-icon">🏛️</span> Cone Gandhari.org
       </a>
   <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.digitalpalireader.online/_dprhtml/index.html?frombox=1&analysis=')">
-        <span class="dropdown-icon">🏛️</span> Critical Pali Dict (CPD)
+        <span class="dropdown-icon">🏛️</span> DPR Analysis
       </a>
-   
-
 
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://cpd.uni-koeln.de/search?query=')">
         <span class="dropdown-icon">🏛️</span> Critical Pali Dict (CPD)
