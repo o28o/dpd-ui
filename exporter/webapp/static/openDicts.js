@@ -28,10 +28,10 @@ function createDropdowns() {
 
   const dropdownHTML = `
     <div class="dropdown-section">
-    <a class="dropdown-item" target="" title="${texts.dGiftTitle}" href="javascript:void(0)" onclick="return openWithQuery(event, '${texts.dGift}')">
+    <a class="dropdown-item" target="" rel="noopener noreferrer" title="${texts.dGiftTitle}" href="javascript:void(0)" onclick="return openWithQuery(event, '${texts.dGift}')">
       <span class="dropdown-icon">🔎</span> ${texts.dGiftHeader}
     </a>
-    <a class="dropdown-item" target="" title="DharmaMitra.org Translate and Research" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
+    <a class="dropdown-item" target="" rel="noopener noreferrer" title="DharmaMitra.org Translate and Research" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://dharmamitra.org/?target_lang=english-explained&input_sentence=')">
         <span class="dropdown-icon">🐻‍❄️</span> DharamMitra.org
     </a>
       <div class="dropdown-header">${texts.groups}</div>
@@ -67,6 +67,12 @@ function createDropdowns() {
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://gandhari.org/dictionary?section=dop&search=')">
         <span class="dropdown-icon">🏛️</span> Cone Gandhari.org
       </a>
+  <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://www.digitalpalireader.online/_dprhtml/index.html?frombox=1&analysis=')">
+        <span class="dropdown-icon">🏛️</span> Critical Pali Dict (CPD)
+      </a>
+   
+
+
       <a class="dropdown-item" target="_blank" href="javascript:void(0)" onclick="return openWithQuery(event, 'https://cpd.uni-koeln.de/search?query=')">
         <span class="dropdown-icon">🏛️</span> Critical Pali Dict (CPD)
       </a>
@@ -234,6 +240,13 @@ if (query) {
       base: 'https://gandhari.org/dictionary?section=dop&search=',
       fallback: 'https://gandhari.org/dop'
     },
+    {
+      name: 'DPR', 
+      method: 'GET',
+      base: 'https://www.digitalpalireader.online/_dprhtml/index.html?frombox=1&analysis=',
+      fallback: 'https://www.digitalpalireader.online/_dprhtml/index.html'
+    },
+
     {
       name: 'CPD', 
       method: 'POST', // POST-поиск: CPD доделать 
