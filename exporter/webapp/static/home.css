@@ -63,11 +63,6 @@ body.dark-mode #header-image {
 
 .tab-content {
     display: none;
-    padding: 0px;
-    border-radius: 0 7px 7px 7px;
-    flex: 1;
-    overflow: hidden;
-    display: flex;
     flex-direction: column;
     height: 100%;
 }
@@ -692,7 +687,7 @@ label {
 }
 
 .hi {
-    color: var (--primary);
+    color: var(--primary);
     text-transform: underline;
 }
 
@@ -890,4 +885,3 @@ label {
         margin-left: auto;
         margin-right: auto;
     }
-}
