@@ -695,7 +695,6 @@ label {
     color: var(--primary);
 }
 
-
 @media (max-width: 750px) {
     body {
         height: auto;
@@ -727,7 +726,7 @@ label {
         gap: 5px;
     }
 
-    .header-pane>* {
+    .header-pane > * {
         max-width: 100%;
         box-sizing: border-box;
         margin: 2px 0;
@@ -751,40 +750,160 @@ label {
         height: auto;
     }
 
-    .bd-search-box {
+    /* --- НАСТРОЙКИ ДЛЯ BOLD DEFINITIONS (CST) --- */
+
+    /* 1. Главный контейнер (вертикальный стек) */
+    .bd-header-pane {
+        display: flex;
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch;
         width: 100%;
         box-sizing: border-box;
-        margin-left: auto;
-        margin-right: auto;
+        padding: 10px;
+        gap: 10px;
     }
 
-    .main-pane {
+    /* Скрываем лишний текст описания */
+    .bd-header-pane .centered-text {
+        display: none;
+    }
+
+    /* 2. Контейнер с полями ввода */
+    .bd-search-pane {
+        width: 100%;
+        display: flex;
         flex-direction: column;
-        height: auto;
+        align-items: center;
     }
 
-    .dpd-pane {
-        order: 1;
-        height: auto;
-        padding: 5px;
-        overflow-y: auto;
-        width: auto;
+    /* Заголовки (Definitions of the term...) */
+    .bd-search-pane h4 {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0 2px 0;
+        font-size: 0.9em;
+    }
+
+    /* Поля ввода - широкие */
+    .bd-search-pane input.search-box,
+    .bd-search-box {
+        width: 100% !important;
+        max-width: 100%;
+        height: 40px;
+        margin: 5px 0;
+        box-sizing: border-box;
+        font-size: 1.1em;
+    }
+
+    /* 3. ВЕРХНЯЯ КНОПКА ПОИСКА (Большая синяя) */
+    #bd-search-button {
+        display: block;
+        width: 100% !important;
+        margin: 15px 0 5px 0;
+        padding: 10px;
+        font-size: 1.1em;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 7px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        order: 10;
+    }
+
+    /* Кнопка "Вопрос" (?) */
+    #search-help-button {
+        width: 100% !important;
+        margin-top: 5px;
+        border-radius: 7px;
+        order: 11;
+        opacity: 0.8;
+    }
+
+    /* 4. ОПЦИИ И КНОПКА CLEAR (В ОДИН РЯД) */
+    .bd-search-options {
+        width: 100%;
+        display: flex;
+        flex-direction: row;    /* Строго в строку */
+        flex-wrap: nowrap;      /* Не переносить */
+        justify-content: center;
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    /* Лейблы переключателей */
+    .bd-search-options label {
+        flex: 1 1 auto;         /* Равномерно растягиваются */
+        text-align: center;
+        padding: 8px 2px;
+        margin: 0;
+        font-size: 0.85em;      /* Чуть меньше шрифт, чтобы влезло */
+        white-space: nowrap;
+        background-color: var(--light);
+        border: 1px solid var(--gray-transparent);
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Активный переключатель */
+    .bd-search-options input[type="radio"]:checked + label {
+        background-color: var(--light);
+        border: 2px solid var(--primary);
+        font-weight: bold;
+    }
+
+    /* 5. НИЖНЯЯ КНОПКА CLEAR (В ряду с опциями) */
+    .bd-search-options button.bd-search-option-clear {
+        flex: 1 1 auto;         /* Растягивается так же, как лейблы */
+        width: auto;            /* Сбрасываем 100% ширину */
+        margin: 0;
+        padding: 8px 5px;
+        background-color: #00bcd4; /* Бирюзовый цвет (Cyan) */
+        color: white;
+        border: none;
+        border-radius: 7px;
+        font-size: 0.9em;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .dark-mode .bd-search-options button.bd-search-option-clear {
+         color: var(--dark);
+    }
+
+    /* --- Остальные настройки layout --- */
+    
+    .main-pane { 
+        flex-direction: column; 
+        height: auto; 
+    }
+    
+    .dpd-pane { 
+        order: 1; 
+        height: auto; 
+        padding: 5px; 
+        width: auto; 
         box-sizing: border-box;
     }
 
-    .history-pane {
-        order: 2;
-        padding: 5px;
-        width: auto;
-        margin: 5px;
+    /* ИСПРАВЛЕНИЕ ДЛЯ ИСТОРИИ (чтобы не ломался заголовок) */
+    .history-pane { 
+        order: 2; 
+        padding: 5px; 
+        width: auto; 
+        margin: 5px; 
         box-sizing: border-box;
+        display: flex;          /* Включаем флекс */
+        flex-direction: column; /* Вертикальное выравнивание */
     }
-
 
     .history-pane h3 {
         text-align: center;
-        padding-bottom: 0px;
-        margin-bottom: 0%;
+        margin: 0;
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .history-list-pane {
@@ -799,89 +918,58 @@ label {
         flex-direction: row;
         flex-wrap: wrap;
         gap: 0.3em;
+        justify-content: center;
     }
 
     li:not(:last-child)::after {
         content: ", ";
     }
 
-    .settings-pane {
-        order: 3;
-        display: flex;
+    /* ИСПРАВЛЕНИЕ ДЛЯ НАСТРОЕК (чтобы не ломался заголовок) */
+    .settings-pane { 
+        order: 3; 
+        width: auto; 
+        margin: 5px; 
+        display: flex;          /* Включаем флекс */
+        flex-direction: column; /* Вертикальное выравнивание */
         padding: 5px;
         box-sizing: border-box;
-        width: auto;
-        margin: 5px;
     }
-
+    
     .settings-pane h3 {
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .footer-pane {
+        margin: 10px 5px;
+        padding: 15px;
         box-sizing: border-box;
-        margin: 5px;
         overflow-wrap: break-word;
         white-space: normal;
-        width: auto;
         word-break: break-word;
     }
 
-    .bd-search-pane {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .bd-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .bd-tbody {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .bd-tbody .bd-row {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 10px;
-    }
-
-    .bd-th {
+    /* Таблицы результатов */
+    .bd-table, .bd-tbody, .bd-row, .bd-th, .bd-td {
         display: block;
         width: 100%;
+        box-sizing: border-box;
     }
-
-    .bd-td {
-        display: block;
-        width: 100%;
-        border-top: none;
+    .bd-row { 
+        margin-bottom: 15px; 
+        border-bottom: 1px solid var(--gray-transparent); 
+        padding-bottom: 10px; 
     }
-
-    .bd-th,
-    .bd-td,
-    .bd-info {
+    .bd-td { 
+        border-top: none; 
+        padding-left: 0; 
+    }
+    
+    .bd-th, .bd-td, .bd-info {
         white-space: normal;
         word-wrap: break-word;
     }
-
-    .bd-tbody .bd-th,
-    .bd-tbody .bd-td {
-        white-space: normal;
-        word-wrap: break-word;
-        word-break: break-word;
-        overflow-wrap: break-word;
-    }
-
-    .bd-search-pane h4 {
-        text-align: center;
-        width: 100%;
-        margin: 5px;
-    }
-
-    #bd-search-button {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
+}
