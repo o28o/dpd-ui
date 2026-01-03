@@ -26,10 +26,13 @@ const oneButtonToggle = document.getElementById("one-button-toggle");
 // const sbsexampleToggle = document.getElementById("sbs-example-toggle");
 const summaryToggle = document.getElementById("summary-toggle");
 const sandhiToggle = document.getElementById("sandhi-toggle");
+const audioToggle = document.getElementById("audio-toggle");
+
 var fontSize
 const fontSizeUp = document.getElementById("font-size-up");
 const fontSizeDown = document.getElementById("font-size-down");
 var fontSizeDisplay = document.getElementById("font-size-display");
+
 
 let dpdResultsContent = "";
 let language;
@@ -81,6 +84,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // loadToggleState("sbs-example-toggle");
     loadToggleState("summary-toggle");
     loadToggleState("sandhi-toggle");
+  loadToggleState("audio-toggle");
+
     loadFontSize();
     toggleClearHistoryButton();
     swopSansSerif();
@@ -430,6 +435,8 @@ oneButtonToggle.addEventListener("change", saveToggleState);
 // sbsexampleToggle.addEventListener("change", saveToggleState);
 summaryToggle.addEventListener("change", saveToggleState);
 sandhiToggle.addEventListener("change", saveToggleState);
+audioToggle.addEventListener("change", saveToggleState);
+
 
 function saveToggleState(event) {
     localStorage.setItem(event.target.id, event.target.checked);

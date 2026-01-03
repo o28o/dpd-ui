@@ -9,17 +9,19 @@ function playAudio(headword) {
         }
     } catch (e) {}
 
-    const url = '/audio/' + encodeURIComponent(headword) + '?gender=' + gender;
+    // Убедитесь, что здесь указан полный URL к внешнему серверу
+    const url = 'https://dpdict.net/audio/' + encodeURIComponent(headword) + '?gender=' + gender;
+    
     var audio = new Audio(url);
     audio.play().catch(function (error) {
         console.error("Audio playback error:", error);
     });
 }
 
-// Attach to window so it's always accessible
+// Делаем функцию доступной глобально
 window.playAudio = playAudio;
 
-// Global delegated click listener
+// Слушатель кликов
 document.addEventListener("click", function (event) {
     var playButton = event.target.closest(".button.play");
     if (playButton) {
@@ -31,6 +33,7 @@ document.addEventListener("click", function (event) {
         }
     }
 
+    // Логика раскрытия разделов (оставляем как есть)
     var otherButton = event.target.closest(".button");
     if (otherButton && otherButton.getAttribute("data-target")) {
         const target_id = otherButton.getAttribute("data-target");
@@ -39,40 +42,18 @@ document.addEventListener("click", function (event) {
             let oneButtonToggleEnabled = false;
             try {
                 oneButtonToggleEnabled = localStorage.getItem("one-button-toggle") === "true";
-            } catch (e) {
-                console.log("LocalStorage is not available.");
-            }
+            } catch (e) {}
 
             if (oneButtonToggleEnabled) {
-                var allButtons = document.querySelectorAll('.button');
-                allButtons.forEach(function (button) {
-                    if (button !== otherButton) {
-                        button.classList.remove("active");
-                    }
+                document.querySelectorAll('.button').forEach(b => {
+                    if (b !== otherButton) b.classList.remove("active");
                 });
-
-                var allContentAreas = document.querySelectorAll('.content');
-                allContentAreas.forEach(function (contentArea) {
-                    if (contentArea !== target && !contentArea.classList.contains("summary")) {
-                        contentArea.classList.add("hidden");
-                    }
+                document.querySelectorAll('.content').forEach(c => {
+                    if (c !== target && !c.classList.contains("summary")) c.classList.add("hidden");
                 });
-
-                if (!target.classList.contains('summary')) {
-                    target.classList.toggle("hidden");
-                }
-            } else {
-                target.classList.toggle("hidden");
             }
-
-            if (otherButton.classList.contains("close")) {
-                var target_control = document.querySelector('a.button[data-target="' + target_id + '"]');
-                if (target_control) {
-                    target_control.classList.toggle("active");
-                }
-            } else {
-                otherButton.classList.toggle("active");
-            }
+            target.classList.toggle("hidden");
+            otherButton.classList.toggle("active");
         }
         event.preventDefault();
     }
