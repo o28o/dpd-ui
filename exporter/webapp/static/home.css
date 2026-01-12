@@ -111,7 +111,7 @@ body.dark-mode #header-image {
 
 /* --- FIXED BOTTOM TABS (Компактный дизайн внизу) --- */
 #tab-container {
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;
@@ -139,16 +139,16 @@ body.dark-mode #header-image {
 
 .tab-link {
     border: 1px solid var(--gray-transparent);
-    border-bottom: none; /* Чтобы кнопка "вырастала" из нижней панели */
+    border-top: none; /* Убираем верхнюю границу, так как кнопка примыкает сверху */
     background-color: var(--light);
     color: var(--dark);
     outline: none;
     cursor: pointer;
     transition: 0.2s;
     font-size: .85em;
-    border-radius: 7px 7px 0 0;
+    border-radius: 0 0 7px 7px; /* Скругление только СНИЗУ (слева и справа) */
     padding: 8px 16px;
-    margin: 0 2px 0 0; /* Минимальный зазор между кнопками */
+    margin: 0 2px 0 0;
     white-space: nowrap;
 }
 
@@ -158,9 +158,10 @@ body.dark-mode #header-image {
 }
 
 .tab-link.active {
-    background-color: var(--primary); /* Синий цвет как на dpdict.net */
+    background-color: var(--primary);
     color: white; 
     border-color: var(--primary);
+    border-top: 2px solid var(--primary); /* Акцентная полоса сверху активного таба */
 }
 
 .tab-link:not(.active):hover {
