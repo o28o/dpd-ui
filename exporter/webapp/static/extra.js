@@ -513,10 +513,11 @@ if (!tabsToggle || !tabContainer) {
 function updateTabVisibility() {
     const tabsHidden = localStorage.getItem("tabsHidden");
 
-    // Если состояние не задано — считаем, что табы СКРЫТЫ по умолчанию
-    if (tabsHidden === "true" || tabsHidden === null) {
+    // Если состояние "true" — скрываем. 
+    // Если "false" или null (еще не задано) — показываем по умолчанию.
+    if (tabsHidden === "true") {
         tabContainer.style.display = 'none';     // Скрываем табы
-        tabsToggle.checked = false;              // Переключатель ВЫКЛЮЧЕН (hide)
+        tabsToggle.checked = false;              // Переключатель ВЫКЛЮЧЕН
     } else {
         tabContainer.style.display = 'flex';     // Показываем табы
         tabsToggle.checked = true;               // Переключатель ВКЛЮЧЁН (show)
