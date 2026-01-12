@@ -109,10 +109,22 @@ body.dark-mode #header-image {
     content: url('/static/dpd-logo-dark.svg');
 }
 
-.tabs {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+/* --- FIXED BOTTOM TABS (старый дизайн, но внизу) --- */
+#tab-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light);
+    border-top: 1px solid var(--gray-transparent);
+}
+
+.dark-mode #tab-container {
+    background-color: var(--dark);
+    border-top-color: var(--gray-transparent);
 }
 
 .tab-buttons {
@@ -121,6 +133,7 @@ body.dark-mode #header-image {
     justify-content: flex-start;
     margin: 0px;
     padding: 0px;
+    height: auto;
 }
 
 .tab-link {
@@ -134,7 +147,9 @@ body.dark-mode #header-image {
     cursor: pointer;
     transition: 0.3s;
     font-size: .8em;
-    border-radius: 1px 7px 0 0;
+    border-radius: 7px 7px 0 0;
+    padding: 8px 16px;
+    margin: 0;
 }
 
 .dark-mode .tab-link {
@@ -147,11 +162,23 @@ body.dark-mode #header-image {
     color: var(--dark);
 }
 
+.tab-link:not(.active):hover {
+    background-color: var(--gray-transparent);
+}
+
+/* Основной контейнер теперь с отступом снизу для табов */
+.tabs {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 40px); /* Минус высота табов */
+    margin-bottom: 40px; /* Отступ для фиксированных табов */
+}
 
 .tab-content {
     display: none;
     flex-direction: column;
     height: 100%;
+    overflow: hidden;
 }
 
 .tab-content.active {
@@ -159,14 +186,22 @@ body.dark-mode #header-image {
     flex-direction: column;
 }
 
-/* NEW CSS for top controls container */
-.top-controls {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Push tab buttons left, switcher right */
-    align-items: flex-end; /* To this - aligns items to the bottom */
-    padding: 5px 10px; /* Add some padding */
+/* Корректировка для мобильных устройств */
+@media (max-width: 750px) {
+    .tabs {
+        height: calc(100vh - 35px);
+        margin-bottom: 35px;
+    }
+    
+    .tab-link {
+        font-size: 0.75em;
+        padding: 6px 12px;
+    }
+    
+    .tab-buttons {
+        justify-content: space-around; /* На мобильных равномерно распределяем */
+    }
 }
-
 .header-pane {
     align-items: center;
     border-radius: 0 7px 7px 7px;
