@@ -109,7 +109,7 @@ body.dark-mode #header-image {
     content: url('/static/dpd-logo-dark.svg');
 }
 
-/* --- FIXED BOTTOM TABS (старый дизайн, но внизу) --- */
+/* --- FIXED BOTTOM TABS (Компактный дизайн внизу) --- */
 #tab-container {
     position: fixed;
     bottom: 0;
@@ -120,6 +120,7 @@ body.dark-mode #header-image {
     padding: 0;
     background-color: var(--light);
     border-top: 1px solid var(--gray-transparent);
+    display: flex;
 }
 
 .dark-mode #tab-container {
@@ -129,27 +130,26 @@ body.dark-mode #header-image {
 
 .tab-buttons {
     display: flex;
-    border: 0px transparent;
-    justify-content: flex-start;
-    margin: 0px;
-    padding: 0px;
+    justify-content: flex-start; /* Табы прижаты друг к другу слева */
+    margin: 0;
+    padding: 0 10px; /* Небольшой отступ от края экрана */
     height: auto;
+    width: 100%;
 }
 
 .tab-link {
-    border: none;
-    border-style: solid;
+    border: 1px solid var(--gray-transparent);
+    border-bottom: none; /* Чтобы кнопка "вырастала" из нижней панели */
     background-color: var(--light);
-    border-width: 1px 1px 0px 1px;
-    border-color: var(--gray-transparent);
     color: var(--dark);
     outline: none;
     cursor: pointer;
-    transition: 0.3s;
-    font-size: .8em;
+    transition: 0.2s;
+    font-size: .85em;
     border-radius: 7px 7px 0 0;
     padding: 8px 16px;
-    margin: 0;
+    margin: 0 2px 0 0; /* Минимальный зазор между кнопками */
+    white-space: nowrap;
 }
 
 .dark-mode .tab-link {
@@ -158,20 +158,21 @@ body.dark-mode #header-image {
 }
 
 .tab-link.active {
-    background-color: var(--primary);
-    color: var(--dark);
+    background-color: var(--primary); /* Синий цвет как на dpdict.net */
+    color: white; 
+    border-color: var(--primary);
 }
 
 .tab-link:not(.active):hover {
     background-color: var(--gray-transparent);
 }
 
-/* Основной контейнер теперь с отступом снизу для табов */
+/* Основной контейнер с отступом под высоту табов */
 .tabs {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 40px); /* Минус высота табов */
-    margin-bottom: 40px; /* Отступ для фиксированных табов */
+    height: calc(100vh - 42px); 
+    margin-bottom: 42px; 
 }
 
 .tab-content {
@@ -183,25 +184,28 @@ body.dark-mode #header-image {
 
 .tab-content.active {
     display: flex;
-    flex-direction: column;
 }
 
-/* Корректировка для мобильных устройств */
+/* --- АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ --- */
 @media (max-width: 750px) {
     .tabs {
-        height: calc(100vh - 35px);
-        margin-bottom: 35px;
+        height: calc(100vh - 38px);
+        margin-bottom: 38px;
+    }
+    
+    .tab-buttons {
+        justify-content: flex-start; /* Убрано распределение space-around */
+        padding-left: 5px;
+        overflow-x: auto; /* Если табов станет много, их можно будет скроллить */
     }
     
     .tab-link {
         font-size: 0.75em;
-        padding: 6px 12px;
-    }
-    
-    .tab-buttons {
-        justify-content: space-around; /* На мобильных равномерно распределяем */
+        padding: 6px 10px;
+        margin-right: 1px;
     }
 }
+
 .header-pane {
     align-items: center;
     border-radius: 0 7px 7px 7px;
