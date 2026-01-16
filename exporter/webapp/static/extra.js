@@ -362,35 +362,56 @@ siteLanguage = 'en';
 const searchBoxForFooter = document.getElementById('search-box');
 
 // Функция для обновления конкретной ссылки
-function updateLink(linkId, baseUrl) {
-  const link = document.getElementById(linkId);
-  if (!link) return;
-  
-  // Берем текущее значение из поисковой строки
-  let query = searchBoxForFooter.value.trim();
-  
-  // Если поиск пустой, пробуем взять из URL
+function updateLink(el, baseUrl) {
+  // берём значение из инпута
+  let query = searchBoxForFooter?.value?.trim() || '';
+
+  // если инпут пуст — берём из URL
   if (!query) {
-    const urlParams = new URLSearchParams(window.location.search);
-    query = urlParams.get('q') || '';
+    const params = new URLSearchParams(window.location.search);
+    query = params.get('q') || '';
   }
-  
-  // Создаем URL с параметром
+
+  // если вообще нечего подставлять — выходим
+  if (!query) return;
+
   const url = new URL(baseUrl);
   url.searchParams.set('q', query);
-  link.href = url.toString();
+
+  // обновляем href ТОЛЬКО ПЕРЕД ПЕРЕХОДОМ
+  el.href = url.toString();
 }
+
+
+
 
 // Инициализация ссылок при загрузке
 //  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
 // updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
 
 //и обновление при клике
-document.getElementById('fdg-link')?.addEventListener('click', () => {
-  updateLink('fdg-link', window.location.href.includes('/ru') ? 'https://dhamma.gift/ru/?p=-kn' : 'https://dhamma.gift?p=-kn');
-});
-document.getElementById('dpd-link')?.addEventListener('click', () => {
-  updateLink('dpd-link', window.location.href.includes('/ru') ? 'https://ru.dpdict.net' : 'https://dpdict.net');
+document.addEventListener('click', (e) => {
+  const dg = e.target.closest('.dg-link');
+  const dpd = e.target.closest('.dpd-link');
+
+  if (dg) {
+    updateLink(
+      dg,
+      window.location.pathname.startsWith('/ru')
+        ? 'https://dhamma.gift/ru/?p=-kn'
+        : 'https://dhamma.gift?p=-kn'
+    );
+    return;
+  }
+
+  if (dpd) {
+    updateLink(
+      dpd,
+      window.location.pathname.startsWith('/ru')
+        ? 'https://ru.dpdict.net'
+        : 'https://dpdict.net'
+    );
+  }
 });
 
 //ссылки в футере конец
