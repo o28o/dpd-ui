@@ -583,6 +583,49 @@ if (installLink) {
 
 
 
+// tab replacement woth links 
+  // 1. Define Helper function to determine Base URL
+  function getBaseUrl() {
+    const isRu = window.location.pathname.startsWith('/ru');
+    return isRu ? 'https://ru.dpdict.net' : 'https://dpdict.net';
+  }
+
+  // 2. Define the function that updates the links
+  function updateExternalLinks() {
+    const searchBox = document.getElementById('search-box');
+    const bdLink = document.getElementById('bold-def-link');
+    const trLink = document.getElementById('translations-link');
+    
+    // Get the value directly from the input box, not just the URL
+    const q = searchBox.value.trim();
+    const base = getBaseUrl();
+
+    if (q) {
+      const encoded = encodeURIComponent(q);
+
+      // Update Bold Definitions Link
+      bdLink.href = `${base}/?tab=bd&q1=${encoded}&q2=&option=regex`;
+
+      // Update Translations Link
+      trLink.href = `${base}/?tab=tt&q=${encoded}&book=all`;
+    } else {
+      // Fallback links if search is empty
+      bdLink.href = `${base}/?tab=bd`;
+      trLink.href = `${base}/?tab=tt`;
+    }
+  }
+
+  // 3. Attach Event Listeners
+  const searchInput = document.getElementById('search-box');
+  
+  // Update links whenever the user types
+  searchInput.addEventListener('input', updateExternalLinks);
+  
+  // Update links if the user pastes text
+  searchInput.addEventListener('change', updateExternalLinks);
+
+  // 4. Run once on page load to handle any pre-filled values (e.g. from {{ search }})
+  document.addEventListener('DOMContentLoaded', updateExternalLinks);
 
 
   
