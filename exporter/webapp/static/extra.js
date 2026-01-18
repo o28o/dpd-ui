@@ -432,19 +432,6 @@ function toggleSettings() {
   }
 }
 
-// Обработчик события для изменения размера окна
-window.addEventListener('resize', function() {
-  const settingsContent = document.getElementById('settings-content');
-  
-  // Если окно больше 769px (десктоп), автоматически раскроем панель
-  if (window.innerWidth >= 769) {
-    settingsContent.style.display = 'block';
-  } else {
-    // Если окно меньше 769px (мобильное), скрываем панель
-    settingsContent.style.display = 'none';
-  }
-});
-
 
 function toggleHistory() {
   const historyContent = document.getElementById('history-content');
@@ -460,20 +447,29 @@ function toggleHistory() {
   }
 }
 
-// Обработчик события для изменения размера окна
+// Переменная для хранения ширины окна
+let lastWidth = window.innerWidth;
+
 window.addEventListener('resize', function() {
+  const currentWidth = window.innerWidth;
+  const settingsContent = document.getElementById('settings-content');
   const historyContent = document.getElementById('history-content');
+
+  // Если ширина НЕ изменилась (например, изменилась только высота из-за скролла), ничего не делаем
+  if (currentWidth === lastWidth) return;
   
-  // Если окно больше 769px (десктоп), автоматически раскроем панель
-  if (window.innerWidth >= 769) {
-    historyContent.style.display = 'block';
+  // Обновляем значение ширины для следующей проверки
+  lastWidth = currentWidth;
+
+  // Логика переключения отображения только при реальном изменении ширины (поворот экрана или ресайз окна)
+  if (currentWidth >= 769) {
+    if (settingsContent) settingsContent.style.display = 'block';
+    if (historyContent) historyContent.style.display = 'block';
   } else {
-    // Если окно меньше 769px (мобильное), скрываем панель
-    historyContent.style.display = 'none';
+    if (settingsContent) settingsContent.style.display = 'none';
+    if (historyContent) historyContent.style.display = 'none';
   }
 });
-
-
 
 function setOneButtonToggleDefault() {
     const toggleId = "one-button-toggle";
