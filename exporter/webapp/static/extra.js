@@ -583,10 +583,10 @@ if (installLink) {
 });
 
 
-
- function showSpinner() {
+function showSpinner() {
     const currentPath = window.location.pathname;
-    const isRootPath = currentPath === '/' || currentPath === '/ru/';
+    // Добавлена проверка для '/ru' без слэша
+    const isRootPath = currentPath === '/' || currentPath === '/ru/' || currentPath === '/ru';
     
     if (isRootPath) {
         // Создаем полупрозрачный спиннер
