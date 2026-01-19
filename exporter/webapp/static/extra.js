@@ -147,10 +147,11 @@ function toggleLanguage() {
 
 // Безопасный редирект
 function redirectWithLanguage(newPath) {
-    // Проверяем, не пытаемся ли перейти на тот же URL
     if (window.location.pathname !== newPath) {
         const newUrl = new URL(window.location.href);
         newUrl.pathname = newPath;
+        // Force HTTPS specifically to avoid mixed content errors
+        newUrl.protocol = 'https:'; 
         window.location.href = newUrl.toString();
     }
 }
