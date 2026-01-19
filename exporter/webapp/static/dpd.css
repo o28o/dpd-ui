@@ -289,47 +289,56 @@ table.family b {
 /* buttons */
 
 div.button-box {
-  margin: 2px 0px 3px 0px;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+    margin: 2px 0px 3px 0px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
+/* Изменено: добавлен селектор a.dpd-button */
+a.button,
 a.dpd-button {
-  background-color: var(--primary);
-  border: 1px solid var(--primary);
-  border-radius: 7px;
-  color: var(--dark);
-  cursor: pointer;
-  display: inline-block;
-  font-size: 80%;
-  font-weight: 400;
-  margin: 1px 1px 2px 1px;
-  padding: 2px 5px;
-  text-decoration: none;
-  user-select: none;
-  box-shadow: var(--shadow-default);
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 7px;
+    color: var(--dark);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 80%;
+    font-weight: 400;
+    margin: 1px 1px 2px 1px;
+    padding: 2px 5px;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: var(--shadow-default);
 }
 
+/* Изменено: добавлен селектор a.dpd-button.close */
+a.button.close,
 a.dpd-button.close {
-  float: right;
-  margin: 10px;
+    float: right;
+    margin: 10px;
 }
 
+/* Изменено: добавлен селектор a.dpd-button.active */
+a.button.active,
 a.dpd-button.active {
-  background-color: var(--primary-alt);
-  border-color: var(--primary-alt);
-  color: var(--light);
-  user-select: none;
+    background-color: var(--primary-alt);
+    border-color: var(--primary-alt);
+    color: var(--light);
+    user-select: none;
 }
 
+/* Изменено: добавлен селектор a.dpd-button:hover */
+a.button:hover,
 a.dpd-button:hover {
-  box-shadow: var(--shadow-hover);
-  border: 1px solid var(--primary-alt);
-  background-color: var(--primary-alt);
-  color: var(--light);
-  user-select: none;
+    box-shadow: var(--shadow-hover);
+    border: 1px solid var(--primary-alt);
+    background-color: var(--primary-alt);
+    color: var(--light);
+    user-select: none;
 }
+
 
 .dpd-link {
   color: var(--primary-text);
