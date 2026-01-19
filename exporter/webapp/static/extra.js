@@ -243,6 +243,13 @@ let startMessage;
 
 
 function initStartMessage(lang) {
+	
+	const urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.has('silent')) {
+        startMessage = ""; // Не показываем приветствие
+        return;
+    }	
+	
     if (language === 'en') {
         startMessage = `
 <div class="message-container">
@@ -667,49 +674,4 @@ if (installLink) {
   document.addEventListener('DOMContentLoaded', updateExternalLinks);
 
 
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    // 1. Проверяем, есть ли запрос ?q=... но нет результатов
-    const urlParams = new URLSearchParams(window.location.search);
-    const q = urlParams.get('q');
-    const resultsContainer = document.getElementById('dpd-results');
-    
-    // Если есть запрос, но контейнер пуст (или содержит только пробелы)
-    if (q && resultsContainer.innerHTML.trim() === "") {
-        
-        // 2. Показываем ваш существующий спиннер (используем логику из extra.js или вручную)
-        if (typeof showSpinner === 'function') {
-             // Можно немного модифицировать showSpinner в extra.js, чтобы он принимал контейнер, 
-             // но проще вставить его прямо здесь, чтобы не ломать старую логику
-             resultsContainer.innerHTML = `
-                <div class="spinner-container transparent-spinner" style="padding: 20px; text-align: center;">
-                    <img src="/static/circle-notch.svg" class="loading-spinner">
-                </div>`;
-        } else {
-             resultsContainer.innerHTML = '<div class="spinner">Загрузка...</div>';
-        }
-
-        // 3. Определяем правильный API endpoint
-        const isRu = window.location.pathname.startsWith('/ru');
-        const apiEndpoint = isRu ? '/ru/search_json' : '/search_json';
-
-        // 4. Делаем запрос (Fetch)
-        fetch(`${apiEndpoint}?q=${encodeURIComponent(q)}`)
-            .then(response => {
-                if (!response.ok) throw new Error("Ошибка сети");
-                return response.json();
-            })
-            .then(data => {
-                // 5. Вставляем полученный HTML
-                resultsContainer.innerHTML = data.dpd_html;
-                
-                // (Опционально) Если нужно инициализировать скрипты для контента (например, табы), вызываем их здесь
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                resultsContainer.innerHTML = "<p style='text-align:center; padding: 20px;'>Ошибка загрузки. Попробуйте обновить страницу.</p>";
-            });
-    }
-});
   
