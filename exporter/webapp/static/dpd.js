@@ -23,7 +23,9 @@ window.playAudio = playAudio;
 
 // Слушатель кликов
 document.addEventListener("click", function (event) {
-    var playButton = event.target.closest(".button.play");
+    // 1. Ищем кнопку воспроизведения (поддерживаем оба класса)
+    var playButton = event.target.closest(".button.play, .dpd-button.play");
+    
     if (playButton) {
         var headword = playButton.getAttribute("data-headword");
         if (headword) {
@@ -33,8 +35,9 @@ document.addEventListener("click", function (event) {
         }
     }
 
-    // Логика раскрытия разделов (оставляем как есть)
-    var otherButton = event.target.closest(".button");
+    // 2. Ищем обычные кнопки переключения (поддерживаем оба класса)
+    var otherButton = event.target.closest(".button, .dpd-button");
+    
     if (otherButton && otherButton.getAttribute("data-target")) {
         const target_id = otherButton.getAttribute("data-target");
         var target = document.getElementById(target_id);
@@ -45,7 +48,8 @@ document.addEventListener("click", function (event) {
             } catch (e) {}
 
             if (oneButtonToggleEnabled) {
-                document.querySelectorAll('.button').forEach(b => {
+                // Снимаем активность со ВСЕХ кнопок обоих типов
+                document.querySelectorAll('.button, .dpd-button').forEach(b => {
                     if (b !== otherButton) b.classList.remove("active");
                 });
                 document.querySelectorAll('.content').forEach(c => {

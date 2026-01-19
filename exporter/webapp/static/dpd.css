@@ -266,7 +266,9 @@ div.button-box {
     flex-wrap: wrap;
 }
 
-a.button {
+/* Изменено: добавлен селектор a.dpd-button */
+a.button,
+a.dpd-button {
     background-color: var(--primary);
     border: 1px solid var(--primary);
     border-radius: 7px;
@@ -282,19 +284,25 @@ a.button {
     box-shadow: var(--shadow-default);
 }
 
-a.button.close {
+/* Изменено: добавлен селектор a.dpd-button.close */
+a.button.close,
+a.dpd-button.close {
     float: right;
     margin: 10px;
 }
 
-a.button.active {
+/* Изменено: добавлен селектор a.dpd-button.active */
+a.button.active,
+a.dpd-button.active {
     background-color: var(--primary-alt);
     border-color: var(--primary-alt);
     color: var(--light);
     user-select: none;
 }
 
-a.button:hover {
+/* Изменено: добавлен селектор a.dpd-button:hover */
+a.button:hover,
+a.dpd-button:hover {
     box-shadow: var(--shadow-hover);
     border: 1px solid var(--primary-alt);
     background-color: var(--primary-alt);
