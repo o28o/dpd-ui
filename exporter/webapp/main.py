@@ -159,28 +159,28 @@ def home_page_ru(request: Request, response_class=HTMLResponse):
     )
 
 @app.get("/search_html", response_class=HTMLResponse)
-async def db_search_html(request: Request, q: str):
-    """Returns HTML from English backend."""
-    data = await fetch_from_backend("en", {"q": q})
+async def db_search_html(request: Request, q: str = ""):
+    """Returns interface immediately, results are fetched via JS."""
     return templates.TemplateResponse(
         "home.html",
         {
             "request": request,
             "q": q,
-            "dpd_results": data["dpd_html"],
+            "dpd_results": "", # Отдаем пустым, JS заполнит позже
+            "init_search": True # Флаг для шаблона, что нужно запустить поиск
         },
     )
 
 @app.get("/ru/search_html", response_class=HTMLResponse)
-async def db_search_html_ru(request: Request, q: str):
-    """Returns HTML from Russian backend."""
-    data = await fetch_from_backend("ru", {"q": q})
+async def db_search_html_ru(request: Request, q: str = ""):
+    """Returns interface immediately for Russian version."""
     return templates_ru.TemplateResponse(
         "home.html",
         {
             "request": request,
             "q": q,
-            "dpd_results": data["dpd_html"],
+            "dpd_results": "",
+            "init_search": True
         },
     )
 
