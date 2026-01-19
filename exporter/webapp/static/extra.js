@@ -332,9 +332,20 @@ function initStartMessage(lang) {
   // Модифицированная функция changeLanguage   url.protocol = 'https:'; 
 function changeLanguage(lang) {
 
-if (typeof showSpinner === 'function') {
-      showSpinner();
-  }
+      // Пытаемся найти контейнер (обычно это dpdResults, как и в showSpinner)
+      // Используем getElementById для надежности
+      const container = document.getElementById('dpdResults');
+      
+      if (container) {
+          // Вставляем HTML спиннера вручную, если его там еще нет
+          // Используем те же классы, что и в showSpinner
+          container.insertAdjacentHTML('beforeend', `
+            <div class="spinner-container transparent-spinner">
+                <img src="/static/circle-notch.svg" class="loading-spinner">
+            </div>
+        `);
+      }
+  
   
   // Получаем текущий URL и разбиваем его на части
   const url = new URL(window.location.href);
