@@ -332,6 +332,10 @@ function initStartMessage(lang) {
   // Модифицированная функция changeLanguage   url.protocol = 'https:'; 
 function changeLanguage(lang) {
 
+if (typeof showSpinner === 'function') {
+      showSpinner();
+  }
+  
   // Получаем текущий URL и разбиваем его на части
   const url = new URL(window.location.href);
   let path = url.pathname; // Путь (например, "/ru")
