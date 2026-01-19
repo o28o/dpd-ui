@@ -584,21 +584,18 @@ if (installLink) {
 
 
 function showSpinner() {
-    const currentPath = window.location.pathname;
-    // Добавлена проверка для '/ru' без слэша
-    const isRootPath = currentPath === '/' || currentPath === '/ru/' || currentPath === '/ru';
+    // Убрали проверку пути (isRootPath).
+    // Теперь спиннер показывается всегда, если есть куда его вставить.
     
-    if (isRootPath) {
-        // Создаем полупрозрачный спиннер
+    // Проверяем, существует ли контейнер результатов, чтобы не получить ошибку
+    if (typeof dpdResults !== 'undefined' && dpdResults) {
         dpdResults.insertAdjacentHTML('beforeend', `
             <div class="spinner-container transparent-spinner">
                 <img src="/static/circle-notch.svg" class="loading-spinner">
             </div>
         `);
-        //<div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
     }
 }
-
 
 
 // tab replacement woth links 
