@@ -330,33 +330,37 @@ function initStartMessage(lang) {
 
   // Модифицированная функция changeLanguage
 function changeLanguage(lang) {
-
-  // Получаем текущий URL и разбиваем его на части
+  // Получаем текущий URL
   const url = new URL(window.location.href);
-  let path = url.pathname; // Путь (например, "/ru")
-  const searchParams = url.search; // Параметры запроса (например, "?q=dukkha")
-  const hash = url.hash; // Хэш (например, "#section")
-let siteLanguage = '';
-  // Удаляем все существующие вхождения '/ru' из пути
-  path = path.replace(/^\/ru/, '');
+  
+  // Принудительно устанавливаем https, чтобы избежать Mixed Content ошибок
+  url.protocol = 'https:'; 
+  
+  let path = url.pathname;
+  let siteLanguage = '';
 
-  // Если выбран язык 'ru', добавляем '/ru' в начало пути
+  // Удаляем все существующие вхождения '/ru/' или '/ru' из начала пути
+  path = path.replace(/^\/ru\/?/, '');
+
+  // Если выбран язык 'ru', добавляем '/ru/' в начало пути
   if (lang === 'ru') {
-    path = '/ru' + path;
+    // Гарантируем наличие слеша после /ru/, чтобы Nginx не делал http-редирект
+    path = '/ru/' + (path.startsWith('/') ? path.slice(1) : path);
     siteLanguage = 'ru'; 
   } else {
-siteLanguage = 'en';
+    // Для английского гарантируем, что путь начинается со слеша
+    path = path.startsWith('/') ? path : '/' + path;
+    siteLanguage = 'en';
   }
 
-  // Обновляем путь в URL
+  // Обновляем путь в объекте URL
   url.pathname = path;
 
-    localStorage.setItem('siteLanguage', siteLanguage);
+  localStorage.setItem('siteLanguage', siteLanguage);
 
-  // Принудительно обновляем страницу с новым URL
+  // Принудительно обновляем страницу с гарантированным https://
   window.location.href = url.toString();
 }
-
 
 
 //ссылки в футере
