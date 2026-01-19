@@ -21,7 +21,7 @@
   "description": "DPD Online Pali-English dictionary with interface improvements.",
   "lang": "en",
   "share_target": {
-    "action": "/search_html",
+    "action": "/",
     "method": "GET",
     "params": {
       "text": "q"

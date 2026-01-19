@@ -21,7 +21,7 @@
   "description": "DPD Онлайн Пали-Русский словарь с улучшенным интерфейсом.",
   "lang": "",
   "share_target": {
-    "action": "/ru/search_html",
+    "action": "/ru/",
     "method": "GET",
     "params": {
       "text": "q" 
