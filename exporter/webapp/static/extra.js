@@ -583,17 +583,18 @@ if (installLink) {
 });
 
 
-function showSpinner() {
-    // Убрали проверку пути (isRootPath).
-    // Теперь спиннер показывается всегда, если есть куда его вставить.
+ function showSpinner() {
+    const currentPath = window.location.pathname;
+    const isRootPath = currentPath === '/' || currentPath === '/ru/' || currentPath === '/ru';
     
-    // Проверяем, существует ли контейнер результатов, чтобы не получить ошибку
-    if (typeof dpdResults !== 'undefined' && dpdResults) {
+    if (isRootPath) {
+        // Создаем полупрозрачный спиннер
         dpdResults.insertAdjacentHTML('beforeend', `
             <div class="spinner-container transparent-spinner">
                 <img src="/static/circle-notch.svg" class="loading-spinner">
             </div>
         `);
+        //<div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
     }
 }
 
