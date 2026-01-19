@@ -243,13 +243,29 @@ let startMessage;
 
 
 function initStartMessage(lang) {
-	
-	const urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.has('silent')) {
-        startMessage = ""; // Не показываем приветствие
-        return;
-    }	
-	
+    
+    // === НОВОЕ: Обработка silent режима ===
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('silent')) {
+        // Используем lang (аргумент) или language (глобальную переменную)
+        // Оборачиваем в HTML, чтобы сохранились отступы и стили
+        if (lang === 'ru' || (typeof language !== 'undefined' && language === 'ru')) {
+            startMessage = `
+            <div class="message-container">
+                <p class="message" style="text-align: center; margin-top: 20px;">
+                    Получаем ответ от DPD...
+                </p>
+            </div>`;
+        } else {
+            startMessage = `
+            <div class="message-container">
+                <p class="message" style="text-align: center; margin-top: 20px;">
+                    Getting response from DPD...
+                </p>
+            </div>`;
+        }
+        return; // Важно: выходим, чтобы не перезаписать переменную длинным текстом ниже
+    }
     if (language === 'en') {
         startMessage = `
 <div class="message-container">
