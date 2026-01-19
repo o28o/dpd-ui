@@ -249,6 +249,8 @@ function initStartMessage(lang) {
   <div class="messages-content">
     <p class="message">Search in Pāḷi using <b>Autocomplete</b> or <b>Velthuis</b>, or use English.</p>
     <p class="message">For <b>Pali Lookup on any sites</b>: <a title='Chrome, Opera, Brave, Edge or Yandex Browser. Also available in Firefox Add-ons' target="_blank" href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=en'>Browser Extention</a>, <a href='#' title='Chrome Android menu → "Add to Home screen"' id='installLink'>Web</a> or <a target="" href="https://dhamma.gift/assets/apk/dict.dhamma.gift-latest.apk" title="Latest APK file for Dict.Dhamma.Gift TWA">Android</a> App. Then: select the word → in OS "share" menu choose Dict.DG.</p>
+	    <p class="message"><b>Grammar Dictionary table</b> is sortable.</p>
+
   </div>
 
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
@@ -265,7 +267,6 @@ function initStartMessage(lang) {
   <strong>Alt+Q</strong> — Look up word in multiple dictionaries<br>
   <strong>Alt+T</strong> — Toggle Theme
 </p>
-    <p class="message"><b>Grammar Dictionary table</b> is sortable.</p>
     <p class="message"><b>Footer links</b>: Dict - to search the word in other dicts, DG - with Dhamma.Gift, DPD - in Dpdict.net</p>
     <p class="message">Adjust <b>Settings</b> as needed including changing language. <b>Refresh</b> page if issues occur.</p>
     <p class="message"><b>Double-click</b> any word to search. e.g.: kāmarāgapariyuṭṭhitena peace kar gacchatīti Root✓</p>
@@ -292,6 +293,8 @@ function initStartMessage(lang) {
 <p class="message">Ищите на пали с <b>Автоподсказками</b> или <b>Velthuis</b>, или русском .</p>
 <p class="message">Для <b>словаря на любом сайте</b> есть: <a target='_blank' title='Chrome, Opera, Brave, Edge или Yandex Browser. Также есть в Fierfox Add-ons' href='https://chromewebstore.google.com/detail/dhammagift-search-and-wor/dnnogjdcmhbiobpnkhdbfnfjnjlikabd?authuser=1&hl=ru'>Расширение</a>, и <a title='также через Меню Chrome Android → "Добавить на главную" → Установить' href='#' id='installLink'>Web</a> или <a target="" href="https://dhamma.gift/assets/apk/dict.dhamma.gift-latest.apk" title="Последнее оновление APK для Dict.Dhamma.Gift TWA">Android</a> приложения. 
 Затем: выделите слово → в ОС меню "поделиться" выберите Dict.DG.</p>
+<p class="message"><b>Таблицу в Словаре Грамматики</b> можно сортировать.</p>
+
   </div>
   <input type="checkbox" id="toggle-messages" class="toggle-checkbox">
   
@@ -304,7 +307,6 @@ function initStartMessage(lang) {
 <strong>Alt+T</strong> переключить тему
 
 </p>
-<p class="message"><b>Таблицу в Словаре Грамматики</b> можно сортировать.</p>
 <p class="message"><b>Ссылки в футере</b> Dict - поиск слова в разных словарях, DG - через Dhamma.Gift, DPD - на Dpdict.net</p>
 <p class="message">Попробуйте разные <b>Настройки</b>, включая смену языка. При возникновении проблем <b>Обновите</b> страницу.</p>
 <p class="message"><b>Двойной клик</b> по любому слову для поиска. К примеру: kāmarāgapariyuṭṭhitena мир kar gacchatīti Root✓</p>
