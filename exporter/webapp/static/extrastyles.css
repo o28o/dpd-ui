@@ -859,10 +859,24 @@ body {
     width: 100%;
   }
 }
-
+/*
 #tab-container {
-    display: none;  /* По умолчанию скрыто */
+    display: none;   По умолчанию скрыто 
 }
+*/
+/* Исправление для меню Dicts на мобильных */
+#tab-container {
+    overflow: visible !important; /* Разрешает меню выходить за границы панели */
+    z-index: 2000 !important;     /* Поднимает панель (и меню) над всем остальным контентом */
+    position: sticky;             /* Создает новый контекст наложения */
+    bottom: 0;                    /* Гарантирует привязку к низу, если это не задано */
+}
+
+/* Дополнительная страховка для самого меню */
+.dict-dropdown-menu {
+    z-index: 2001 !important; /* Меню должно быть выше контейнера */
+}
+
 
 .hidden {
     visibility: hidden;
@@ -908,6 +922,7 @@ body {
   overflow-y: auto;
   z-index: 1001;
   padding: 8px 0;
+  font-size: 1rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   border: 1px solid var(--gray-transparent);
   margin-bottom: 8px;
@@ -924,6 +939,7 @@ body {
   overflow-y: auto;
   z-index: 1001;
   padding: 8px 0;
+  font-size: 1rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   border: 1px solid var(--gray-transparent);
   margin-top: 8px; /* Изменено с margin-bottom на margin-top */

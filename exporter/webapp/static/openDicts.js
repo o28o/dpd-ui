@@ -169,25 +169,30 @@ function adjustDropdownHeight(container, dropdown) {
   const rect = container.getBoundingClientRect();
   const margin = 8;
   const padding = 16;
+  
+  // Добавляем отступы для панелей
+  const headerHeight = 70; // Высота верхней шапки (для меню снизу)
+  const footerHeight = 60; // 👈 Высота нижней панели (для меню сверху)
 
-  // Высота окна и ограничение 70% от неё
   const maxVhHeight = window.innerHeight * 0.7;
 
   let availableSpace;
 
+  // Логика для меню, которое выпадает ВНИЗ (из Хедера)
   if (dropdown.classList.contains('dict-dropdown-menu-down')) {
-    availableSpace = window.innerHeight - rect.bottom - margin - padding;
-  } else {
-    availableSpace = rect.top - margin - padding;
+    // Высота экрана - (позиция кнопки + отступ) - ВЫСОТА ФУТЕРА
+    availableSpace = window.innerHeight - rect.bottom - margin - padding - footerHeight;
+  } 
+  // Логика для меню, которое выпадает ВВЕРХ (из Футера)
+  else {
+    availableSpace = rect.top - margin - padding - headerHeight;
   }
 
-  // Ограничим меньшим из двух: доступным и 70vh
+  // Ограничиваем высоту
   const finalHeight = Math.max(100, Math.min(availableSpace, maxVhHeight));
 
   dropdown.style.maxHeight = `${finalHeight}px`;
 }
-
-
 
 //  <a href="#" onclick="openDictionaries(event)">Dict</a>
 // Показать уведомление

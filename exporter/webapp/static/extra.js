@@ -243,6 +243,29 @@ let startMessage;
 
 
 function initStartMessage(lang) {
+    
+    // === НОВОЕ: Обработка silent режима ===
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('silent')) {
+        // Используем lang (аргумент) или language (глобальную переменную)
+        // Оборачиваем в HTML, чтобы сохранились отступы и стили
+        if (lang === 'ru' || (typeof language !== 'undefined' && language === 'ru')) {
+            startMessage = `
+            <div class="message-container">
+                <p class="message" style="text-align: center; margin-top: 20px;">
+                    Получаем ответ от DPD...
+                </p>
+            </div>`;
+        } else {
+            startMessage = `
+            <div class="message-container">
+                <p class="message" style="text-align: center; margin-top: 20px;">
+                    Getting response from DPD...
+                </p>
+            </div>`;
+        }
+        return; // Важно: выходим, чтобы не перезаписать переменную длинным текстом ниже
+    }
     if (language === 'en') {
         startMessage = `
 <div class="message-container">
@@ -331,6 +354,29 @@ function initStartMessage(lang) {
 
   // Модифицированная функция changeLanguage   url.protocol = 'https:'; 
 function changeLanguage(lang) {
+
+if (typeof showSpinner === 'function') {
+      showSpinner();
+  }
+
+// ДОПОЛНЕНИЕ: Принудительно показываем спиннер, если мы в режиме попапа (search_html),
+  // так как showSpinner() игнорирует этот путь.
+  const currentPath = window.location.pathname;
+  if (currentPath.includes('search_html')) {
+      // Пытаемся найти контейнер (обычно это dpdResults, как и в showSpinner)
+      // Используем getElementById для надежности
+      const container = document.getElementById('dpdResults');
+      
+      if (container) {
+          // Вставляем HTML спиннера вручную, если его там еще нет
+          // Используем те же классы, что и в showSpinner
+          container.insertAdjacentHTML('beforeend', `
+            <div class="spinner-container transparent-spinner">
+                <img src="/static/circle-notch.svg" class="loading-spinner">
+            </div>
+        `);
+      }
+  }
 
   // Получаем текущий URL и разбиваем его на части
   const url = new URL(window.location.href);
@@ -583,17 +629,18 @@ if (installLink) {
 });
 
 
-function showSpinner() {
-    // Убрали проверку пути (isRootPath).
-    // Теперь спиннер показывается всегда, если есть куда его вставить.
+ function showSpinner() {
+    const currentPath = window.location.pathname;
+    const isRootPath = currentPath === '/' || currentPath === '/ru/' || currentPath === '/ru';
     
-    // Проверяем, существует ли контейнер результатов, чтобы не получить ошибку
-    if (typeof dpdResults !== 'undefined' && dpdResults) {
+    if (isRootPath) {
+        // Создаем полупрозрачный спиннер
         dpdResults.insertAdjacentHTML('beforeend', `
             <div class="spinner-container transparent-spinner">
                 <img src="/static/circle-notch.svg" class="loading-spinner">
             </div>
         `);
+        //<div class="loading-text">${language === 'en' ? "Loading..." : "Загрузка..."}</div>
     }
 }
 
