@@ -332,6 +332,14 @@ function initStartMessage(lang) {
   // Модифицированная функция changeLanguage   url.protocol = 'https:'; 
 function changeLanguage(lang) {
 
+if (typeof showSpinner === 'function') {
+      showSpinner();
+  }
+
+// ДОПОЛНЕНИЕ: Принудительно показываем спиннер, если мы в режиме попапа (search_html),
+  // так как showSpinner() игнорирует этот путь.
+  const currentPath = window.location.pathname;
+  if (currentPath.includes('search_html')) {
       // Пытаемся найти контейнер (обычно это dpdResults, как и в showSpinner)
       // Используем getElementById для надежности
       const container = document.getElementById('dpdResults');
@@ -345,8 +353,8 @@ function changeLanguage(lang) {
             </div>
         `);
       }
-  
-  
+  }
+
   // Получаем текущий URL и разбиваем его на части
   const url = new URL(window.location.href);
   let path = url.pathname; // Путь (например, "/ru")
