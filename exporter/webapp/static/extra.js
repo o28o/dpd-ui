@@ -253,14 +253,14 @@ function initStartMessage(lang) {
             startMessage = `
             <div class="message-container">
                 <p class="message" style="text-align: center; margin-top: 20px;">
-                    Получаем ответ от DPD...
+                    Ждём ответ от DPD...
                 </p>
             </div>`;
         } else {
             startMessage = `
             <div class="message-container">
                 <p class="message" style="text-align: center; margin-top: 20px;">
-                    Getting response from DPD...
+                    Waiting for a response from DPD...
                 </p>
             </div>`;
         }
