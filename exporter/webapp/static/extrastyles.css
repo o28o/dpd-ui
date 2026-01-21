@@ -859,17 +859,14 @@ body {
     width: 100%;
   }
 }
-/*
-#tab-container {
-    display: none;   По умолчанию скрыто 
-}
-*/
+
 /* Исправление для меню Dicts на мобильных */
 #tab-container {
     overflow: visible !important; /* Разрешает меню выходить за границы панели */
     z-index: 2000 !important;     /* Поднимает панель (и меню) над всем остальным контентом */
-    position: sticky;             /* Создает новый контекст наложения */
-    bottom: 0;                    /* Гарантирует привязку к низу, если это не задано */
+    position: relative;           /* CHANGE: sticky -> relative */
+    /* bottom: 0; */              /* CHANGE: Removed to stop anchoring to bottom of viewport */
+    width: 100%;                  /* ADD: Ensures the bar spans the full width */
 }
 
 /* Дополнительная страховка для самого меню */
