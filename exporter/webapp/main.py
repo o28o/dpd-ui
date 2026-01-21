@@ -5,7 +5,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import re
 import httpx
-from httpx import ConnectTimeout, RequestError
 from urllib.parse import urlencode
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -17,7 +16,7 @@ app = FastAPI()
 async def process_query_params_middleware(request: Request, call_next):
     """
     Чистит URL, спецсимволы и нормализует пробелы.
-    Исправлено: не ломает запрос, если параметров нет.
+    Исправлено: корректная обработка строк с пробелами.
     """
     if not request.query_params:
         return await call_next(request)
@@ -34,8 +33,12 @@ async def process_query_params_middleware(request: Request, call_next):
             cleaned = re.sub(r'https?://[^\s]+', '', original)
             # Удаляем скобки и кавычки
             cleaned = re.sub(r'["\'()[\]]', '', cleaned)
-            # Убираем лишние пробелы и в нижний регистр
-            cleaned = " ".join(cleaned.split()).lower()
+            # Заменяем множественные пробелы на одинарные
+            cleaned = re.sub(r'\s+', ' ', cleaned)
+            # Убираем пробелы в начале и конце
+            cleaned = cleaned.strip()
+            # В нижний регистр
+            cleaned = cleaned.lower()
             
             if original != cleaned:
                 query_params[param] = cleaned
@@ -166,4 +169,3 @@ def bold_definitions_page(request: Request):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.1.1.1", port=8080, reload=True)
-
