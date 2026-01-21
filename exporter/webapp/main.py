@@ -2,12 +2,12 @@ import re
 from urllib.parse import urlencode
 
 import httpx
+import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from httpx import ConnectTimeout, RequestError
 from starlette.middleware.base import BaseHTTPMiddleware
 
 app = FastAPI()
@@ -17,45 +17,57 @@ app = FastAPI()
 @app.middleware("http")
 async def clean_query_params(request: Request, call_next):
     """
-    Очищает query-параметры: удаляет URL, спецсимволы, лишние пробелы 
-    и приводит к нижнему регистру.
+    Очищает query-параметры.
+    Основные изменения:
+    1. Удаляет URL.
+    2. Убирает кавычки и скобки.
+    3. Заменяет любые пробельные символы (включая переносы строк из соцсетей) на один пробел.
+    4. Приводит к нижнему регистру.
     """
     query_params = dict(request.query_params)
     changed = False
     
-    # Список параметров для очистки
+    # Параметры, которые нужно обрабатывать
     target_params = ["q", "search", "q1", "q2"]
 
     for param in target_params:
         if param in query_params:
             original = query_params[param]
             
-            # Цепочка очистки
-            cleaned = re.sub(r'https?://\S+', '', original)  # Удаляем URL
-            cleaned = re.sub(r'["\'()[\]]', '', cleaned)      # Удаляем кавычки и скобки
-            cleaned = cleaned.strip()                          # Удаляем пробелы по краям
-            cleaned = cleaned.lower()                          # Приводим к lowercase
+            # 1. Удаляем URL (начинающиеся с http/https)
+            cleaned = re.sub(r'https?://\S+', '', original)
+            
+            # 2. Удаляем спецсимволы (кавычки, скобки)
+            cleaned = re.sub(r'["\'()[\]]', '', cleaned)
+            
+            # 3. ВАЖНО: Заменяем любые пробельные символы (\n, \t, множество пробелов) на один пробел
+            # Это решает проблему "обрезания", если текст был вставлен с переносами строк
+            cleaned = re.sub(r'\s+', ' ', cleaned)
+            
+            # 4. Финальная зачистка краев и нижний регистр
+            cleaned = cleaned.strip().lower()
             
             if original != cleaned:
                 query_params[param] = cleaned
                 changed = True
     
-    # Если параметры изменились - обновляем scope запроса
     if changed:
+        # doseq=True важно, если есть списки, но здесь мы работаем со строками
         new_query = urlencode(query_params, doseq=True)
         request.scope["query_string"] = new_query.encode("utf-8")
     
     return await call_next(request)
 
-# Middleware для GZip
+# GZip сжатие
 app.add_middleware(GZipMiddleware, minimum_size=500)
 
 class StaticCacheMiddleware(BaseHTTPMiddleware):
-    """Middleware для добавления заголовков кэширования к статике"""
+    """Добавляет Cache-Control для статики"""
     async def dispatch(self, request, call_next):
         response = await call_next(request)
+        # Кэшируем только запросы к статике
         if request.url.path.startswith(("/static/", "/ru/static/")):
-            response.headers["Cache-Control"] = "public, max-age=84000"  # 1 день
+            response.headers["Cache-Control"] = "public, max-age=84000"
         return response
 
 app.add_middleware(StaticCacheMiddleware)
@@ -63,21 +75,17 @@ app.add_middleware(StaticCacheMiddleware)
 
 # --- Static Files & Templates ---
 
-# Монтируем статические файлы
 app.mount("/static", StaticFiles(directory="exporter/webapp/static"), name="static")
 app.mount("/ru/static", StaticFiles(directory="exporter/webapp/static"), name="ru_static")
 app.mount("/.well-known", StaticFiles(directory="exporter/webapp/static/.well-known", html=False), name="well_known")
 
-# Шаблоны
 templates = Jinja2Templates(directory="exporter/webapp/templates")
 templates_ru = Jinja2Templates(directory="exporter/webapp/ru_templates")
 
 
 # --- Global Resources ---
 
-# Загружаем CSS и JS в память при старте (лучше, чем читать при каждом запросе, 
-# но если файлы меняются без перезагрузки сервера, это может быть минусом. 
-# Для продакшена ок)
+# Пытаемся загрузить статику в память (опционально)
 try:
     with open("exporter/webapp/static/dpd.css") as f:
         dpd_css = f.read()
@@ -110,6 +118,10 @@ BD_COUNT = "360k+"
 # --- Helpers ---
 
 async def fetch_from_backend(lang: str, params: dict):
+    """
+    Делает запрос к бэкенду dpdict.net.
+    Принимает уже очищенные параметры (целую фразу).
+    """
     config = ENDPOINTS.get(lang)
     if not config:
         raise HTTPException(status_code=400, detail="Invalid language")
@@ -121,12 +133,12 @@ async def fetch_from_backend(lang: str, params: dict):
             response = await client.get(url, params=params)
             response.raise_for_status()
             return response.json()
-    except ConnectTimeout:
+    except httpx.ConnectTimeout:
         raise HTTPException(
             status_code=504,
             detail="Backend server timeout. Please try again later."
         )
-    except RequestError as e:
+    except httpx.RequestError as e:
         raise HTTPException(
             status_code=502,
             detail=f"Could not connect to backend server: {str(e)}"
@@ -165,7 +177,7 @@ async def db_search_html(request: Request, q: str):
         "home.html",
         {
             "request": request,
-            "q": q,
+            "q": q,  # Возвращаем в шаблон полный запрос
             "dpd_results": data["dpd_html"],
         },
     )
@@ -239,11 +251,9 @@ async def db_search_bd(
             response = await client.get(backend_url, params=params)
             response.raise_for_status()
             
-            # Если бэкенд вернул HTML
             if "text/html" in response.headers.get("content-type", ""):
                 return HTMLResponse(content=response.text)
             
-            # Если JSON
             data = response.json()
             return templates.TemplateResponse(
                 "bold_definitions.html",
@@ -259,13 +269,12 @@ async def db_search_bd(
                 }
             )
 
-    except ConnectTimeout:
+    except httpx.ConnectTimeout:
         raise HTTPException(status_code=504, detail="Backend server timeout")
-    except RequestError as e:
+    except httpx.RequestError as e:
         raise HTTPException(status_code=502, detail=f"Connection error: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Backend error: {str(e)}")
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8080, reload=True)
