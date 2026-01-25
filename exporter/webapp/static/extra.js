@@ -691,3 +691,72 @@ if (installLink) {
 
 
   
+document.addEventListener('click', function(event) {
+    const pane = event.target.closest('#dpd-pane');
+    if (!pane) return;
+
+    let suttaCode = '';
+    let sParam = '';
+    // Список книг: включено iti, поддержка сложных индексов типа thag1.9
+    const regex = /^(mn|dn|sn|an|dhp|snp|ud|iti|thag|thig)\s?(\d+([.\d-]+)?)$/i;
+
+    const suttaElement = event.target.closest('.sutta');
+    
+    if (suttaElement) {
+        // Логика для специальных блоков .sutta
+        const match = suttaElement.innerText.match(/(mn|dn|sn|an|dhp|snp|ud|iti|vv|pv|thag|thig)\s?\d+([.\d-]+)?/i);
+        if (match) suttaCode = match[0];
+    } else {
+        // Логика для обычного текста: точное слово под курсором
+        let wordUnderCursor = "";
+        
+        if (document.caretRangeFromPoint) {
+            const range = document.caretRangeFromPoint(event.clientX, event.clientY);
+            if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+                const text = range.startContainer.textContent;
+                const offset = range.startOffset;
+                
+                const start = text.lastIndexOf(' ', offset) + 1;
+                let end = text.indexOf(' ', offset);
+                if (end === -1) end = text.length;
+                
+                // Очистка от знаков препинания вокруг индекса
+                wordUnderCursor = text.substring(start, end)
+                    .replace(/[()\[\];,]/g, "")
+                    .replace(/\.$/, "")
+                    .trim();
+            }
+        }
+        
+        const match = wordUnderCursor.match(regex);
+        if (match) suttaCode = match[0];
+    }
+
+    if (!suttaCode) return;
+
+    suttaCode = suttaCode.toLowerCase().replace(/\s+/g, '');
+
+    // ЛОГИКА S-ПАРАМЕТРА: только если клик внутри примера
+    const exampleDiv = event.target.closest('[name="example-div"]');
+    if (exampleDiv) {
+        const boldElement = exampleDiv.querySelector('b');
+        if (boldElement) {
+            sParam = boldElement.textContent.trim()
+                .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "")
+                .replace(/ṃ/g, "ṁ") //
+                .replace(/'/g, "");
+        }
+    }
+
+    // Формирование URL с учетом языка
+    const isRu = window.location.pathname.includes('/ru/');
+    const baseUrl = isRu ? 'https://dhamma.gift/ru/' : 'https://dhamma.gift/';
+    
+    // Если sParam пустой (не из примера), он не добавится в URL
+    let finalUrl = `${baseUrl}?q=${suttaCode}`;
+    if (sParam) {
+        finalUrl += `&s=${encodeURIComponent(sParam)}`;
+    }
+
+    window.location.href = finalUrl;
+});
