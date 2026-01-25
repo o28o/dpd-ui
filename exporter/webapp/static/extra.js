@@ -691,3 +691,69 @@ if (installLink) {
 
 
   
+document.addEventListener('click', function(event) {
+    const pane = event.target.closest('#dpd-pane');
+    if (!pane) return;
+
+    let suttaCode = '';
+    let sParam = '';
+    const regex = /^(mn|dn|sn|an|dhp|snp|ud|iti|thag|thig)\s?(\d+([.\d-]+)?)$/i;
+
+    // 1. Получаем слово под курсором
+    let wordUnderCursor = "";
+    if (document.caretRangeFromPoint) { // Chrome, Edge, Safari
+        const range = document.caretRangeFromPoint(event.clientX, event.clientY);
+        if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+            const text = range.startContainer.textContent;
+            const offset = range.startOffset;
+            
+            // Ищем границы слова вокруг точки клика
+            const start = text.lastIndexOf(' ', offset) + 1;
+            let end = text.indexOf(' ', offset);
+            if (end === -1) end = text.length;
+            
+            wordUnderCursor = text.substring(start, end).replace(/[()]/g, "").trim();
+        }
+    }
+
+    // 2. Проверка: является ли слово под курсором индексом?
+    const match = wordUnderCursor.match(regex);
+    
+    // Если слово под курсором — не индекс, проверяем, не кликнули ли по .sutta
+    if (match) {
+        suttaCode = match[0];
+    } else {
+        const suttaElement = event.target.closest('.sutta');
+        if (suttaElement) {
+            const elMatch = suttaElement.innerText.match(regex);
+            if (elMatch) suttaCode = elMatch[0];
+        }
+    }
+
+    if (!suttaCode) return; // Если под курсором не индекс, ничего не делаем
+
+    // 3. Очистка индекса
+    suttaCode = suttaCode.toLowerCase().replace(/\s+/g, '');
+
+    // 4. Логика определения слова s
+    const exampleDiv = event.target.closest('[name="example-div"]');
+    if (exampleDiv) {
+        const boldElement = exampleDiv.querySelector('b');
+        if (boldElement) {
+            sParam = boldElement.textContent.trim()
+                .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "")
+                .replace(/ṃ/g, "ṁ")
+                .replace(/'/g, "");
+        }
+    }
+
+    if (!sParam) {
+        const searchBox = document.getElementById("search-box");
+        sParam = searchBox ? searchBox.value.trim() : '';
+    }
+
+    // 5. Переход
+    const isRu = window.location.pathname.includes('/ru/');
+    const baseUrl = isRu ? 'https://dhamma.gift/r/' : 'https://dhamma.gift/read/';
+    window.location.href = `${baseUrl}?q=${suttaCode}${sParam ? '&s=' + encodeURIComponent(sParam) : ''}`;
+});
