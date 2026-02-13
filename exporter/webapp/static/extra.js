@@ -1,3 +1,18 @@
+// theme from GET ?theme=dark|light
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const theme = params.get('theme');
+  if (theme === 'dark' || theme === 'light') {
+    document.body.classList.remove('dark-mode', 'light-mode');
+    document.body.classList.add(theme + '-mode');
+    localStorage.setItem('theme', theme);
+
+    if (window.themeToggle) {
+      themeToggle.checked = theme === 'dark';
+    }
+  }
+})();
+
 // Проверяем, есть ли параметр source=pwa в URL
 const urlParams = new URLSearchParams(window.location.search);
 const isPWA = urlParams.get('source') === 'pwa';
