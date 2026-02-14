@@ -2,6 +2,11 @@
 (function () {
   const params = new URLSearchParams(window.location.search);
   const theme = params.get('theme');
+
+  if (theme) {
+    alert(window.location.href);
+  }
+
   if (theme === 'dark' || theme === 'light') {
     document.body.classList.remove('dark-mode', 'light-mode');
     document.body.classList.add(theme + '-mode');
